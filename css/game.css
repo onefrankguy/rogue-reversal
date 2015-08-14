@@ -1,0 +1,11 @@
+/* BASICS */
+* {
+  cursor: default;
+  margin: 0;
+  padding: 0;
+  -webkit-touch-callout: none;
+  user-select: none;
+  box-sizing: border-box;
+  /* kill the highlight trick phones do */
+  -webkit-tap-highlight-color: transparent;
+}
