@@ -9,3 +9,23 @@
   /* kill the highlight trick phones do */
   -webkit-tap-highlight-color: transparent;
 }
+html {
+  font-family: Times,'Times New Roman',serif;
+  font-weight: normal;
+  font-size: 62.5%;
+}
+body {
+  background: #333;
+  font-size: 1.6rem;
+}
+/* GAME */
+#game {
+  background: #fff;
+  color: #333;
+  position: relative;
+  display: block;
+  width: 32rem;
+  min-height: 48rem;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
