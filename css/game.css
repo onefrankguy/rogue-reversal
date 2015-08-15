@@ -25,14 +25,23 @@ body {
   position: relative;
   display: block;
   width: 32rem;
-  min-height: 48rem;
+  height: 48rem;
   margin: 0 auto;
-  padding: 0.5rem;
+  padding: 0;
+  overflow: hidden;
 }
 #player {
   position: absolute;
-  left: 14rem;
+  left: 50%;
+  margin-left: -60px;
   bottom: 0;
+  display: block;
+  width: 120px;
+  height: 120px;
+  image-rendering: pixelated;
+  background-image: url('/img/character.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .block {
   background: hsla(0, 100%, 50%, 1);

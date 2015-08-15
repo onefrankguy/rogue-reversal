@@ -14,7 +14,6 @@ Game.play = function () {
     $('#player').add('color'+color)
     window.setTimeout(cycle, 2000)
   }
-  cycle()
 }
 
 
