@@ -30,48 +30,50 @@ body {
   padding: 0.5rem;
 }
 #player {
-  background: hsla(0, 100%, 50%, 1);
   position: absolute;
-  display: block;
-  width: 4rem;
-  height: 4rem;
   left: 14rem;
   bottom: 0;
 }
+.block {
+  background: hsla(0, 100%, 50%, 1);
+  display: block;
+  width: 4rem;
+  height: 4rem;
+}
 /* COLORS */
 .color1 {
-  -webkit-filter: hue-rotate(0deg);
+  background: hsla(0, 100%, 50%, 1);
 }
 .color2 {
-  -webkit-filter: hue-rotate(30deg);
+  background: hsla(24, 100%, 50%, 1);
 }
 .color3 {
-  -webkit-filter: hue-rotate(60deg);
+  background: hsla(35, 100%, 50%, 1);
 }
 .color4 {
-  -webkit-filter: hue-rotate(90deg);
+  background: hsla(47, 100%, 50%, 1);
 }
 .color5 {
-  -webkit-filter: hue-rotate(120deg);
+  background: hsla(60, 100%, 50%, 1);
 }
 .color6 {
-  -webkit-filter: hue-rotate(150deg);
+  background: hsla(78, 100%, 39%, 1);
 }
 .color7 {
-  -webkit-filter: hue-rotate(180deg);
+  background: hsla(115, 100%, 34%, 1);
 }
 .color8 {
-  -webkit-filter: hue-rotate(210deg);
+  background: hsla(189, 100%, 38%, 1);
 }
 .color9 {
-  -webkit-filter: hue-rotate(240deg);
+  background: hsla(208, 100%, 35%, 1);
 }
 .color10 {
-  -webkit-filter: hue-rotate(270deg);
+  background: hsla(234, 100%, 34%, 1);
 }
 .color11 {
-  -webkit-filter: hue-rotate(300deg);
+  background: hsla(276, 100%, 32%, 1);
 }
 .color12 {
-  -webkit-filter: hue-rotate(330deg);
+  background: hsla(322, 100%, 39%, 1);
 }
