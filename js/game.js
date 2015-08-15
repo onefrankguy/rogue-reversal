@@ -1,19 +1,25 @@
 ;(function (Game) {
 'use strict';
 
+var gender = 'boy'
+if (Math.floor(Math.random() * 2) === 0) {
+  gender = 'girl'
+}
+
+function onPlayer (target) {
+  target.remove(gender)
+  if (gender === 'boy') {
+    gender = 'girl'
+  } else {
+    gender = 'boy'
+  }
+  target.add(gender)
+}
+
 Game.play = function () {
   var $ = window.jQuery
-    , color = 1
-
-  function cycle () {
-    $('#player').remove('color'+color)
-    color += 1
-    if (color > 12) {
-      color = 1
-    }
-    $('#player').add('color'+color)
-    window.setTimeout(cycle, 2000)
-  }
+  $('#player').add(gender)
+  $('#player').touch(onPlayer, null)
 }
 
 

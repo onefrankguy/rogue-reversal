@@ -31,6 +31,45 @@ Fn.prototype.remove = function (klass) {
   return this
 }
 
+Fn.prototype.touch = function (start, end) {
+  var self = this
+  if (this.element) {
+    if ('ontouchstart' in document.documentElement === false) {
+      this.element.onmousedown = function (event) {
+        if (start) {
+          start(self)
+        }
+        document.onmousemove = function (event) {
+          event.preventDefault()
+        }
+        document.onmouseup = function (event) {
+          if (end) {
+            end(self)
+          }
+          document.onmousemove = null
+          document.onmouseup = null
+        }
+      }
+    } else {
+      this.element.ontouchstart = function (event) {
+        if (start) {
+          start(self)
+        }
+        document.ontouchmove = function (event) {
+          event.preventDefault()
+        }
+        document.ontouchend = function (event) {
+          if (end) {
+            end(self)
+          }
+          document.ontouchmove = null
+          document.ontouchend = null
+        }
+      }
+    }
+  }
+}
+
 function root (selector) {
   return new Fn(selector)
 }
