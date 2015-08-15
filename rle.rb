@@ -13,6 +13,7 @@ histogram = {}
 rle = ''
 last = nil
 count = 0
+total = 0
 
 (0...height).each do |y|
   (0...width).each do |x|
@@ -27,13 +28,19 @@ count = 0
 
     if last != color
       rle << "#{count}#{histogram[last]}"
+      total += count
       last = color
-      count = 1
-    else
-      count += 1
+      count = 0
     end
+
+    count += 1
   end
 end
+
+rle << "#{count}#{histogram[last]}"
+total += count
+
+abort 'Missing data!' if total != width * height
 
 histogram = histogram.invert
 histogram.each do |key, color|
