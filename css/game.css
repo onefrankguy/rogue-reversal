@@ -29,3 +29,49 @@ body {
   margin: 0 auto;
   padding: 0.5rem;
 }
+#player {
+  background: hsla(0, 100%, 50%, 1);
+  position: absolute;
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  left: 14rem;
+  bottom: 0;
+}
+/* COLORS */
+.color1 {
+  -webkit-filter: hue-rotate(0deg);
+}
+.color2 {
+  -webkit-filter: hue-rotate(30deg);
+}
+.color3 {
+  -webkit-filter: hue-rotate(60deg);
+}
+.color4 {
+  -webkit-filter: hue-rotate(90deg);
+}
+.color5 {
+  -webkit-filter: hue-rotate(120deg);
+}
+.color6 {
+  -webkit-filter: hue-rotate(150deg);
+}
+.color7 {
+  -webkit-filter: hue-rotate(180deg);
+}
+.color8 {
+  -webkit-filter: hue-rotate(210deg);
+}
+.color9 {
+  -webkit-filter: hue-rotate(240deg);
+}
+.color10 {
+  -webkit-filter: hue-rotate(270deg);
+}
+.color11 {
+  -webkit-filter: hue-rotate(300deg);
+}
+.color12 {
+  -webkit-filter: hue-rotate(330deg);
+}
