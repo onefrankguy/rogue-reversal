@@ -18,6 +18,9 @@ body {
   background: #333;
   font-size: 1.6rem;
 }
+.hidden {
+  display: none;
+}
 /* GAME */
 #game {
   background: #fff;
