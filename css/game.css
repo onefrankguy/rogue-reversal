@@ -41,13 +41,14 @@ body {
   display: block;
   width: 80px;
   height: 80px;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: -webkit-crisp-edges;
+}
+.pixelated {
+  image-rendering: optimizeSpped;
   image-rendering: -moz-crisp-edges;
-  image-rendering: -o-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
   image-rendering: pixelated;
-  background-repeat: no-repeat;
-  background-size: cover;
+  image-rendering: -ms-interpolation-mode: nearest-neighbor;
 }
 .girl {
   background-image: url('/img/character-girl.png');

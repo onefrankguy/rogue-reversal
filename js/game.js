@@ -141,13 +141,13 @@ function onPlayer (target) {
   } else {
     gender = 'boy'
   }
-  target.unwrap().style.backgroundImage = 'url('+ImageCache.getDataURL(gender)+')'
+  target.unwrap().src = ImageCache.getDataURL(gender)
 }
 
 Game.play = function () {
   var $ = window.jQuery
 
-  $('#player').unwrap().style.backgroundImage = 'url('+ImageCache.getDataURL(gender)+')'
+  $('#player').unwrap().src = ImageCache.getDataURL(gender)
   $('#player').touch(onPlayer, null)
 }
 
