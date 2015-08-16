@@ -70,14 +70,57 @@ function hexToRgba (hex) {
 }
 
 ic.getDataURL = function (name) {
-  var image = null
+  var clothes = ''
+    , color = ''
 
-  if (!images.hasOwnProperty(name)) {
-    return null
+  name = name.split('-')
+  switch (name.length) {
+    case 1:
+      name = name[0]
+      break
+    case 2:
+      clothes = name[1]
+      name = name[0]
+      break
+    case 3:
+      color = name[2]
+      clothes = name[1]
+      name = name[0]
+      break
   }
 
-  if (images[name].hasOwnProperty('url')) {
-    return images[name].url
+  switch (clothes) {
+    case 'shirt':
+      if (name === 'boy') {
+        images[name].values.n = color
+        images[name].values.o = color
+        images[name].values.p = color
+        images[name].values.q = color
+      } else {
+        images[name].values.o = color
+        images[name].values.p = color
+        images[name].values.q = color
+        images[name].values.r = color
+      }
+      break
+    case 'pants':
+      if (name === 'boy') {
+        images[name].values.s = color
+        images[name].values.t = color
+        images[name].values.u = color
+      } else {
+        images[name].values.t = color
+        images[name].values.u = color
+        images[name].values.v = color
+      }
+      break
+    case 'shoes':
+      if (name === 'boy') {
+        images[name].values.v = color
+      } else {
+        images[name].values.w = color
+      }
+      break
   }
 
   var data = images[name]
@@ -144,11 +187,51 @@ function onPlayer (target) {
   target.unwrap().src = ImageCache.getDataURL(gender)
 }
 
+var colors = {
+  'color1':  '#ff0000ff',
+  'color2':  '#ff6600ff',
+  'color3':  '#ff9500ff',
+  'color4':  '#ffC800ff',
+  'color5':  '#ffff00ff',
+  'color6':  '#8bc700ff',
+  'color7':  '#0ead00ff',
+  'color8':  '#00a5c2ff',
+  'color9':  '#005fb3ff',
+  'color10': '#0011adff',
+  'color11': '#6200a3ff',
+  'color12': '#c7007eff'
+}
+var clothing = -1
+function onColor (target) {
+  var $ = window.jQuery
+    , color = colors[target.unwrap().id]
+
+  clothing += 1
+  clothing %= 3
+
+  switch (clothing) {
+    case 0:
+      $('#player').unwrap().src = ImageCache.getDataURL(gender+'-shirt-'+color)
+      break
+    case 1:
+      $('#player').unwrap().src = ImageCache.getDataURL(gender+'-pants-'+color)
+      break
+    case 2:
+      $('#player').unwrap().src = ImageCache.getDataURL(gender+'-shoes-'+color)
+      break
+  }
+}
+
 Game.play = function () {
   var $ = window.jQuery
+    , i = 0
 
   $('#player').unwrap().src = ImageCache.getDataURL(gender)
   $('#player').touch(onPlayer, null)
+
+  for (i = 1; i <= 12; i += 1) {
+    $('#color'+i).touch(onColor, null)
+  }
 }
 
 
