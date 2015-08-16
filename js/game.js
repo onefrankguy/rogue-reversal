@@ -134,6 +134,9 @@ ic.getDataURL = function (name) {
     , value = ''
     , number = ''
 
+  canvas.width = data.width
+  canvas.height = data.height
+
   for (i = 0; i < data.data.length; i += 1) {
     value = data.data[i]
     if (value.charCodeAt() >= 'a'.charCodeAt() && value.charCodeAt() <= 'z'.charCodeAt()) {
@@ -226,12 +229,14 @@ Game.play = function () {
   var $ = window.jQuery
     , i = 0
 
+  /*
   $('#player').unwrap().src = ImageCache.getDataURL(gender)
   $('#player').touch(onPlayer, null)
 
   for (i = 1; i <= 12; i += 1) {
     $('#color'+i).touch(onColor, null)
   }
+  */
 }
 
 
