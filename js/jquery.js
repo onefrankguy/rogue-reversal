@@ -17,6 +17,16 @@ function Fn (selector) {
   return this
 }
 
+Fn.prototype.html = function (value) {
+  if (this.element) {
+    if (value === undefined) {
+      return this.element.innerHTML;
+    }
+    this.element.innerHTML = value
+  }
+  return this
+}
+
 Fn.prototype.add = function (klass) {
   if (this.element) {
     this.element.classList.add(klass)

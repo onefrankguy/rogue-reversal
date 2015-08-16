@@ -227,7 +227,27 @@ function onColor (target) {
 
 Game.play = function () {
   var $ = window.jQuery
+    , html = ''
     , i = 0
+
+  for (i = 1; i <= 3; i += 1) {
+    html = ''
+    html += '<p class="window"></p>'
+    html += '<p class="wood"></p>'
+    html += '<div id="mannequin'+i+'1" class="mannequin">'
+    html += '<img src="/img/mannequin.png" class="pixelated" />'
+    html += '</div>'
+    html += '<div id="mannequin'+i+'2" class="mannequin">'
+    html += '<img src="/img/mannequin.png" class="pixelated" />'
+    html += '</div>'
+    html += '<div id="mannequin'+i+'3" class="mannequin">'
+    html += '<img src="/img/mannequin.png" class="pixelated" />'
+    html += '</div>'
+    html += '<div id="mannequin'+i+'4" class="mannequin">'
+    html += '<img src="/img/mannequin.png" class="pixelated" />'
+    html += '</div>'
+    $('#f'+i).html(html)
+  }
 
   /*
   $('#player').unwrap().src = ImageCache.getDataURL(gender)

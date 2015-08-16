@@ -18,9 +18,6 @@ body {
   background: #333;
   font-size: 1.6rem;
 }
-.hidden {
-  display: none;
-}
 /* GAME */
 #store {
   background: #fff;
@@ -205,4 +202,7 @@ body {
   bottom: 0;
   margin-left: -16px;
   margin-bottom: 16px;
+}
+.hidden {
+  display: none;
 }
