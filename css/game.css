@@ -15,7 +15,7 @@ html {
   font-size: 62.5%;
 }
 body {
-  background: hsla(0, 0%, 32%, 1);
+  background: hsla(0, 0%, 15%, 1);
   color: hsla(0, 0%, 100%, 1);
   font-size: 1.6rem;
 }
@@ -23,8 +23,8 @@ body {
 #store {
   position: relative;
   display: block;
-  width: 32rem;
-  height: 44rem;
+  width: 320px; /* iPhone 4 */
+  height: 372px; /* iPhone 4 */
   margin: 0 auto;
   padding: 0;
   overflow: hidden;
@@ -159,7 +159,7 @@ body {
 .floor {
   display: block;
   width: 100%;
-  height: 110px;
+  height: 120px; /* 372px (iPhone 4) / 3 = 124px */
   border-bottom: 4px solid hsla(0, 0%, 32%, 1);
   position: relative;
   background: hsla(0, 0%, 59%, 1);
@@ -199,7 +199,7 @@ body {
 }
 .mannequin {
   display: inline-block;
-  height: 86px;
+  height: 96px;
   width: 64px;
   position: relative;
   margin-left: 12.8px;
@@ -209,7 +209,7 @@ body {
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0 32px 86px 32px;
+  border-width: 0 32px 96px 32px;
   border-color: transparent transparent hsla(0, 0%, 100%, 0.1) transparent;
   position: absolute;
   top: 0;
