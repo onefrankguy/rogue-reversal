@@ -225,6 +225,10 @@ function onColor (target) {
   }
 }
 
+function onMannequin (target) {
+  target.toggle('on')
+}
+
 Game.play = function () {
   var $ = window.jQuery
     , html = ''
@@ -248,22 +252,27 @@ Game.play = function () {
     html += '<span>'+name+'</span>'
     html += '</p>'
     html += '<div id="mannequin'+i+'1" class="mannequin">'
-    html += '<img src="/img/lamp.png" class="pixelated lamp" />'
-    html += '<img src="/img/mannequin.png" class="pixelated figure" />'
+    html += '<img src="./img/lamp.png" class="pixelated lamp" />'
+    html += '<img src="./img/mannequin.png" class="pixelated figure" />'
     html += '</div>'
     html += '<div id="mannequin'+i+'2" class="mannequin">'
-    html += '<img src="/img/lamp.png" class="pixelated lamp" />'
-    html += '<img src="/img/mannequin.png" class="pixelated figure" />'
+    html += '<img src="./img/lamp.png" class="pixelated lamp" />'
+    html += '<img src="./img/mannequin.png" class="pixelated figure" />'
     html += '</div>'
     html += '<div id="mannequin'+i+'3" class="mannequin">'
-    html += '<img src="/img/lamp.png" class="pixelated lamp" />'
-    html += '<img src="/img/mannequin.png" class="pixelated figure" />'
+    html += '<img src="./img/lamp.png" class="pixelated lamp" />'
+    html += '<img src="./img/mannequin.png" class="pixelated figure" />'
     html += '</div>'
     html += '<div id="mannequin'+i+'4" class="mannequin">'
-    html += '<img src="/img/lamp.png" class="pixelated lamp" />'
-    html += '<img src="/img/mannequin.png" class="pixelated figure" />'
+    html += '<img src="./img/lamp.png" class="pixelated lamp" />'
+    html += '<img src="./img/mannequin.png" class="pixelated figure" />'
     html += '</div>'
     $('#f'+i).html(html)
+
+    $('#mannequin'+i+'1').touch(onMannequin, null)
+    $('#mannequin'+i+'2').touch(onMannequin, null)
+    $('#mannequin'+i+'3').touch(onMannequin, null)
+    $('#mannequin'+i+'4').touch(onMannequin, null)
   }
 
   /*

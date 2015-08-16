@@ -41,6 +41,13 @@ Fn.prototype.remove = function (klass) {
   return this
 }
 
+Fn.prototype.toggle = function (klass) {
+  if (this.element) {
+    this.element.classList.toggle(klass)
+  }
+  return this
+}
+
 Fn.prototype.touch = function (start, end) {
   var self = this
   if (this.element) {

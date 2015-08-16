@@ -2,3 +2,6 @@ index.html
 css/game.css
 js/game.js
 js/jquery.js
+img/lamp.png
+img/bricks.png
+img/mannequin.png
