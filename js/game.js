@@ -228,12 +228,25 @@ function onColor (target) {
 Game.play = function () {
   var $ = window.jQuery
     , html = ''
+    , name = ''
     , i = 0
 
   for (i = 1; i <= 3; i += 1) {
+    switch (i) {
+      case 1:
+        name = 'Shirts'
+        break
+      case 2:
+        name = 'Pants'
+        break;
+      case 3:
+        name = 'Shoes'
+        break
+    }
     html = ''
-    html += '<p class="window"></p>'
-    html += '<p class="wood"></p>'
+    html += '<p class="label">'
+    html += '<span>'+name+'</span>'
+    html += '</p>'
     html += '<div id="mannequin'+i+'1" class="mannequin">'
     html += '<img src="/img/lamp.png" class="pixelated lamp" />'
     html += '<img src="/img/mannequin.png" class="pixelated figure" />'
