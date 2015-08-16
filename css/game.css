@@ -169,21 +169,25 @@ body {
   width: 100%;
   height: 24px;
   background: url('../img/bricks.png');
+  border-bottom: 1px solid hsla(0, 0%, 15%, 1);
+  position: relative;
+}
+.label > span {
+  display: block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background: hsla(0, 0%, 15%, 1);
+  color: hsla(0, 0%, 94%, 1);
+  padding-left: 6px;
+  border-radius: 9px 0 0 0;
   text-align: right;
-  padding-top: 2px;
   font-size: 20px;
   line-height: 20px;
   letter-spacing: 4px;
   text-transform: lowercase;
   font-family: monospace;
   font-weight: normal;
-  border-bottom: 1px solid hsla(0, 0%, 15%, 1);
-}
-.label > span {
-  background: hsla(0, 0%, 15%, 1);
-  color: hsla(0, 0%, 94%, 1);
-  padding-left: 6px;
-  border-radius: 9px 0 0 0;
 }
 .lamp {
   width: 16px;
