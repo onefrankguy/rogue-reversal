@@ -248,7 +248,7 @@ Game.play = function () {
         break
     }
     html = ''
-    html += '<p class="label">'
+    html += '<p class="pixelated label">'
     html += '<span>'+name+'</span>'
     html += '</p>'
     html += '<div id="mannequin'+i+'1" class="mannequin">'
