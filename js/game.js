@@ -229,6 +229,27 @@ function onMannequin (target) {
   target.toggle('on')
 }
 
+function offMannequin (target) {
+  var $ = window.jQuery
+  $('#picker').toggle('on')
+}
+
+function onPicker (target) {
+  target.toggle('on')
+}
+
+function offPicker (target) {
+  var $ = window.jQuery
+    , i = 0
+    , j = 0
+
+  for (i = 1; i <= 3; i += 1) {
+    for (j = 1; j <= 4; j += 1) {
+      $('#mannequin'+i+j).remove('on')
+    }
+  }
+}
+
 Game.play = function () {
   var $ = window.jQuery
     , html = ''
@@ -269,11 +290,13 @@ Game.play = function () {
     html += '</div>'
     $('#f'+i).html(html)
 
-    $('#mannequin'+i+'1').touch(onMannequin, null)
-    $('#mannequin'+i+'2').touch(onMannequin, null)
-    $('#mannequin'+i+'3').touch(onMannequin, null)
-    $('#mannequin'+i+'4').touch(onMannequin, null)
+    $('#mannequin'+i+'1').touch(onMannequin, offMannequin)
+    $('#mannequin'+i+'2').touch(onMannequin, offMannequin)
+    $('#mannequin'+i+'3').touch(onMannequin, offMannequin)
+    $('#mannequin'+i+'4').touch(onMannequin, offMannequin)
   }
+
+  $('#picker').touch(onPicker, offPicker)
 
   /*
   $('#player').unwrap().src = ImageCache.getDataURL(gender)

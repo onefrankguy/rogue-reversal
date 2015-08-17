@@ -19,6 +19,12 @@ body {
   color: hsla(0, 0%, 100%, 1);
   font-size: 1.6rem;
 }
+ul {
+  list-style: none;
+}
+ol {
+  list-style: none;
+}
 /* GAME */
 #store {
   position: relative;
@@ -223,6 +229,61 @@ body {
   left: 50%;
   bottom: 4px;
   margin-left: -17px;
+}
+/* COLOR PICKER */
+#picker {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: hsla(0, 0%, 0%, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#picker.on {
+  display: block;
+}
+#picker > li {
+  display: block;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+}
+.yellow {
+  top: 20px;
+  left: 140px;
+  background: rgb(255, 242, 5);
+}
+.yellow.orange {
+  top: 36px; /* 160 - (sin(60) * 120) - 20 */
+  left: 200px; /* (cos(60) * 120) - 20 + 160 */
+  background: rgb(255, 210, 3);
+}
+.orange {
+  top: 80px; /* 160 - (sin(30) * 120) - 20 */
+  left: 244px; /* (cos(30) * 120) - 20 + 160 */
+  background: rgb(250, 164, 27);
+}
+.red.orange {
+  top: 140px;
+  left: 260px;
+  background: rgb(242, 98, 35);
+}
+.red {
+  top: 200px;
+  left: 244px;
+  background: rgb(237, 27, 36);
+}
+.red.violet {
+  top: 244px;
+  left: 200px;
+  background: rgb(138, 40, 143);
+}
+.violet {
+  top: 260px;
+  left: 140px;
+  background: rgb(91, 47, 145);
 }
 .hidden {
   display: none;
