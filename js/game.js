@@ -7,6 +7,7 @@ var $ = window.jQuery
   , images = {}
   , ic = {}
 
+images['mannequin'] = {"width":16,"height":24,"data":"67a2b7a2b4a2b1c1b5a1b2c1b3a1b3c5b1d2c1b3a1b3c6d2c1b3a1b1c1b1c2d2e2d1b1c1b3a1b1c1b1c1d2e3d1b1c1b3a1b1c1b1c1d2e2d1e1b1c1b2a2b1c1b2c1d1e2d1e1b1c1b4a2b3c3d1e2b6a1b6c1e1b7a1f7b1f7a1f7g1f7a1f2g1h4g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h2f7a1i2g1i1a1f1h2f6a2i2f1i1a2i1f2i5a5i1a5i2a","values":{"a":"#00000000","b":"#afafafff","c":"#d0d0d0ff","d":"#ecececff","e":"#ffffffff","f":"#414141ff","g":"#606060ff","h":"#848484ff","i":"#1b1b1bff"}}
 images['boy'] = {"width":40,"height":40,"data":"137a8b30a1c3d2c3d2b28a1c1d1c2d1c3d1c2d1b27a1d1c3d1c6d1b26a1b6d1c1d1c3d1b26a1b4d1c1d1c1d1b1d1b2d26a2d1c1d1c1b1d2b2e1b1c1d26a1d1b2d1b5e2f1b1d26a1d1b1d2g1h3f1h2g1b1i1j25a1j1b1g1k2h3f2h1k1g1i1j26a1b1g1k1l1h3f1h1l1k1g1j28a1j1k1l1h3f1h1l1k1j29a1j1i8e1i30a1j1i1e3m1e1i1j30a2n1j5i1j2n28a2n1o1n5j1n2o1n27a1n3o5n1p2o1n27a1n3o6p2o1n27a1n1o1n1o2p2q2p1n1o1n27a1n1o1n1o1p2q3p1n1o1n27a1n1o1n1o1p2q2p1q1n1o1n26a2n1o1n2o1p1q2p1q1n1o1n1j25a1j1r2n3o3p1q2n1r1j25a1j1r1f1n6o1q1n1f1r1j25a1j1r1f1s7n1s2j27a2j1s7t1s31a1s2t1u4t1s31a1s1t1u1s1a1s1u1t1s31a1s1t1u1s1a1s1u1t1s31a1s1t1u1s1a1s1u1t1s31a1s1t1u1s1a1s1u2s31a1v2t1v1a1s1u2s30a2v2s1v1a2v1s2v29a5v1a5v134a","values":{"a":"#00000000","b":"#70282aff","c":"#7a2b2eff","d":"#73272aff","e":"#f9e2b6ff","f":"#f9ceacff","g":"#3c1915ff","h":"#291503ff","i":"#d4a477ff","j":"#bb8d63ff","k":"#cbd1d7ff","l":"#6c3005ff","m":"#cea083ff","n":"#615f5cff","o":"#767472ff","p":"#8f8a85ff","q":"#a19c94ff","r":"#e0ae81ff","s":"#36335dff","t":"#47446dff","u":"#515077ff","v":"#d0d0cfff"}}
 images['girl'] = {"width":40,"height":40,"data":"96a5b34a2b4c4b29a2b7d1e1d1b28a1b4d2e2d2e2b26a1b2d5e1d2c1e1c1b26a1b1d4e2d1b2c1e1d2b24a2b3e3d2b2f1b1e1d1b24a1b1c4d2b4f2b1d1b24a1b1c1d3b5f2g3b24a1b1e2b2h1i3g1i2h1g2b24a1b1e1b1h1j2i3g2i1j1h2b24a2b1d1h1j1k1i3g1i1k1j1h2b23a3b1c1l1j1k1i3g1i1k1j1l2b23a1b1a2b1d1m8f4b24a2b2d1m1f3n1f1m1l2b1c1b24a2b2o1b5m1l2o1b1c1b23a2b2o1p1o5l1o2p1o2b23a2b1o3p5o1q2p1o3b22a2b1o3p6q2p1o1c24a2b1o1p1o1p2q2r2q1o1p1o27a1o1p1o1p1q2r3q1o1p1o27a1o1p1o1p1q2r2q1r1o1p1o26a2o1p1o2p1q1r2q1r1o1p1o1l25a1l1s2o3p3q1r2o1s1l25a1l1s1g1o6p1r1o1g1s1l25a1l1s1g1t7o1t2l27a2l1t7u1t31a1t2u1v4u1t31a1t1u1v1t1a1t1v1u1t31a1t1u1v1t1a1t1v1u1t31a1t1u1v1t1a1t1v1u1t31a1t1u1v1t1a1t1v2t31a1w2u1w1a1t1v2t30a2w2t1w1a2w1t2w29a5w1a5w134a","values":{"a":"#00000000","b":"#6a1f1aff","c":"#82362fff","d":"#8a3629ff","e":"#924a42ff","f":"#f9e2b6ff","g":"#f9ceacff","h":"#3c1915ff","i":"#291503ff","j":"#cbd1d7ff","k":"#6c3005ff","l":"#bb8d63ff","m":"#d4a477ff","n":"#cea083ff","o":"#615f5cff","p":"#767472ff","q":"#8f8a85ff","r":"#a19c94ff","s":"#e0ae81ff","t":"#36335dff","u":"#47446dff","v":"#515077ff","w":"#d0d0cfff"}}
 
@@ -59,6 +60,19 @@ images['girl'] = {"width":40,"height":40,"data":"96a5b34a2b4c4b29a2b7d1e1d1b28a1
 /* v = pants hilight */
 /* w = shoes */
 
+/*
+ * mannequin
+ * a = background
+ * b = shirt outline
+ * c = shirt base
+ * d = shirt highlight 1
+ * e = shirt highlight 2
+ * f = pants outline
+ * g = pants base
+ * h = pants highlight
+ * i = shoes
+ */
+
 function hexToRgba (hex) {
   var result = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return result ? {
@@ -70,59 +84,6 @@ function hexToRgba (hex) {
 }
 
 ic.getDataURL = function (name) {
-  var clothes = ''
-    , color = ''
-
-  name = name.split('-')
-  switch (name.length) {
-    case 1:
-      name = name[0]
-      break
-    case 2:
-      clothes = name[1]
-      name = name[0]
-      break
-    case 3:
-      color = name[2]
-      clothes = name[1]
-      name = name[0]
-      break
-  }
-
-  switch (clothes) {
-    case 'shirt':
-      if (name === 'boy') {
-        images[name].values.n = color
-        images[name].values.o = color
-        images[name].values.p = color
-        images[name].values.q = color
-      } else {
-        images[name].values.o = color
-        images[name].values.p = color
-        images[name].values.q = color
-        images[name].values.r = color
-      }
-      break
-    case 'pants':
-      if (name === 'boy') {
-        images[name].values.s = color
-        images[name].values.t = color
-        images[name].values.u = color
-      } else {
-        images[name].values.t = color
-        images[name].values.u = color
-        images[name].values.v = color
-      }
-      break
-    case 'shoes':
-      if (name === 'boy') {
-        images[name].values.v = color
-      } else {
-        images[name].values.w = color
-      }
-      break
-  }
-
   var data = images[name]
     , image = ctx.createImageData(data.width, data.height)
     , i = 0
@@ -252,9 +213,11 @@ function offPicker (target) {
 
 Game.play = function () {
   var $ = window.jQuery
+    , mannequin = ImageCache.getDataURL('mannequin')
     , html = ''
     , name = ''
     , i = 0
+    , j = 0
 
   for (i = 1; i <= 3; i += 1) {
     switch (i) {
@@ -272,28 +235,18 @@ Game.play = function () {
     html += '<p class="pixelated label">'
     html += '<span>'+name+'</span>'
     html += '</p>'
-    html += '<div id="mannequin'+i+'1" class="mannequin">'
-    html += '<img src="./img/lamp.png" class="pixelated lamp" />'
-    html += '<img src="./img/mannequin.png" class="pixelated figure" />'
-    html += '</div>'
-    html += '<div id="mannequin'+i+'2" class="mannequin">'
-    html += '<img src="./img/lamp.png" class="pixelated lamp" />'
-    html += '<img src="./img/mannequin.png" class="pixelated figure" />'
-    html += '</div>'
-    html += '<div id="mannequin'+i+'3" class="mannequin">'
-    html += '<img src="./img/lamp.png" class="pixelated lamp" />'
-    html += '<img src="./img/mannequin.png" class="pixelated figure" />'
-    html += '</div>'
-    html += '<div id="mannequin'+i+'4" class="mannequin">'
-    html += '<img src="./img/lamp.png" class="pixelated lamp" />'
-    html += '<img src="./img/mannequin.png" class="pixelated figure" />'
-    html += '</div>'
+    for (j = 1; j <= 4; j += 1) {
+      html += '<div id="mannequin'+i+j+'" class="mannequin">'
+      html += '<img src="./img/lamp.png" class="pixelated lamp" />'
+      html += '<img id="mannequin-img'+i+j+'" class="pixelated figure" />'
+      html += '</div>'
+    }
     $('#f'+i).html(html)
 
-    $('#mannequin'+i+'1').touch(onMannequin, offMannequin)
-    $('#mannequin'+i+'2').touch(onMannequin, offMannequin)
-    $('#mannequin'+i+'3').touch(onMannequin, offMannequin)
-    $('#mannequin'+i+'4').touch(onMannequin, offMannequin)
+    for (j = 1; j <= 4; j += 1) {
+      $('#mannequin'+i+j).touch(onMannequin, offMannequin)
+      $('#mannequin-img'+i+j).unwrap().src = mannequin
+    }
   }
 
   $('#picker').touch(onPicker, offPicker)

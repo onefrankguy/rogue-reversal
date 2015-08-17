@@ -229,7 +229,6 @@ ol {
   display: none;
   width: 100%;
   height: 100%;
-  background: hsla(0, 0%, 0%, 0.5);
   position: absolute;
   top: 0;
   left: 0;
@@ -307,3 +306,15 @@ ol {
 .hidden {
   display: none;
 }
+
+/* GRAYSCALE */
+/*
+rgb(255, 255, 255)
+rgb(240, 240, 240)
+rgb(217, 217, 217)
+rgb(189, 189, 189)
+rgb(150, 150, 150)
+rgb(115, 115, 115)
+rgb(82, 82, 82)
+rgb(37, 37, 37)
+*/
