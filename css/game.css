@@ -118,12 +118,6 @@ ol {
 .boy {
   background-image: url('../img/character-boy.png');
 }
-.block {
-  background: hsla(0, 100%, 50%, 1);
-  display: block;
-  width: 4rem;
-  height: 4rem;
-}
 /* COLORS */
 .color1 {
   background: hsla(0, 100%, 50%, 1);
@@ -284,6 +278,31 @@ ol {
   top: 260px;
   left: 140px;
   background: rgb(91, 47, 145);
+}
+.blue.violet {
+  top: 244px;
+  left: 80px;
+  background: rgb(62, 57, 151);
+}
+.blue {
+  top: 200px;
+  left: 36px;
+  background: rgb(5, 81, 165);
+}
+.blue.green {
+  top: 140px;
+  left: 20px;
+  background: rgb(1, 171, 134);
+}
+.green {
+  top: 80px;
+  left: 36px;
+  background: rgb(22, 160, 74);
+}
+.yellow.green {
+  top: 36px;
+  left:80px;
+  background: rgb(145, 199, 75);
 }
 .hidden {
   display: none;
