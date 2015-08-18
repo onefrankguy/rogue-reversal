@@ -34,6 +34,8 @@ ol {
   margin: 0 auto;
   padding: 0;
   overflow: hidden;
+  background: hsla(0, 0%, 59%, 1);
+  background-image: url('../img/bricks.png');
 }
 #player {
   position: absolute;

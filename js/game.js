@@ -12,7 +12,7 @@ hues = {
     'yellow':        '#fff400ff'
   , 'yellow-orange': '#ffd300ff'
   , 'orange':        '#fda500ff'
-  , 'red-orange':    '#f26122ff'
+  , 'red-orange':    '#f58351ff'
   , 'red':           '#ed2324ff'
   , 'red-violet':    '#8b288fff'
   , 'violet':        '#5a2e91ff'
@@ -20,19 +20,55 @@ hues = {
   , 'blue':          '#0450a5ff'
   , 'blue-green':    '#00ab85ff'
   , 'green':         '#14a049ff'
-  , 'yellow-green':  '#90c842ff'
+  , 'yellow-green':  '#90c841ff'
 }
 
-/* Tints are color plus white. */
+/* Tints are hue plus white. */
 tints = {
+    'yellow':        '#fff75cff'
+  , 'yellow-orange': '#ffe047ff'
+  , 'orange':        '#ffb833ff'
+  , 'red-orange':    '#f79e78ff'
+  , 'red':           '#f2674aff'
+  , 'red-violet':    '#9f5da6ff'
+  , 'violet':        '#7756a5ff'
+  , 'blue-violet':   '#645dabff'
+  , 'blue':          '#6379bcff'
+  , 'blue-green':    '#3fba9bff'
+  , 'green':         '#16b653ff'
+  , 'yellow-green':  '#a2d161ff'
 }
 
-/* Tones are color plus gray. */
+/* Tones are hue plus gray. */
 tones = {
+    'yellow':        '#f2e70dff'
+  , 'yellow-orange': '#f2cc0dff'
+  , 'orange':        '#f2a20dff'
+  , 'red-orange':    '#dc6938ff'
+  , 'red':           '#bb191aff'
+  , 'red-violet':    '#791a7eff'
+  , 'violet':        '#4f237fff'
+  , 'blue-violet':   '#2f2978ff'
+  , 'blue':          '#013f85ff'
+  , 'blue-green':    '#008b6bff'
+  , 'green':         '#248f4dff'
+  , 'yellow-green':  '#8db654ff'
 }
 
-/* Tones are color plus black. */
+/* Shades are hue plus black. */
 shades = {
+    'yellow':        '#b8ae00ff'
+  , 'yellow-orange': '#b89900ff'
+  , 'orange':        '#b87700ff'
+  , 'red-orange':    '#c1420bff'
+  , 'red':           '#aa0e0eff'
+  , 'red-violet':    '#000000ff'
+  , 'violet':        '#000000ff'
+  , 'blue-violet':   '#000000ff'
+  , 'blue':          '#000000ff'
+  , 'blue-green':    '#000000ff'
+  , 'green':         '#0b5b2aff'
+  , 'yellow-green':  '#648e29ff'
 }
 
 cw.hue = function (color) {
@@ -43,14 +79,23 @@ cw.hue = function (color) {
 }
 
 cw.tint = function (color) {
+  if (tints.hasOwnProperty(color)) {
+    return tints[color]
+  }
   return '#ff00ffff'
 }
 
 cw.tone = function (color) {
+  if (tones.hasOwnProperty(color)) {
+    return tones[color]
+  }
   return '#ff00ffff'
 }
 
 cw.shade = function (color) {
+  if (shades.hasOwnProperty(color)) {
+    return shades[color]
+  }
   return '#ff00ffff'
 }
 
@@ -66,7 +111,7 @@ var $ = window.jQuery
   , images = {}
   , ic = {}
 
-images['mannequin'] = {"width":16,"height":24,"data":"67a2b7a2b4a2b1c1b5a1b2c1b3a1b3c5b1d2c1b3a1b3c6d2c1b3a1b1c1b1c2d2e2d1b1c1b3a1b1c1b1c1d2e3d1b1c1b3a1b1c1b1c1d2e2d1e1b1c1b2a2b1c1b2c1d1e2d1e1b1c1b4a2b3c3d1e2b6a1b6c1e1b7a1f7b1f7a1f7g1f7a1f2g1h4g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h2f7a1i2g1i1a1f1h2f6a2i2f1i1a2i1f2i5a5i1a5i2a","values":{"a":"#00000000","b":"#afafafff","c":"#d0d0d0ff","d":"#ecececff","e":"#ffffffff","f":"#414141ff","g":"#606060ff","h":"#848484ff","i":"#1b1b1bff"}}
+images['mannequin'] = {"width":16,"height":24,"data":"67a2b7a2b4a2b1c1b5a1b2c1b3a1b3c5b1d2c1b3a1b3c6d2c1b3a1b1c1b1c2d2e2d1b1c1b3a1b1c1b1c1d2e3d1b1c1b3a1b1c1b1c1d2e2d1e1b1c1b3a1b1c1b2c1d1e2d1e1b1c1b4a2b3c3d1e2b6a1b6c1e1b7a1f7b1f7a1f7g1f7a1f2g1h4g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h2f7a1i2g1i1a1f1h2f6a2i2f1i1a2i1f2i5a5i1a5i2a","values":{"a":"#00000000","b":"#afafafff","c":"#d0d0d0ff","d":"#ecececff","e":"#ffffffff","f":"#414141ff","g":"#606060ff","h":"#848484ff","i":"#1b1b1bff"}}
 
 /*
  * mannequin
@@ -100,20 +145,18 @@ ic.getDataURL = function (name, options) {
     , y = 0
     , offset = 0
     , color = null
-    , hue = null
     , value = ''
     , number = ''
 
   options = options || {}
   if (options.hasOwnProperty('shirt')) {
     color = options['shirt']
-    hue = ColorWheel.hue(color)
     switch (name) {
       case 'mannequin':
-        data.values.b = hue
-        data.values.c = hue
-        data.values.d = hue
-        data.values.e = hue
+        data.values.b = ColorWheel.shade(color)
+        data.values.c = ColorWheel.tone(color)
+        data.values.d = ColorWheel.hue(color)
+        data.values.e = ColorWheel.tint(color)
         break
     }
   }
@@ -172,41 +215,6 @@ function onPlayer (target) {
   target.unwrap().src = ImageCache.getDataURL(gender)
 }
 
-var colors = {
-  'color1':  '#ff0000ff',
-  'color2':  '#ff6600ff',
-  'color3':  '#ff9500ff',
-  'color4':  '#ffC800ff',
-  'color5':  '#ffff00ff',
-  'color6':  '#8bc700ff',
-  'color7':  '#0ead00ff',
-  'color8':  '#00a5c2ff',
-  'color9':  '#005fb3ff',
-  'color10': '#0011adff',
-  'color11': '#6200a3ff',
-  'color12': '#c7007eff'
-}
-var clothing = -1
-function onColor (target) {
-  var $ = window.jQuery
-    , color = colors[target.unwrap().id]
-
-  clothing += 1
-  clothing %= 3
-
-  switch (clothing) {
-    case 0:
-      $('#player').unwrap().src = ImageCache.getDataURL(gender+'-shirt-'+color)
-      break
-    case 1:
-      $('#player').unwrap().src = ImageCache.getDataURL(gender+'-pants-'+color)
-      break
-    case 2:
-      $('#player').unwrap().src = ImageCache.getDataURL(gender+'-shoes-'+color)
-      break
-  }
-}
-
 var activeMannequin = null
 function onMannequin (target) {
   target.toggle('on')
@@ -234,7 +242,8 @@ function offPicker (target) {
   }
 }
 
-function onColor (target) {
+function onColor (target, e) {
+  e.stopPropagation()
   var $ = window.jQuery
     , color = target.unwrap().id
     , mannequin = $('#'+activeMannequin.unwrap().id+'-img')
@@ -278,6 +287,8 @@ Game.play = function () {
       $('#mannequin'+i+j+'-img').unwrap().src = mannequin
     }
   }
+
+  $('#picker').touch(onPicker, offPicker)
 
   $('#yellow').touch(onColor, null)
   $('#yellow-orange').touch(onColor, null)

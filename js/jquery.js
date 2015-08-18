@@ -54,14 +54,14 @@ Fn.prototype.touch = function (start, end) {
     if ('ontouchstart' in document.documentElement === false) {
       this.element.onmousedown = function (event) {
         if (start) {
-          start(self)
+          start(self, event)
         }
         document.onmousemove = function (event) {
           event.preventDefault()
         }
         document.onmouseup = function (event) {
           if (end) {
-            end(self)
+            end(self, event)
           }
           document.onmousemove = null
           document.onmouseup = null
@@ -70,14 +70,14 @@ Fn.prototype.touch = function (start, end) {
     } else {
       this.element.ontouchstart = function (event) {
         if (start) {
-          start(self)
+          start(self, event)
         }
         document.ontouchmove = function (event) {
           event.preventDefault()
         }
         document.ontouchend = function (event) {
           if (end) {
-            end(self)
+            end(self, event)
           }
           document.ontouchmove = null
           document.ontouchend = null
