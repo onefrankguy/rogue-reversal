@@ -1,102 +1,43 @@
 var ColorWheel = (function () {
 'use strict';
 
-var hues = {}
-  , tints = {}
-  , tones = {}
-  , shades = {}
+var colors = {}
   , cw = {}
 
-/* Hues are pure color. */
-hues = {
-    'yellow':        '#fff400ff'
-  , 'yellow-orange': '#ffd300ff'
-  , 'orange':        '#fda500ff'
-  , 'red-orange':    '#f58351ff'
-  , 'red':           '#ed2324ff'
-  , 'red-violet':    '#8b288fff'
-  , 'violet':        '#5a2e91ff'
-  , 'blue-violet':   '#3e3997ff'
-  , 'blue':          '#0450a5ff'
-  , 'blue-green':    '#00ab85ff'
-  , 'green':         '#14a049ff'
-  , 'yellow-green':  '#90c841ff'
-}
-
-/* Tints are hue plus white. */
-tints = {
-    'yellow':        '#fff75cff'
-  , 'yellow-orange': '#ffe047ff'
-  , 'orange':        '#ffb833ff'
-  , 'red-orange':    '#f79e78ff'
-  , 'red':           '#f2674aff'
-  , 'red-violet':    '#9f5da6ff'
-  , 'violet':        '#7756a5ff'
-  , 'blue-violet':   '#645dabff'
-  , 'blue':          '#6379bcff'
-  , 'blue-green':    '#3fba9bff'
-  , 'green':         '#16b653ff'
-  , 'yellow-green':  '#a2d161ff'
-}
-
-/* Tones are hue plus gray. */
-tones = {
-    'yellow':        '#f2e70dff'
-  , 'yellow-orange': '#f2cc0dff'
-  , 'orange':        '#f2a20dff'
-  , 'red-orange':    '#dc6938ff'
-  , 'red':           '#bb191aff'
-  , 'red-violet':    '#791a7eff'
-  , 'violet':        '#4f237fff'
-  , 'blue-violet':   '#2f2978ff'
-  , 'blue':          '#013f85ff'
-  , 'blue-green':    '#008b6bff'
-  , 'green':         '#248f4dff'
-  , 'yellow-green':  '#8db654ff'
-}
-
-/* Shades are hue plus black. */
-shades = {
-    'yellow':        '#b8ae00ff'
-  , 'yellow-orange': '#b89900ff'
-  , 'orange':        '#b87700ff'
-  , 'red-orange':    '#c1420bff'
-  , 'red':           '#aa0e0eff'
-  , 'red-violet':    '#000000ff'
-  , 'violet':        '#000000ff'
-  , 'blue-violet':   '#000000ff'
-  , 'blue':          '#000000ff'
-  , 'blue-green':    '#000000ff'
-  , 'green':         '#0b5b2aff'
-  , 'yellow-green':  '#648e29ff'
+/* http://colllor.com/ */
+/* 0 Hues are pure color. */
+/* 1 Tints are hue plus white. */
+/* 2 Tones are hue plus gray. */
+/* 4 Shades are hue plus black. */
+colors = {
+    'yellow':        ['#fff400','#fff75c','#f2e70d','#b8ae00']
+  , 'yellow-orange': ['#ffd300','#ffe047','#f2cc0d','#b89900']
+  , 'orange':        ['#fda500','#ffb833','#f2a20d','#b87700']
+  , 'red-orange':    ['#f58351','#f79e78','#dc6938','#c1420b']
+  , 'red':           ['#ed2324','#f2674a','#bb191a','#aa0e0e']
+  , 'red-violet':    ['#8c288f','#9f5da6','#791a7e','#4e1650']
+  , 'violet':        ['#5a2e91','#7756a5','#4f237f','#30184e']
+  , 'blue-violet':   ['#3e3997','#645dab','#2f2978','#242259']
+  , 'blue':          ['#0450a5','#6379bc','#013f85','#022650']
+  , 'blue-green':    ['#00ab85','#00cca0','#09a583','#006650']
+  , 'green':         ['#14a049','#16b653','#248f4d','#0b5b2a']
+  , 'yellow-green':  ['#90c841','#a2d161','#8db654','#648e29']
 }
 
 cw.hue = function (color) {
-  if (hues.hasOwnProperty(color)) {
-    return hues[color]
-  }
-  return '#ff00ffff'
+  return colors[color][0] + 'ff'
 }
 
 cw.tint = function (color) {
-  if (tints.hasOwnProperty(color)) {
-    return tints[color]
-  }
-  return '#ff00ffff'
+  return colors[color][1] + 'ff'
 }
 
 cw.tone = function (color) {
-  if (tones.hasOwnProperty(color)) {
-    return tones[color]
-  }
-  return '#ff00ffff'
+  return colors[color][2] + 'ff'
 }
 
 cw.shade = function (color) {
-  if (shades.hasOwnProperty(color)) {
-    return shades[color]
-  }
-  return '#ff00ffff'
+  return colors[color][3] + 'ff'
 }
 
 return cw
