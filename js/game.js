@@ -2,6 +2,7 @@ var ColorWheel = (function () {
 'use strict';
 
 var colors = {}
+  , wheel = []
   , cw = {}
 
 /* http://colllor.com/ */
@@ -24,6 +25,12 @@ colors = {
   , 'yellow-green':  ['#90c841','#a2d161','#8db654','#648e29']
 }
 
+wheel = [
+  'yellow','yellow-orange','orange','red-orange',
+  'red','red-violet','violet','blue-violet',
+  'blue','blue-green','green','yellow-green'
+]
+
 cw.hue = function (color) {
   return colors[color][0] + 'ff'
 }
@@ -38,6 +45,29 @@ cw.tone = function (color) {
 
 cw.shade = function (color) {
   return colors[color][3] + 'ff'
+}
+
+cw.left = function (color, amount) {
+  var index = wheel.indexOf(color)
+  for (; amount > 0; amount -= 1) {
+    index += 1
+    if (index >= wheel.length) {
+      index = 0
+    }
+  }
+  return wheel[index]
+}
+
+cw.right = function (color, amount) {
+  var index = wheel.indexOf(color)
+  amount = amount || 0
+  for (; amount > 0; amount -= 1) {
+    index -= 1
+    if (index < 0) {
+      index = wheel.length - 1
+    }
+  }
+  return wheel[index]
 }
 
 return cw
@@ -162,20 +192,6 @@ return ic
 ;(function (Game) {
 'use strict';
 
-var gender = 'boy'
-if (Math.floor(Math.random() * 2) === 0) {
-  gender = 'girl'
-}
-
-function onPlayer (target) {
-  if (gender === 'boy') {
-    gender = 'girl'
-  } else {
-    gender = 'boy'
-  }
-  target.unwrap().src = ImageCache.getDataURL(gender)
-}
-
 var activeMannequin = null
 function onMannequin (target) {
   target.toggle('on')
@@ -208,7 +224,11 @@ function onColor (target, e) {
   var $ = window.jQuery
     , color = target.unwrap().id
     , mannequin = $('#'+activeMannequin.unwrap().id+'-img')
-  mannequin.unwrap().src = ImageCache.getDataURL('mannequin', {'shirt': color})
+  mannequin.unwrap().src = ImageCache.getDataURL('mannequin', {
+    'shirt': color
+  , 'pants': ColorWheel.left(color, 2)
+  , 'shoes': ColorWheel.right(color, 4)
+  })
 }
 
 Game.play = function () {
