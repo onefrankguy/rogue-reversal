@@ -102,6 +102,26 @@ ic.getDataURL = function (name, options) {
     }
   }
 
+  if (options.hasOwnProperty('pants')) {
+    color = options['pants']
+    switch (name) {
+      case 'mannequin':
+        data.values.f = ColorWheel.shade(color)
+        data.values.g = ColorWheel.tone(color)
+        data.values.h = ColorWheel.hue(color)
+        break
+    }
+  }
+
+  if (options.hasOwnProperty('shoes')) {
+    color = options['shoes']
+    switch (name) {
+      case 'mannequin':
+        data.values.i = ColorWheel.tint(color)
+        break
+    }
+  }
+
   canvas.width = data.width
   canvas.height = data.height
 
