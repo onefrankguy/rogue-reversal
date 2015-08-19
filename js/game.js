@@ -147,7 +147,7 @@ ic.getDataURL = function (name, options) {
     color = options['shoes']
     switch (name) {
       case 'mannequin':
-        data.values.i = ColorWheel.tint(color)
+        data.values.i = ColorWheel.hue(color)
         break
     }
   }
