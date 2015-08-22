@@ -69,7 +69,7 @@ ol {
 .character {
   position: absolute;
   left: 144px;
-  bottom: 0px;
+  top: 250px;
   display: block;
   width: 32px;
   height: 32px;
@@ -84,12 +84,26 @@ ol {
   height: 32px;
   background: rgb(109, 194, 202);
 }
-@keyframes fire {
+@keyframes fire-row0 {
   0% { transform: translate3d(0, 0, 0) }
   100% { transform: translate3d(0, -258px, 0) }
 }
-.fire {
-  animation: fire 500ms linear 1;
+.fire-row0 {
+  animation: fire-row0 430ms linear 1;
+}
+@keyframes fire-row1 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -226px, 0) }
+}
+.fire-row1 {
+  animation: fire-row1 377ms linear 1;
+}
+@keyframes fire-row2 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -194px, 0) }
+}
+.fire-row2 {
+  animation: fire-row2 323ms linear 1;
 }
 .items {
   position: absolute;

@@ -196,15 +196,15 @@ var $ = window.jQuery
   , w = {}
   , element = $('#weapon')
   , start = { y: 0 }
-  , end = { y: 0 }
   , dirty = 0
 
 w.render = function () {
   if (dirty === 1) {
+    element.top(start.y)
     element.remove('hidden')
     dirty = 2
   } else if (dirty === 2) {
-    element.animate('fire', function () {
+    element.animate('fire-row'+Player.row(), function () {
       element.add('hidden')
       dirty = 0
     })
@@ -217,9 +217,8 @@ w.moving = function () {
   return dirty > 0
 }
 
-w.fire = function (s, e) {
+w.fire = function (s) {
   start = s
-  end = e
   dirty = 1
   return this
 }
@@ -299,7 +298,7 @@ var Player = (function () {
 
 var $ = window.jQuery
   , p = {}
-  , element = $('#player')
+  , element = $('#character')
   , row = 0
   , dirty = false
 
@@ -312,6 +311,7 @@ p.render = function () {
     , item = null
 
   dirty &= Weapon.moving()
+
   if (dirty) {
     wbox = Weapon.box()
     tbox = Target.box()
@@ -329,25 +329,39 @@ p.render = function () {
         hit = 'left'
       } else if (wpoint.x > tbox.right) {
         hit = 'right'
+      } else {
+        hit = 'miss'
       }
     }
 
-    if (hit !== '') {
-      item = Items.picked()
-      if (item === 'bow') {
+    item = Items.picked()
+    if (item === 'bow') {
+      if (hit !== '') {
         if (row === 0) {
           if (hit === 'perfect') {
             console.log('You score a perfect hit with your bow and leap forward.')
+            row += 2
           } else if (hit === 'close') {
             console.log('You score a hit with your bow and step forward.')
+            row += 1
           } else if (hit === 'left') {
             console.log('You miss with your bow and adjust your aim to the left.')
           } else if (hit === 'right') {
             console.log('You miss with your bow and adjust your aim to the right.')
           }
+        } else {
+          console.log('The force of your shot knocks you back.')
+          row -= 1
         }
       }
     }
+
+    if (row < 0) {
+      row = 0
+    }
+    console.log('You are in row '+row+'.')
+
+    element.top(250 - (row * 32))
 
     dirty = (hit === '')
   }
@@ -355,11 +369,15 @@ p.render = function () {
   return this
 }
 
-p.fire = function (s, e) {
-  Weapon.fire(s, e)
+p.fire = function () {
+  Weapon.fire({ y: 250 - (row * 32) })
   dirty = true
   console.log('You fire your bow at the door.')
   return this
+}
+
+p.row = function () {
+  return row
 }
 
 return p
@@ -411,7 +429,7 @@ function onFire (target, e) {
   if (Weapon.moving()) {
     return
   }
-  Player.fire({ y: 218 }, { y: -8 })
+  Player.fire()
 }
 
 function onItem (target, e) {
