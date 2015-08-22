@@ -47,14 +47,14 @@ ol {
   left: 0px;
   top: 0px;
   display: block;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 8px;
   background: rgb(89, 125, 206);
-  animation: bounce 4s linear infinite;
+  animation: bounce 2s linear infinite;
 }
 @keyframes bounce {
   0% { transform: translate3d(0px, 0, 0) }
-  50% { transform: translate3d(288px, 0, 0) }
+  50% { transform: translate3d(272px, 0, 0) }
   100% { transform: translate3d(0px, 0, 0) }
 }
 .character {
@@ -68,15 +68,15 @@ ol {
 }
 .weapon {
   position: absolute;
-  left: 144px;
+  left: 156px;
   bottom: 0px;
   display: block;
-  width: 32px;
+  width: 8px;
   height: 32px;
   background: rgb(109, 194, 202);
 }
 .fire {
-  transition: top 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: top 500ms linear;
 }
 .items {
   position: absolute;

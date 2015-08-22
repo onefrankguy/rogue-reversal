@@ -160,7 +160,7 @@ Fn.prototype.animate = function (klass, callback) {
   return this
 }
 
-Fn.prototype.offset = function () {
+Fn.prototype.box = function () {
   var doc = null
     , box = null
     , win = null
@@ -181,7 +181,7 @@ Fn.prototype.offset = function () {
         op = op.offsetParent
       }
     }
-    return { offsetLeft: x, offsetTop: y }
+    return { top: y, left: x, width: box.width, height: box.height, right: x + box.width, bottom: y + box.height }
   }
 
   return null

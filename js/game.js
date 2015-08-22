@@ -210,6 +210,7 @@ w.render = function () {
       dirty = 0
     })
     element.top(end.y)
+    dirty = 3
   }
   return this
 }
@@ -225,9 +226,8 @@ w.fire = function (s, e) {
   return this
 }
 
-w.center = function () {
-  var u = element.offset()
-  return { x: u.offsetLeft + 16, y: u.offsetTop + 16 }
+w.box = function () {
+  return element.box()
 }
 
 return w
@@ -239,46 +239,13 @@ var Target = (function () {
 var $ = window.jQuery
   , t = {}
   , element = $('#target')
-  , start = { x: 0 }
-  , end = { x: 0 }
-  , dirty = 0
 
 t.render = function () {
-  var wc = {}
-    , tc = {}
-    , dx = 0
-    , dy = 0
-
-  if (Weapon.moving()) {
-    wc = Weapon.center()
-    tc = Target.center()
-    dx = Math.abs(wc.x - tc.x)
-    dy = Math.abs(wc.y - tc.y)
-    if (dy <= 32 && dx <= 48) {
-      if (dx <= 8) {
-        console.log('perfect')
-        element.add('hidden')
-      } else if (dx <= 15) {
-        console.log('close')
-        element.add('hidden')
-      } else {
-        console.log('miss')
-      }
-    }
-  } else {
-    element.remove('hidden')
-  }
-
   return this
 }
 
-t.moving = function () {
-  return dirty > 0
-}
-
-t.center = function () {
-  var u = element.offset()
-  return { x: u.offsetLeft + 16, y: u.offsetTop + 16 }
+t.box = function () {
+  return element.box()
 }
 
 return t
@@ -322,7 +289,82 @@ o.pick = function (item) {
   dirty = true
 }
 
+o.picked = function () {
+  return active
+}
+
 return o
+}())
+
+var Player = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , p = {}
+  , element = $('#player')
+  , row = 0
+  , dirty = false
+
+p.render = function () {
+  var wbox = null
+    , tbox = null
+    , wpoint = null
+    , tpoint = null
+    , hit = ''
+    , item = null
+
+  dirty &= Weapon.moving()
+  if (dirty) {
+    wbox = Weapon.box()
+    tbox = Target.box()
+    wpoint = { x: wbox.left + (wbox.width / 2), y: wbox.top }
+    tpoint = { x: tbox.left + (tbox.width / 2), y: tbox.top + tbox.height }
+
+    if (wpoint.y <= tbox.top &&
+        wpoint.x >= tbox.left - (wbox.width * 2) &&
+        wpoint.x <= tbox.right + (wbox.width * 2)) {
+      if (wpoint.x >= tpoint.x - (wbox.width * 1) && wpoint.x <= tpoint.x + (wbox.width * 1)) {
+        hit = 'perfect'
+      } else if (wpoint.x >= tbox.left && wpoint.x <= tbox.right) {
+        hit = 'close'
+      } else if (wpoint.x < tbox.left) {
+        hit = 'left'
+      } else if (wpoint.x > tbox.right) {
+        hit = 'right'
+      }
+    }
+
+    if (hit !== '') {
+      item = Items.picked()
+      if (item === 'bow') {
+        if (row === 0) {
+          if (hit === 'perfect') {
+            console.log('You score a perfect hit with your bow and leap forward.')
+          } else if (hit === 'close') {
+            console.log('You score a hit with your bow and step forward.')
+          } else if (hit === 'left') {
+            console.log('You miss with your bow and adjust your aim to the left.')
+          } else if (hit === 'right') {
+            console.log('You miss with your bow and adjust your aim to the right.')
+          }
+        }
+      }
+    }
+
+    dirty = (hit === '')
+  }
+
+  return this
+}
+
+p.fire = function (s, e) {
+  Weapon.fire(s, e)
+  dirty = true
+  console.log('You fire your bow at the door.')
+  return this
+}
+
+return p
 }())
 
 ;(function (Game) {
@@ -371,7 +413,7 @@ function onFire (target, e) {
   if (Weapon.moving()) {
     return
   }
-  Weapon.fire({ y: 218 }, { y: -32 })
+  Player.fire({ y: 218 }, { y: -8 })
 }
 
 function onItem (target, e) {
@@ -383,6 +425,7 @@ function render () {
   Weapon.render()
   Target.render()
   Items.render()
+  Player.render()
 }
 
 function startGame (callback) {
