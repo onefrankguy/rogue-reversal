@@ -340,18 +340,36 @@ p.render = function () {
         if (row === 0) {
           if (hit === 'perfect') {
             row += 2
-            emote.html('You score a perfect hit with your bow and leap forward to row '+row+'.')
+            emote.html('You score a perfect hit with your bow and leap forward.')
           } else if (hit === 'close') {
             row += 1
-            emote.html('You score a hit with your bow and step forward to row '+row+'.')
+            emote.html('You score a hit with your bow and step forward.')
           } else if (hit === 'left') {
-            emote.html('You miss with your bow and adjust your aim to the left.')
+            emote.html('You miss with your bow and adjust your aim left.')
           } else if (hit === 'right') {
-            emote.html('You miss with your bow and adjust your aim to the right.')
+            emote.html('You miss with your bow and adjust your aim right.')
           }
         } else {
           row -= 1
-          emote.html('The force of your shot knocks you back to row '+row+'.')
+          emote.html('The force of your shot knocks you back.')
+        }
+      }
+    } else if (item === 'sword') {
+      if (hit !== '') {
+        if (row !== 0) {
+          if (hit === 'perfect') {
+            row += 2
+            emote.html('You score a perfect hit with your sword and leap forward.')
+          } else if (hit === 'close') {
+            row += 1
+            emote.html('You score a hit with your sword and step forward.')
+          } else if (hit === 'left') {
+            emote.html('You miss with your sword and step left.')
+          } else if (hit === 'right') {
+            emote.html('You miss with your sword and step right.')
+          }
+        } else {
+          emote.html("It's too far.")
         }
       }
     }
