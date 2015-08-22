@@ -59,7 +59,7 @@ ol {
   width: 48px;
   height: 8px;
   background: rgb(89, 125, 206);
-  animation: bounce 2s linear infinite;
+  animation: bounce 4s linear infinite;
 }
 @keyframes bounce {
   0% { transform: translate3d(0px, 0, 0) }
@@ -74,6 +74,15 @@ ol {
   width: 32px;
   height: 32px;
   background: rgb(109, 194, 202);
+}
+.emote {
+  position: absolute;
+  top: 16px;
+  left: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 16px;
+  color: #000;
 }
 .weapon {
   position: absolute;

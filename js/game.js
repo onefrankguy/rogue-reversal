@@ -299,6 +299,7 @@ var Player = (function () {
 var $ = window.jQuery
   , p = {}
   , element = $('#character')
+  , emote = $('#emote')
   , row = 0
   , dirty = false
 
@@ -318,19 +319,18 @@ p.render = function () {
     wpoint = { x: wbox.left + (wbox.width / 2), y: wbox.top }
     tpoint = { x: tbox.left + (tbox.width / 2), y: tbox.top + tbox.height }
 
-    if (wpoint.y <= tbox.top &&
-        wpoint.x >= tbox.left - (wbox.width * 2) &&
-        wpoint.x <= tbox.right + (wbox.width * 2)) {
-      if (wpoint.x >= tpoint.x - (wbox.width * 1) && wpoint.x <= tpoint.x + (wbox.width * 1)) {
-        hit = 'perfect'
-      } else if (wpoint.x >= tbox.left && wpoint.x <= tbox.right) {
-        hit = 'close'
-      } else if (wpoint.x < tbox.left) {
-        hit = 'left'
-      } else if (wpoint.x > tbox.right) {
-        hit = 'right'
-      } else {
-        hit = 'miss'
+    if (wpoint.y <= tbox.bottom) {
+      hit = 'miss'
+      if (wpoint.x >= tbox.left - (wbox.width * 2) && wpoint.x <= tbox.right + (wbox.width * 2)) {
+        if (wpoint.x >= tpoint.x - (wbox.width * 1) && wpoint.x <= tpoint.x + (wbox.width * 1)) {
+          hit = 'perfect'
+        } else if (wpoint.x >= tbox.left && wpoint.x <= tbox.right) {
+          hit = 'close'
+        } else if (wpoint.x < tbox.left) {
+          hit = 'left'
+        } else if (wpoint.x > tbox.right) {
+          hit = 'right'
+        }
       }
     }
 
@@ -339,19 +339,19 @@ p.render = function () {
       if (hit !== '') {
         if (row === 0) {
           if (hit === 'perfect') {
-            console.log('You score a perfect hit with your bow and leap forward.')
             row += 2
+            emote.html('You score a perfect hit with your bow and leap forward to row '+row+'.')
           } else if (hit === 'close') {
-            console.log('You score a hit with your bow and step forward.')
             row += 1
+            emote.html('You score a hit with your bow and step forward to row '+row+'.')
           } else if (hit === 'left') {
-            console.log('You miss with your bow and adjust your aim to the left.')
+            emote.html('You miss with your bow and adjust your aim to the left.')
           } else if (hit === 'right') {
-            console.log('You miss with your bow and adjust your aim to the right.')
+            emote.html('You miss with your bow and adjust your aim to the right.')
           }
         } else {
-          console.log('The force of your shot knocks you back.')
           row -= 1
+          emote.html('The force of your shot knocks you back to row '+row+'.')
         }
       }
     }
@@ -359,7 +359,6 @@ p.render = function () {
     if (row < 0) {
       row = 0
     }
-    console.log('You are in row '+row+'.')
 
     element.top(250 - (row * 32))
 
