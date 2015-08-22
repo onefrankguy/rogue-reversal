@@ -189,6 +189,45 @@ ic.getDataURL = function (name, options) {
 return ic
 }())
 
+var Weapon = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , w = {}
+  , element = $('#weapon')
+  , start = { y: 0 }
+  , end = { y: 0 }
+  , dirty = 0
+
+w.render = function () {
+  if (dirty === 1) {
+    element.top(start.y)
+    element.remove('hidden')
+    dirty = 2
+  } else if (dirty === 2) {
+    element.animate('fire', function () {
+      element.add('hidden')
+      dirty = 0
+    })
+    element.top(end.y)
+  }
+  return this
+}
+
+w.moving = function () {
+  return dirty > 0
+}
+
+w.fire = function (s, e) {
+  start = s
+  end = e
+  dirty = 1
+  return this
+}
+
+return w
+}())
+
 ;(function (Game) {
 'use strict';
 
@@ -231,18 +270,29 @@ function onColor (target, e) {
   })
 }
 
-function onWeapon (target, e) {
-  var y = target.top()
-  target.top(-32)
-  target.animate('fire', function () {
-    target.top(y)
-  })
+function onFire (target, e) {
+  if (Weapon.moving()) {
+    return
+  }
+  Weapon.fire({ y: 340 }, { y: -32 })
+}
+
+function render () {
+  requestAnimationFrame(render)
+  Weapon.render()
+}
+
+function startGame (callback) {
+  requestAnimationFrame(callback)
 }
 
 Game.play = function () {
   var $ = window.jQuery
 
-  $('#weapon').touch(onWeapon, null).top('340')
+  $('#weapon').top(340)
+  $('#room').touch(onFire, null)
+
+  startGame(render)
 }
 
 })(window.Game = window.Game || {})
