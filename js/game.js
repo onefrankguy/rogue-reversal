@@ -335,8 +335,8 @@ function onFire (target, e) {
 
 function render () {
   requestAnimationFrame(render)
-  Target.render()
   Weapon.render()
+  Target.render()
 }
 
 function startGame (callback) {

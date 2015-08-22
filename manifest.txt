@@ -1,5 +1,5 @@
 index.html
-css/game.css
+css/game.min.css
 js/game.js
 js/jquery.js
 img/lamp.png

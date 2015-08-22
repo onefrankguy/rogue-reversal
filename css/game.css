@@ -158,7 +158,6 @@ ol {
   image-rendering: -webkit-optimize-contrast;
   image-rendering: optimize-contrast;
   image-rendering: pixelated;
-  image-rendering: -ms-interpolation-mode: nearest-neighbor;
 }
 .girl {
   background-image: url('../img/character-girl.png');
