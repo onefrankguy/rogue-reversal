@@ -201,7 +201,6 @@ var $ = window.jQuery
 
 w.render = function () {
   if (dirty === 1) {
-    element.top(start.y)
     element.remove('hidden')
     dirty = 2
   } else if (dirty === 2) {
@@ -209,7 +208,6 @@ w.render = function () {
       element.add('hidden')
       dirty = 0
     })
-    element.top(end.y)
     dirty = 3
   }
   return this
@@ -435,7 +433,6 @@ function startGame (callback) {
 Game.play = function () {
   var $ = window.jQuery
 
-  $('#weapon').top(340)
   $('#room').touch(onFire, null)
   $('#bow').touch(onItem, null)
   $('#sword').touch(onItem, null)

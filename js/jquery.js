@@ -140,9 +140,9 @@ Fn.prototype.animate = function (klass, callback) {
     }
     animations = temp
 
-    self.off('webkitTransitionEnd', onTransitionEnd)
-    self.off('otransitionend', onTransitionEnd)
-    self.off('transitionend', onTransitionEnd)
+    self.off('webkitAnimationEnd', onTransitionEnd)
+    self.off('oanimationend', onTransitionEnd)
+    self.off('animationend', onTransitionEnd)
     self.remove(klass)
     if (callback) {
       callback()
@@ -151,9 +151,9 @@ Fn.prototype.animate = function (klass, callback) {
 
   if (this.element) {
     animations.push({ element: self, callback: onTransitionEnd, klass: klass })
-    this.on('webkitTransitionEnd', onTransitionEnd)
-    this.on('otransitionend', onTransitionEnd)
-    this.on('transitionend', onTransitionEnd)
+    this.on('webkitAnimationEnd', onTransitionEnd)
+    this.on('oanimationend', onTransitionEnd)
+    this.on('animationend', onTransitionEnd)
     this.add(klass)
   }
 
