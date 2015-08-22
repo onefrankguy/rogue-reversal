@@ -204,7 +204,7 @@ w.render = function () {
     element.remove('hidden')
     dirty = 2
   } else if (dirty === 2) {
-    element.animate('fire-row'+Player.row(), function () {
+    element.animate(Player.animation(), function () {
       element.add('hidden')
       dirty = 0
     })
@@ -360,7 +360,7 @@ p.render = function () {
       row = 0
     }
 
-    element.top(250 - (row * 32))
+    element.top(240 - (row * 40))
 
     dirty = (hit === '')
   }
@@ -369,14 +369,14 @@ p.render = function () {
 }
 
 p.fire = function () {
-  Weapon.fire({ y: 250 - (row * 32) })
+  Weapon.fire({ y: 240 - (row * 40) })
   dirty = true
   console.log('You fire your bow at the door.')
   return this
 }
 
-p.row = function () {
-  return row
+p.animation = function () {
+  return Items.picked()+"-row"+row
 }
 
 return p

@@ -40,7 +40,7 @@ ol {
   position: relative;
   display: block;
   width: 100%;
-  height: 282px;
+  height: 280px;
 }
 .wall {
   position: absolute;
@@ -68,11 +68,11 @@ ol {
 }
 .character {
   position: absolute;
-  left: 144px;
-  top: 250px;
+  left: 140px;
+  top: 240px;
   display: block;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   background: rgb(109, 194, 202);
 }
 .emote {
@@ -87,32 +87,11 @@ ol {
 .weapon {
   position: absolute;
   left: 156px;
-  top: 250px;
+  top: 240px;
   display: block;
   width: 8px;
-  height: 32px;
+  height: 40px;
   background: rgb(109, 194, 202);
-}
-@keyframes fire-row0 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -258px, 0) }
-}
-.fire-row0 {
-  animation: fire-row0 430ms linear 1;
-}
-@keyframes fire-row1 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -226px, 0) }
-}
-.fire-row1 {
-  animation: fire-row1 377ms linear 1;
-}
-@keyframes fire-row2 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -194px, 0) }
-}
-.fire-row2 {
-  animation: fire-row2 323ms linear 1;
 }
 .items {
   position: absolute;
@@ -452,3 +431,103 @@ rgb(109, 194, 202)
 rgb(218, 212, 94)
 rgb(222, 238, 214)
 */
+
+/* Generation animations for swords and bows */
+@keyframes bow-row0 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -280px, 0) }
+}
+.bow-row0 {
+  animation: bow-row0 466ms linear 1;
+}
+@keyframes bow-row1 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -240px, 0) }
+}
+.bow-row1 {
+  animation: bow-row1 400ms linear 1;
+}
+@keyframes bow-row2 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -200px, 0) }
+}
+.bow-row2 {
+  animation: bow-row2 333ms linear 1;
+}
+@keyframes bow-row3 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -160px, 0) }
+}
+.bow-row3 {
+  animation: bow-row3 266ms linear 1;
+}
+@keyframes bow-row4 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -120px, 0) }
+}
+.bow-row4 {
+  animation: bow-row4 200ms linear 1;
+}
+@keyframes bow-row5 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -80px, 0) }
+}
+.bow-row5 {
+  animation: bow-row5 133ms linear 1;
+}
+@keyframes bow-row6 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -40px, 0) }
+}
+.bow-row6 {
+  animation: bow-row6 66ms linear 1;
+}
+@keyframes sword-row0 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -280px, 0) }
+}
+.sword-row0 {
+  animation: sword-row0 466ms linear 1;
+}
+@keyframes sword-row1 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -240px, 0) }
+}
+.sword-row1 {
+  animation: sword-row1 400ms linear 1;
+}
+@keyframes sword-row2 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -200px, 0) }
+}
+.sword-row2 {
+  animation: sword-row2 333ms linear 1;
+}
+@keyframes sword-row3 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -160px, 0) }
+}
+.sword-row3 {
+  animation: sword-row3 266ms linear 1;
+}
+@keyframes sword-row4 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -120px, 0) }
+}
+.sword-row4 {
+  animation: sword-row4 200ms linear 1;
+}
+@keyframes sword-row5 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -80px, 0) }
+}
+.sword-row5 {
+  animation: sword-row5 133ms linear 1;
+}
+@keyframes sword-row6 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -40px, 0) }
+}
+.sword-row6 {
+  animation: sword-row6 66ms linear 1;
+}
