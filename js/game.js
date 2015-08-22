@@ -284,6 +284,47 @@ t.center = function () {
 return t
 }())
 
+var Items = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , o = {}
+  , items = {}
+  , active = 'bow'
+  , dirty = false
+
+items['bow'] = $('#bow')
+items['sword'] = $('#sword')
+items['potion'] = $('#potion')
+items['key'] = $('#key')
+
+o.render = function () {
+  var key = 0
+
+  if (dirty) {
+    for (key in items) {
+      if (items.hasOwnProperty(key)) {
+        if (key === active) {
+          items[key].add('picked')
+        } else {
+          items[key].remove('picked')
+        }
+      }
+    }
+    dirty = false
+  }
+
+  return this
+}
+
+o.pick = function (item) {
+  active = item
+  dirty = true
+}
+
+return o
+}())
+
 ;(function (Game) {
 'use strict';
 
@@ -330,13 +371,18 @@ function onFire (target, e) {
   if (Weapon.moving()) {
     return
   }
-  Weapon.fire({ y: 340 }, { y: -32 })
+  Weapon.fire({ y: 218 }, { y: -32 })
+}
+
+function onItem (target, e) {
+  Items.pick(target.unwrap().id)
 }
 
 function render () {
   requestAnimationFrame(render)
   Weapon.render()
   Target.render()
+  Items.render()
 }
 
 function startGame (callback) {
@@ -348,6 +394,10 @@ Game.play = function () {
 
   $('#weapon').top(340)
   $('#room').touch(onFire, null)
+  $('#bow').touch(onItem, null)
+  $('#sword').touch(onItem, null)
+  $('#potion').touch(onItem, null)
+  $('#key').touch(onItem, null)
 
   startGame(render)
 }
