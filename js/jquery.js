@@ -1,6 +1,8 @@
 ;(function () {
 'use strict';
 
+var animations = []
+
 function Fn (selector) {
   if (selector instanceof Fn) {
     return selector
@@ -14,6 +16,26 @@ function Fn (selector) {
     }
   }
 
+  return this
+}
+
+Fn.prototype.left = function (value) {
+  if (this.element) {
+    if (value === undefined) {
+      return parseInt(this.element.style.left, 10)
+    }
+    this.element.style.left = value + 'px'
+  }
+  return this
+}
+
+Fn.prototype.top = function (value) {
+  if (this.element) {
+    if (value === undefined) {
+      return parseInt(this.element.style.top, 10)
+    }
+    this.element.style.top = value + 'px'
+  }
   return this
 }
 
@@ -85,6 +107,56 @@ Fn.prototype.touch = function (start, end) {
       }
     }
   }
+  return this
+}
+
+Fn.prototype.on = function (message, callback) {
+  if (this.element) {
+    this.element.addEventListener(message, callback, false)
+  }
+  return this
+}
+
+Fn.prototype.off = function (message, callback) {
+  if (this.element) {
+    this.element.removeEventListener(message, callback, false)
+  }
+  return this
+}
+
+Fn.prototype.animate = function (klass, callback) {
+  var self = this
+
+  function onTransitionEnd () {
+    var i = 0
+      , temp = []
+
+    for (i = 0; i < animations.length; i += 1) {
+      if (animations[i].element !== self &&
+          animations[i].callback !== onTransitionEnd &&
+          animations[i].klass !== klass) {
+        temp.push(animations[i])
+      }
+    }
+    animations = temp
+
+    self.off('webkitTransitionEnd', onTransitionEnd)
+    self.off('otransitionend', onTransitionEnd)
+    self.off('transitionend', onTransitionEnd)
+    self.remove(klass)
+    if (callback) {
+      callback()
+    }
+  }
+
+  if (this.element) {
+    animations.push({ element: self, callback: onTransitionEnd, klass: klass })
+    this.on('webkitTransitionEnd', onTransitionEnd)
+    this.on('otransitionend', onTransitionEnd)
+    this.on('transitionend', onTransitionEnd)
+    this.add(klass)
+  }
+
   return this
 }
 

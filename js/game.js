@@ -231,59 +231,18 @@ function onColor (target, e) {
   })
 }
 
-Game.play = function () {
-  var $ = window.jQuery
-    , mannequin = ImageCache.getDataURL('mannequin')
-    , html = ''
-    , name = ''
-    , i = 0
-    , j = 0
-
-  for (i = 1; i <= 3; i += 1) {
-    switch (i) {
-      case 1:
-        name = 'Shirts'
-        break
-      case 2:
-        name = 'Pants'
-        break;
-      case 3:
-        name = 'Shoes'
-        break
-    }
-    html = ''
-    html += '<p class="pixelated label">'
-    html += '<span>'+name+'</span>'
-    html += '</p>'
-    for (j = 1; j <= 4; j += 1) {
-      html += '<div id="mannequin'+i+j+'" class="mannequin">'
-      html += '<img src="./img/lamp.png" class="pixelated lamp" />'
-      html += '<img id="mannequin'+i+j+'-img" class="pixelated figure" />'
-      html += '</div>'
-    }
-    $('#f'+i).html(html)
-
-    for (j = 1; j <= 4; j += 1) {
-      $('#mannequin'+i+j).touch(onMannequin, offMannequin)
-      $('#mannequin'+i+j+'-img').unwrap().src = mannequin
-    }
-  }
-
-  $('#picker').touch(onPicker, offPicker)
-
-  $('#yellow').touch(onColor, null)
-  $('#yellow-orange').touch(onColor, null)
-  $('#orange').touch(onColor, null)
-  $('#red-orange').touch(onColor, null)
-  $('#red').touch(onColor, null)
-  $('#red-violet').touch(onColor, null)
-  $('#violet').touch(onColor, null)
-  $('#blue-violet').touch(onColor, null)
-  $('#blue').touch(onColor, null)
-  $('#blue-green').touch(onColor, null)
-  $('#green').touch(onColor, null)
-  $('#yellow-green').touch(onColor, null)
+function onWeapon (target, e) {
+  var y = target.top()
+  target.top(-32)
+  target.animate('fire', function () {
+    target.top(y)
+  })
 }
 
+Game.play = function () {
+  var $ = window.jQuery
+
+  $('#weapon').touch(onWeapon, null).top('340')
+}
 
 })(window.Game = window.Game || {})

@@ -26,6 +26,35 @@ ol {
   list-style: none;
 }
 /* GAME */
+#room {
+  position: relative;
+  display: block;
+  width: 320px; /* iPhone 4 */
+  height: 372px; /* iPhone 4 */
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  background: rgb(222, 238, 214);
+}
+#weapon {
+  background: rgb(109, 194, 202);
+}
+.weapon {
+  position: absolute;
+  left: 144px;
+  top: 340px;
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+.weapon.start {
+}
+.weapon.end {
+  top: -32px;
+}
+.fire {
+  transition: top .5s linear;
+}
 #store {
   position: relative;
   display: block;
@@ -319,4 +348,26 @@ rgb(150, 150, 150)
 rgb(115, 115, 115)
 rgb(82, 82, 82)
 rgb(37, 37, 37)
+*/
+
+/* DawnBringer's 16 Color Palette */
+/* http://pixeljoint.com/forum/forum_posts.asp?TID=12795 */
+/*
+rgb(20, 12, 28)
+rgb(68, 36, 52)
+rgb(48, 52, 109)
+rgb(78, 74, 78)
+rgb(133, 76, 48)
+rgb(52, 101, 36)
+rgb(208, 70, 72)
+rgb(117, 113, 97)
+rgb(89, 125, 206)
+rgb(210, 125, 44)
+rgb(133, 149, 161)
+rgb(109, 170, 44)
+rgb(210, 170, 153)
+rgb(109, 194, 202)
+rgb(218, 212, 94)
+rgb(222, 238, 214)
+rgb(20, 12, 28)
 */
