@@ -18,7 +18,7 @@ task :test => 'css/game.min.css' do
 end
 
 desc 'Publish to the website'
-task :publish do
+task :publish => 'css/game.min.css' do
   sh 'rsync -avz --delete --files-from=manifest.txt ./ frankmitchell.org:/home/public/js13k2015/'
 end
 
