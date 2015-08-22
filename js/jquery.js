@@ -160,6 +160,33 @@ Fn.prototype.animate = function (klass, callback) {
   return this
 }
 
+Fn.prototype.offset = function () {
+  var doc = null
+    , box = null
+    , win = null
+    , elm = null
+    , x = 0
+    , y = 0
+    , op = null
+
+  if (this.element) {
+    box = this.element.getBoundingClientRect()
+    if (box.width || box.height) {
+      x = box.left
+      y = box.top
+      op = this.element.offsetParent
+      while (op) {
+        x -= op.offsetLeft
+        y -= op.offsetTop
+        op = op.offsetParent
+      }
+    }
+    return { offsetLeft: x, offsetTop: y }
+  }
+
+  return null
+}
+
 Fn.prototype.unwrap = function () {
   return this.element
 }

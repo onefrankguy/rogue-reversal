@@ -36,6 +36,21 @@ ol {
   overflow: hidden;
   background: rgb(222, 238, 214);
 }
+.target {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: rgb(89, 125, 206);
+  animation: bounce 4s linear infinite;
+}
+@keyframes bounce {
+  0% { transform: translate3d(0px, 0, 0) }
+  50% { transform: translate3d(288px, 0, 0) }
+  100% { transform: translate3d(0px, 0, 0) }
+}
 .character {
   position: absolute;
   left: 144px;
@@ -371,5 +386,4 @@ rgb(210, 170, 153)
 rgb(109, 194, 202)
 rgb(218, 212, 94)
 rgb(222, 238, 214)
-rgb(20, 12, 28)
 */

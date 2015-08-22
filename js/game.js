@@ -225,7 +225,63 @@ w.fire = function (s, e) {
   return this
 }
 
+w.center = function () {
+  var u = element.offset()
+  return { x: u.offsetLeft + 16, y: u.offsetTop + 16 }
+}
+
 return w
+}())
+
+var Target = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , t = {}
+  , element = $('#target')
+  , start = { x: 0 }
+  , end = { x: 0 }
+  , dirty = 0
+
+t.render = function () {
+  var wc = {}
+    , tc = {}
+    , dx = 0
+    , dy = 0
+
+  if (Weapon.moving()) {
+    wc = Weapon.center()
+    tc = Target.center()
+    dx = Math.abs(wc.x - tc.x)
+    dy = Math.abs(wc.y - tc.y)
+    if (dy <= 32 && dx <= 48) {
+      if (dx <= 8) {
+        console.log('perfect')
+        element.add('hidden')
+      } else if (dx <= 15) {
+        console.log('close')
+        element.add('hidden')
+      } else {
+        console.log('miss')
+      }
+    }
+  } else {
+    element.remove('hidden')
+  }
+
+  return this
+}
+
+t.moving = function () {
+  return dirty > 0
+}
+
+t.center = function () {
+  var u = element.offset()
+  return { x: u.offsetLeft + 16, y: u.offsetTop + 16 }
+}
+
+return t
 }())
 
 ;(function (Game) {
@@ -279,6 +335,7 @@ function onFire (target, e) {
 
 function render () {
   requestAnimationFrame(render)
+  Target.render()
   Weapon.render()
 }
 
