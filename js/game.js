@@ -310,6 +310,8 @@ var $ = window.jQuery
   , emote = $('#emote')
   , row = 0
   , col = 3
+  , num_rows = 6
+  , num_cols = 7
   , item = null
   , dirty = false
 
@@ -341,6 +343,14 @@ p.render = function () {
           hit = 'right'
         }
       }
+      if (item === 'potion') {
+        hit = 'perfect'
+      }
+      if (item === 'key') {
+        if (row !== num_rows - 1) {
+          hit = 'miss'
+        }
+      }
     }
 
     if (item === 'bow') {
@@ -360,6 +370,8 @@ p.render = function () {
             row += 1
             col -= 1
             emote.html('You miss with your bow and adjust your aim right.')
+          } else {
+            emote.html('')
           }
         } else {
           row -= 1
@@ -381,9 +393,27 @@ p.render = function () {
           } else if (hit === 'right') {
             col += 1
             emote.html('You miss with your sword and step right.')
+          } else {
+            emote.html('')
           }
         } else {
           emote.html("It's too far.")
+        }
+      }
+    } else if (item === 'potion') {
+      if (hit !== '') {
+        emote.html('You drink the potion.')
+      } else {
+        emote.html('')
+      }
+    } else if (item === 'key') {
+      if (hit !== '') {
+        if (hit === 'miss') {
+          emote.html('You throw the key away.')
+        } else if (hit === 'perfect' || hit === 'close') {
+          emote.html('You unlock the door.')
+        } else {
+          emote.html("You're having trouble finding the lock.")
         }
       }
     }
@@ -391,16 +421,16 @@ p.render = function () {
     if (row < 0) {
       row = 0
     }
-    if (row > 5) {
-      row = 5
+    if (row >= num_rows) {
+      row = num_rows - 1
     }
     element.top(240 - (row * 40))
 
     if (col < 0) {
       col = 0
     }
-    if (col > 5) {
-      col = 5
+    if (col >= num_cols) {
+      col = num_cols - 1
     }
     element.left((col * 40) + 20)
 
