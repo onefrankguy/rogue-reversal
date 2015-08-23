@@ -4,6 +4,12 @@ var Room = (function () {
 var r = {}
   , num_rows = 6
   , num_cols = 7
+  , tile_width = 40
+  , tile_height = 40
+
+function getRandomInt (min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 r.is_last_row = function (row) {
   return row === num_rows - 1
@@ -29,7 +35,69 @@ r.clamp_col = function (col) {
   return col
 }
 
+r.random_tile = function (box) {
+  var row = getRandomInt(1, num_rows + 1)
+    , col = getRandomInt(1, num_cols + 1)
+    , x = (col * tile_width) - (box.width / 2)
+    , y = (row * tile_height) + (tile_height / 2) - (box.height / 2)
+  return { top: y, left: x, width: box.width, height: box.height, right: x + box.width, bottom: y + box.height }
+}
+
+r.intersect = function (box1, box2) {
+  return !(box2.left > box1.right ||
+           box2.right < box1.left ||
+           box2.top > box1.bottom ||
+           box2.bottom < box1.top)
+}
+
 return r
+}())
+
+var Key = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , k = {}
+  , element = $('#pickup-key')
+  , position = { top: 0, left: 0 }
+  , held = true
+  , dirty = false
+
+k.render = function () {
+  if (dirty) {
+    if (held) {
+      element.add('hidden')
+    } else {
+      element.top(position.top)
+      element.left(position.left)
+      element.remove('hidden')
+    }
+    dirty = false
+  }
+}
+
+k.pickup = function (offset) {
+  if (!held && Room.intersect(offset, position)) {
+    held = true
+    dirty = true
+  }
+  return this
+}
+
+k.discard = function () {
+  if (held) {
+    held = false
+    position = Room.random_tile({ width: 16, height: 16 })
+    dirty = true
+  }
+  return this
+}
+
+k.held = function () {
+  return held
+}
+
+return k
 }())
 
 var ColorWheel = (function () {
@@ -430,6 +498,7 @@ p.render = function () {
       }
     } else if (item === 'key') {
       if (hit === 'miss') {
+        Key.discard()
         emote.html('You throw the key away.')
       } else if (hit === 'perfect' || hit === 'close') {
         emote.html('You unlock the door.')
@@ -443,6 +512,10 @@ p.render = function () {
 
     col = Room.clamp_col(col)
     element.left((col * 40) + 20)
+
+    if (!Key.held() && Key.pickup(element.box()).held()) {
+      emote.html('You pick up the key.')
+    }
   }
 
   return this
@@ -451,6 +524,12 @@ p.render = function () {
 p.fire = function () {
   /* Record the item when the weapon's fired in case the user swaps. */
   item = Items.picked()
+
+  if (item === 'key' && !Key.held()) {
+    emote.html('You no longer have the key.')
+    return this
+  }
+
   Weapon.fire(item, { x: (col * 40) + 20 + 16, y: 240 - (row * 40) })
   dirty = true
   return this
@@ -520,6 +599,7 @@ function render () {
   requestAnimationFrame(render)
   Weapon.render()
   Target.render()
+  Key.render()
   Items.render()
   Player.render()
 }

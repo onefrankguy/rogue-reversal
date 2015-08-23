@@ -139,6 +139,15 @@ ol {
 .door.faster {
   animation: door-bounce 1s linear infinite;
 }
+.key {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: rgb(218, 212, 94);
+}
 #dungeon {
   position: relative;
   display: block;
