@@ -5,3 +5,12 @@ js/jquery.js
 img/lamp.png
 img/bricks.png
 img/mannequin.png
+img/castle-top-wall.png
+img/castle-bottom-wall.png
+img/castle-left-wall.png
+img/castle-right-wall.png
+img/castle-top-right.png
+img/castle-top-left.png
+img/castle-bottom-left.png
+img/castle-bottom-right.png
+img/castle-door-closed.png

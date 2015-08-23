@@ -15,7 +15,7 @@ html {
   font-size: 62.5%;
 }
 body {
-  background: hsla(0, 0%, 15%, 1);
+  background: rgb(20, 12, 28);
   color: hsla(0, 0%, 100%, 1);
   font-size: 1.6rem;
 }
@@ -26,6 +26,108 @@ ol {
   list-style: none;
 }
 /* GAME */
+.castle.left.wall {
+  position: absolute;
+  top: 0px;
+  left: -8px;
+  display: block;
+  width: 32px;
+  height: 100%;
+  background-image: url('../img/castle-left-wall.png');
+  background-repeat: repeat-y;
+  background-color: transparent;
+}
+.castle.right.wall {
+  position: absolute;
+  top: 0px;
+  left: auto;
+  right: -8px;
+  display: block;
+  width: 32px;
+  height: 100%;
+  background-image: url('../img/castle-right-wall.png');
+  background-repeat: repeat-y;
+  background-color: transparent;
+}
+.castle.bottom.wall {
+  position: absolute;
+  top: auto;
+  left: 0;
+  bottom: -16px;
+  display: block;
+  width: 100%;
+  height: 64px;
+  background-image: url('../img/castle-bottom-wall.png');
+  background-repeat: repeat-x;
+  background-color: transparent;
+}
+.castle.top.wall {
+  position: absolute;
+  top: -16px;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 64px;
+  background-image: url('../img/castle-top-wall.png');
+  background-repeat: repeat-x;
+  background-color: transparent;
+}
+.castle.top.left {
+  position: absolute;
+  top: -16px;
+  left: -8px;
+  display: block;
+  width: 32px;
+  height: 64px;
+  background-image: url('../img/castle-top-left.png');
+  background-repeat: none;
+}
+.castle.top.right {
+  position: absolute;
+  top: -16px;
+  right: -8px;
+  display: block;
+  width: 32px;
+  height: 64px;
+  background-image: url('../img/castle-top-right.png');
+  background-repeat: none;
+}
+.castle.bottom.left {
+  position: absolute;
+  left: -8px;
+  bottom: -16px;
+  display: block;
+  width: 32px;
+  height: 64px;
+  background-image: url('../img/castle-bottom-left.png');
+  background-repeat: none;
+}
+.castle.bottom.right {
+  position: absolute;
+  right: -8px;
+  bottom: -16px;
+  display: block;
+  width: 32px;
+  height: 64px;
+  background-image: url('../img/castle-bottom-right.png');
+  background-repeat: none;
+}
+.castle.door.closed {
+  position: absolute;
+  left: 24px;
+  top: 0px;
+  display: block;
+  width: 32px;
+  height: 64px;
+  background-image: url('../img/castle-door-closed.png');
+  background-repeat: none;
+  animation: door-bounce 4s linear infinite;
+}
+@keyframes door-bounce {
+  0% { transform: translate3d(0px, 0, 0) }
+  50% { transform: translate3d(240px, 0, 0) }
+  100% { transform: translate3d(0px, 0, 0) }
+}
 #dungeon {
   position: relative;
   display: block;
@@ -41,6 +143,7 @@ ol {
   display: block;
   width: 100%;
   height: 280px;
+  background-color: rgb(52, 101, 36);
 }
 .wall {
   position: absolute;
@@ -59,12 +162,6 @@ ol {
   width: 48px;
   height: 8px;
   background: rgb(89, 125, 206);
-  animation: bounce 4s linear infinite;
-}
-@keyframes bounce {
-  0% { transform: translate3d(0px, 0, 0) }
-  50% { transform: translate3d(272px, 0, 0) }
-  100% { transform: translate3d(0px, 0, 0) }
 }
 .character {
   position: absolute;
@@ -77,8 +174,8 @@ ol {
 }
 .emote {
   position: absolute;
-  top: 16px;
-  left: 8px;
+  top: 64px;
+  left: 16px;
   font-size: 16px;
   font-weight: bold;
   line-height: 16px;
@@ -100,7 +197,6 @@ ol {
   display: block;
   width: 100%;
   height: 90px;
-  border-top: 1px solid black;
   padding-top: 12.8px;
 }
 .item {
