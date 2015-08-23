@@ -121,12 +121,23 @@ ol {
   height: 64px;
   background-image: url('../img/castle-door-closed.png');
   background-repeat: none;
-  animation: door-bounce 4s linear infinite;
 }
 @keyframes door-bounce {
   0% { transform: translate3d(0px, 0, 0) }
   50% { transform: translate3d(256px, 0, 0) }
   100% { transform: translate3d(0px, 0, 0) }
+}
+.door.slower {
+  animation: door-bounce 4s linear infinite;
+}
+.door.slow {
+  animation: door-bounce 3s linear infinite;
+}
+.door.fast {
+  animation: door-bounce 2s linear infinite;
+}
+.door.faster {
+  animation: door-bounce 1s linear infinite;
 }
 #dungeon {
   position: relative;

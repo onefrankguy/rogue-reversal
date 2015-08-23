@@ -262,7 +262,7 @@ var Items = (function () {
 var $ = window.jQuery
   , o = {}
   , items = {}
-  , active = 'bow'
+  , active = 'sword'
   , dirty = false
 
 items['bow'] = $('#bow')
@@ -330,91 +330,79 @@ p.render = function () {
     wpoint = { x: wbox.left + (wbox.width / 2), y: wbox.top }
     tpoint = { x: tbox.left + (tbox.width / 2), y: tbox.top + tbox.height }
 
-    if (wpoint.y <= tbox.bottom) {
-      hit = 'miss'
-      if (wpoint.x >= tbox.left - (wbox.width * 2) && wpoint.x <= tbox.right + (wbox.width * 2)) {
-        if (wpoint.x >= tpoint.x - (wbox.width * 1) && wpoint.x <= tpoint.x + (wbox.width * 1)) {
-          hit = 'perfect'
-        } else if (wpoint.x >= tbox.left && wpoint.x <= tbox.right) {
-          hit = 'close'
-        } else if (wpoint.x < tbox.left) {
-          hit = 'left'
-        } else if (wpoint.x > tbox.right) {
-          hit = 'right'
-        }
-      }
-      if (item === 'potion') {
+    if (wpoint.y > tbox.bottom) {
+      dirty = true
+      return this
+    }
+
+    dirty = false
+    hit = 'miss'
+
+    if (wpoint.x >= tbox.left - (wbox.width * 2) && wpoint.x <= tbox.right + (wbox.width * 2)) {
+      if (wpoint.x >= tpoint.x - (wbox.width * 1) && wpoint.x <= tpoint.x + (wbox.width * 1)) {
         hit = 'perfect'
+      } else if (wpoint.x >= tbox.left && wpoint.x <= tbox.right) {
+        hit = 'close'
+      } else if (wpoint.x < tbox.left) {
+        hit = 'left'
+      } else if (wpoint.x > tbox.right) {
+        hit = 'right'
       }
-      if (item === 'key') {
-        if (row !== num_rows - 1) {
-          hit = 'miss'
-        }
+    }
+    if (item === 'key') {
+      if (row !== num_rows - 1) {
+        hit = 'miss'
       }
     }
 
     if (item === 'bow') {
-      if (hit !== '') {
-        if (row === 0) {
-          if (hit === 'perfect') {
-            row += 2
-            emote.html('You score a perfect hit with your bow and leap forward.')
-          } else if (hit === 'close') {
-            row += 1
-            emote.html('You score a hit with your bow and step forward.')
-          } else if (hit === 'left') {
-            row += 1
-            col += 1
-            emote.html('You miss with your bow and adjust your aim left.')
-          } else if (hit === 'right') {
-            row += 1
-            col -= 1
-            emote.html('You miss with your bow and adjust your aim right.')
-          } else {
-            emote.html('')
-          }
-        } else {
-          row -= 1
-          emote.html('The force of your shot knocks you back.')
-        }
+      if (hit === 'perfect') {
+        row -= 1
+        emote.html('You score a perfect hit with your bow.')
+      } else if (hit === 'close') {
+        row -= 1
+        emote.html('You score a hit with your bow.')
+      } else if (hit === 'left') {
+        row += 1
+        col += 1
+        emote.html('You miss and adjust your aim left.')
+      } else if (hit === 'right') {
+        row += 1
+        col -= 1
+        emote.html('You miss and adjust your aim right.')
+      } else {
+        row -= 1
+        emote.html('The force of your shot knocks you back.')
       }
     } else if (item === 'sword') {
-      if (hit !== '') {
-        if (row !== 0) {
-          if (hit === 'perfect') {
-            row += 2
-            emote.html('You score a perfect hit with your sword and leap forward.')
-          } else if (hit === 'close') {
-            row += 1
-            emote.html('You score a hit with your sword and step forward.')
-          } else if (hit === 'left') {
-            col -= 1
-            emote.html('You miss with your sword and step left.')
-          } else if (hit === 'right') {
-            col += 1
-            emote.html('You miss with your sword and step right.')
-          } else {
-            emote.html('')
-          }
-        } else {
-          emote.html("It's too far.")
-        }
+      if (hit === 'perfect') {
+        row += 2
+        emote.html('You score a perfect hit with your sword.')
+      } else if (hit === 'close') {
+        row += 1
+        emote.html('You score a hit with your sword.')
+      } else if (hit === 'left') {
+        col -= 1
+        emote.html('You miss and step left.')
+      } else if (hit === 'right') {
+        col += 1
+        emote.html('You miss and step right.')
+      } else {
+        emote.html('')
       }
     } else if (item === 'potion') {
-      if (hit !== '') {
+      if (hit !== 'miss') {
         emote.html('You drink the potion.')
       } else {
         emote.html('')
       }
     } else if (item === 'key') {
-      if (hit !== '') {
-        if (hit === 'miss') {
-          emote.html('You throw the key away.')
-        } else if (hit === 'perfect' || hit === 'close') {
-          emote.html('You unlock the door.')
-        } else {
-          emote.html("You're having trouble finding the lock.")
-        }
+      if (hit === 'miss') {
+        emote.html('You throw the key away.')
+      } else if (hit === 'perfect' || hit === 'close') {
+        emote.html('You unlock the door.')
+      } else {
+        emote.html("You're having trouble finding the lock.")
       }
     }
 
@@ -433,8 +421,6 @@ p.render = function () {
       col = num_cols - 1
     }
     element.left((col * 40) + 20)
-
-    dirty = (hit === '')
   }
 
   return this
