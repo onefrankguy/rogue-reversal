@@ -120,7 +120,7 @@ k.pickup = function (offset) {
 k.discard = function () {
   if (held) {
     held = false
-    position = Room.random_tile({ width: 16, height: 16 })
+    position = Room.random_tile({ width: 32, height: 32 })
     dirty = true
   }
   return this
