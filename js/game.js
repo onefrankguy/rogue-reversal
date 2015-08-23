@@ -201,6 +201,7 @@ var $ = window.jQuery
 w.render = function () {
   if (dirty === 1) {
     element.top(start.y)
+    element.left(start.x)
     element.remove('hidden')
     dirty = 2
   } else if (dirty === 2) {
@@ -301,6 +302,7 @@ var $ = window.jQuery
   , element = $('#character')
   , emote = $('#emote')
   , row = 0
+  , col = 3
   , dirty = false
 
 p.render = function () {
@@ -345,8 +347,12 @@ p.render = function () {
             row += 1
             emote.html('You score a hit with your bow and step forward.')
           } else if (hit === 'left') {
+            row += 1
+            col -= 1
             emote.html('You miss with your bow and adjust your aim left.')
           } else if (hit === 'right') {
+            row += 1
+            col += 1
             emote.html('You miss with your bow and adjust your aim right.')
           }
         } else {
@@ -364,8 +370,10 @@ p.render = function () {
             row += 1
             emote.html('You score a hit with your sword and step forward.')
           } else if (hit === 'left') {
+            col -= 1
             emote.html('You miss with your sword and step left.')
           } else if (hit === 'right') {
+            col += 1
             emote.html('You miss with your sword and step right.')
           }
         } else {
@@ -377,8 +385,18 @@ p.render = function () {
     if (row < 0) {
       row = 0
     }
-
+    if (row > 5) {
+      row = 5
+    }
     element.top(240 - (row * 40))
+
+    if (col < 0) {
+      col = 0
+    }
+    if (col > 5) {
+      col = 5
+    }
+    element.left(240 - (col * 40) + 20)
 
     dirty = (hit === '')
   }
@@ -387,7 +405,7 @@ p.render = function () {
 }
 
 p.fire = function () {
-  Weapon.fire({ y: 240 - (row * 40) })
+  Weapon.fire({ x: 240 - (col * 40) + 20 + 16, y: 240 - (row * 40) })
   dirty = true
   console.log('You fire your bow at the door.')
   return this
