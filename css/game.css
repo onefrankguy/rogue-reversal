@@ -199,7 +199,19 @@ ol {
   display: block;
   width: 8px;
   height: 40px;
-  background: rgb(109, 194, 202);
+  background: transparent;
+}
+.weapon.bow {
+  background: rgb(133, 76, 48);
+}
+.weapon.sword {
+  background: rgb(117, 113, 97);
+}
+.weapon.potion {
+  background: rgb(208, 70, 72);
+}
+.weapon.key {
+  background: rgb(210, 125, 44);
 }
 .items {
   position: absolute;
@@ -637,4 +649,102 @@ rgb(222, 238, 214)
 }
 .sword-row6 {
   animation: sword-row6 66ms linear 1;
+}
+@keyframes potion-row0 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -280px, 0) }
+}
+.potion-row0 {
+  animation: potion-row0 466ms linear 1;
+}
+@keyframes potion-row1 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -240px, 0) }
+}
+.potion-row1 {
+  animation: potion-row1 400ms linear 1;
+}
+@keyframes potion-row2 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -200px, 0) }
+}
+.potion-row2 {
+  animation: potion-row2 333ms linear 1;
+}
+@keyframes potion-row3 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -160px, 0) }
+}
+.potion-row3 {
+  animation: potion-row3 266ms linear 1;
+}
+@keyframes potion-row4 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -120px, 0) }
+}
+.potion-row4 {
+  animation: potion-row4 200ms linear 1;
+}
+@keyframes potion-row5 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -80px, 0) }
+}
+.potion-row5 {
+  animation: potion-row5 133ms linear 1;
+}
+@keyframes potion-row6 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -40px, 0) }
+}
+.potion-row6 {
+  animation: potion-row6 66ms linear 1;
+}
+@keyframes key-row0 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -280px, 0) }
+}
+.key-row0 {
+  animation: key-row0 466ms linear 1;
+}
+@keyframes key-row1 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -240px, 0) }
+}
+.key-row1 {
+  animation: key-row1 400ms linear 1;
+}
+@keyframes key-row2 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -200px, 0) }
+}
+.key-row2 {
+  animation: key-row2 333ms linear 1;
+}
+@keyframes key-row3 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -160px, 0) }
+}
+.key-row3 {
+  animation: key-row3 266ms linear 1;
+}
+@keyframes key-row4 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -120px, 0) }
+}
+.key-row4 {
+  animation: key-row4 200ms linear 1;
+}
+@keyframes key-row5 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -80px, 0) }
+}
+.key-row5 {
+  animation: key-row5 133ms linear 1;
+}
+@keyframes key-row6 {
+  0% { transform: translate3d(0, 0, 0) }
+  100% { transform: translate3d(0, -40px, 0) }
+}
+.key-row6 {
+  animation: key-row6 66ms linear 1;
 }

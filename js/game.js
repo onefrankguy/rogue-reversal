@@ -196,12 +196,18 @@ var $ = window.jQuery
   , w = {}
   , element = $('#weapon')
   , start = { y: 0 }
+  , item = null
   , dirty = 0
 
 w.render = function () {
   if (dirty === 1) {
     element.top(start.y)
     element.left(start.x)
+    element.remove('bow')
+    element.remove('sword')
+    element.remove('potion')
+    element.remove('key')
+    element.add(item)
     element.remove('hidden')
     dirty = 2
   } else if (dirty === 2) {
@@ -218,7 +224,8 @@ w.moving = function () {
   return dirty > 0
 }
 
-w.fire = function (s) {
+w.fire = function (i, s) {
+  item = i
   start = s
   dirty = 1
   return this
@@ -303,6 +310,7 @@ var $ = window.jQuery
   , emote = $('#emote')
   , row = 0
   , col = 3
+  , item = null
   , dirty = false
 
 p.render = function () {
@@ -311,7 +319,6 @@ p.render = function () {
     , wpoint = null
     , tpoint = null
     , hit = ''
-    , item = null
 
   dirty &= Weapon.moving()
 
@@ -336,7 +343,6 @@ p.render = function () {
       }
     }
 
-    item = Items.picked()
     if (item === 'bow') {
       if (hit !== '') {
         if (row === 0) {
@@ -405,9 +411,10 @@ p.render = function () {
 }
 
 p.fire = function () {
-  Weapon.fire({ x: (col * 40) + 20 + 16, y: 240 - (row * 40) })
+  /* Record the item when the weapon's fired in case the user swaps. */
+  item = Items.picked()
+  Weapon.fire(item, { x: (col * 40) + 20 + 16, y: 240 - (row * 40) })
   dirty = true
-  console.log('You fire your bow at the door.')
   return this
 }
 

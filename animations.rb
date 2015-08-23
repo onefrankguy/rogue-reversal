@@ -14,6 +14,8 @@ rows = (room_height.to_f / row_height.to_f).to_i
 weapons = %w{
   bow
   sword
+  potion
+  key
 }
 
 css = []
