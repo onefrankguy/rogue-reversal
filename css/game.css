@@ -256,6 +256,38 @@ ol {
 .item.picked {
   background: rgb(133, 149, 161);
 }
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.menu {
+  background: rgb(20, 12, 28);
+}
+.button {
+  display: inline-block;
+  color: rgb(222, 238, 214);
+  background: rgb(78, 74, 78);
+  border: 1px solid rgb(222, 238, 214);
+  text-align: center;
+  font-family: monospace;
+  font-variant: small-caps;
+  font-size: 32px;
+  line-height: 64px;
+  height: 64px;
+  border-radius: 16px;
+}
+.start {
+  position: relative;
+  top: 186px;
+  left: 0;
+  display: block;
+  width: 120px;
+  margin: 0 auto;
+}
 #store {
   position: relative;
   display: block;

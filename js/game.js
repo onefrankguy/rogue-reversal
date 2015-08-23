@@ -1,3 +1,36 @@
+var Menu = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , m = {}
+  , element = $('#menu')
+  , hidden = false
+  , dirty = false
+
+m.reset = function () {
+  hidden = false
+  dirty = true
+}
+
+m.render = function () {
+  if (dirty) {
+    if (hidden) {
+      element.add('hidden')
+    } else {
+      element.remove('hidden')
+    }
+    dirty = false
+  }
+}
+
+m.hide = function () {
+  hidden = true
+  dirty = true
+}
+
+return m
+}())
+
 var Room = (function () {
 'use strict';
 
@@ -495,6 +528,7 @@ p.render = function () {
       if (Room.is_last_row(row)) {
         if (hit === 'perfect' || hit === 'close') {
           this.reset()
+          Menu.reset()
           emote.html('You unlock the door.')
         } else if (hit === 'left' || hit === 'right') {
           emote.html("You're having trouble with the lock.")
@@ -604,6 +638,7 @@ function onItem (target, e) {
 
 function render () {
   requestAnimationFrame(render)
+  Menu.render()
   Weapon.render()
   Target.render()
   Key.render()
@@ -615,6 +650,15 @@ function startGame (callback) {
   requestAnimationFrame(callback)
 }
 
+function onStart (target, e) {
+  e.stopPropagation()
+}
+
+function offStart (target, e) {
+  e.stopPropagation()
+  Menu.hide()
+}
+
 Game.play = function () {
   var $ = window.jQuery
 
@@ -623,6 +667,7 @@ Game.play = function () {
   $('#sword').touch(onItem, null)
   $('#potion').touch(onItem, null)
   $('#key').touch(onItem, null)
+  $('#start').touch(onStart, offStart)
 
   startGame(render)
 }
