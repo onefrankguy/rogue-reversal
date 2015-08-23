@@ -256,6 +256,7 @@ ol {
 .item.picked {
   background: rgb(133, 149, 161);
 }
+/* MENU */
 .overlay {
   position: absolute;
   top: 0;
@@ -265,25 +266,73 @@ ol {
   height: 100%;
 }
 .menu {
+  color: rgb(222, 238, 214);
   background: rgb(20, 12, 28);
+  font-family: monospace;
+}
+.title {
+  font-size: 24px;
+  line-height: 24px;
+  text-align: center;
+  margin: 24px auto;
+  color : rgb(208, 70, 72);
+}
+.quests {
+  position: relative;
+  display: block;
+  border: 1px solid rgb(222, 238, 214);
+  margin: 48px 16px;
+  padding: 8px;
+  background: rgb(78, 74, 78);
+}
+.quest.title {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 18px;
+  margin: 0 0 8px 0;
+  color: rgb(222, 238, 214);
+}
+.quest.counter {
+  display: inline-block;
+  font-size: 18px;
+  line-height: 18px;
+}
+.quest.text {
+  display: block;
+  font-size: 14px;
+  line-height: 14px;
+  overflow: hidden;
+}
+.quest.skip {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  font-size: 11px;
+  line-height: 28px;
+  text-align: center;
+  text-transform: uppercase;
+  border: 2px solid rgb(210, 125, 44);
+  border-radius: 16px;
+  background: rgb(208, 70, 72);
+  color: rgb(20, 12, 28);
 }
 .button {
   display: inline-block;
-  color: rgb(222, 238, 214);
-  background: rgb(78, 74, 78);
-  border: 1px solid rgb(222, 238, 214);
+  color: rgb(20, 12, 28);
+  background: rgb(208, 70, 72);
+  border: 2px solid rgb(210, 125, 44);
   text-align: center;
   font-family: monospace;
   font-variant: small-caps;
   font-size: 32px;
-  line-height: 64px;
-  height: 64px;
-  border-radius: 16px;
+  line-height: 44px;
+  height: 48px;
+  border-radius: 32px;
 }
-.start {
-  position: relative;
-  top: 186px;
-  left: 0;
+.play {
   display: block;
   width: 120px;
   margin: 0 auto;

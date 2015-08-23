@@ -667,7 +667,7 @@ Game.play = function () {
   $('#sword').touch(onItem, null)
   $('#potion').touch(onItem, null)
   $('#key').touch(onItem, null)
-  $('#start').touch(onStart, offStart)
+  $('#play').touch(onStart, offStart)
 
   startGame(render)
 }
