@@ -203,6 +203,11 @@ ol {
   background: rgb(109, 194, 202);
   border-radius: 16px;
 }
+.player {
+  position: absolute;
+  top: -46px;
+  left: 5px;
+}
 .emote {
   position: absolute;
   top: 64px;

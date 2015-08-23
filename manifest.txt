@@ -19,3 +19,4 @@ img/potion.png
 img/key.png
 img/sword.png
 img/bow.png
+img/player.png
