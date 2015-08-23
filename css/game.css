@@ -243,11 +243,11 @@ ol {
   padding-top: 12.8px;
 }
 .item {
+  position: relative;
   display: inline-block;
   width: 64px;
   height: 64px;
-  border: 1px solid #000;
-  color: #000;
+  color: rgb(20, 12, 28);
   font-size: 16px;
   line-height: 64px;
   margin-left: 12.8px;
@@ -255,6 +255,21 @@ ol {
 }
 .item.picked {
   background: rgb(133, 149, 161);
+}
+.potion1 {
+  position: absolute;
+  left: 22px;
+  top: 10px;
+}
+.potion2 {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+}
+.potion3 {
+  position: absolute;
+  left: 16px;
+  top: 16px;
 }
 /* MENU */
 .overlay {

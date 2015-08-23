@@ -15,3 +15,4 @@ img/castle-bottom-left.png
 img/castle-bottom-right.png
 img/castle-door-closed.png
 img/castle-floor.png
+img/potion.png
