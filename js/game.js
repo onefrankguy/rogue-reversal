@@ -449,11 +449,6 @@ p.render = function () {
         hit = 'right'
       }
     }
-    if (item === 'key') {
-      if (Room.is_last_row(row)) {
-        hit = 'miss'
-      }
-    }
 
     if (item === 'bow') {
       if (hit === 'perfect') {
@@ -497,13 +492,17 @@ p.render = function () {
         emote.html('')
       }
     } else if (item === 'key') {
-      if (hit === 'miss') {
+      if (Room.is_last_row(row)) {
+        if (hit === 'perfect' || hit === 'close') {
+          emote.html('You unlock the door.')
+        } else if (hit === 'left' || hit === 'right') {
+          emote.html("You're having trouble with the lock.")
+        } else {
+          emote.html("There's no door here.")
+        }
+      } else {
         Key.discard()
         emote.html('You throw the key away.')
-      } else if (hit === 'perfect' || hit === 'close') {
-        emote.html('You unlock the door.')
-      } else {
-        emote.html("You're having trouble finding the lock.")
       }
     }
 
