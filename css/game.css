@@ -256,6 +256,11 @@ ol {
 .item.picked {
   background: rgb(133, 149, 161);
 }
+.sword1 {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+}
 .potion1 {
   position: absolute;
   left: 22px;

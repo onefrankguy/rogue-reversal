@@ -17,3 +17,4 @@ img/castle-door-closed.png
 img/castle-floor.png
 img/potion.png
 img/key.png
+img/sword.png
