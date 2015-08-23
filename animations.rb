@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # velocity is in pixels per second
-velocity = 600
+velocity = 800
 
 # row hiight is in pixels
 row_height = 40
@@ -24,7 +24,7 @@ weapons.each do |weapon|
   rows.times do |i|
     name = "#{weapon}-row#{i}"
     distance = room_height - (i * row_height)
-    time = ((distance * 1000) / 600).to_i
+    time = ((distance * 1000) / velocity).to_i
 
     css << "@keyframes #{name} {"
     css << "  0% { transform: translate3d(0, 0, 0) }"

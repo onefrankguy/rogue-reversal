@@ -494,6 +494,7 @@ p.render = function () {
     } else if (item === 'key') {
       if (Room.is_last_row(row)) {
         if (hit === 'perfect' || hit === 'close') {
+          this.reset()
           emote.html('You unlock the door.')
         } else if (hit === 'left' || hit === 'right') {
           emote.html("You're having trouble with the lock.")
@@ -518,6 +519,13 @@ p.render = function () {
   }
 
   return this
+}
+
+p.reset = function () {
+  row = 0
+  col = 3
+  item = null
+  dirty = true
 }
 
 p.fire = function () {
