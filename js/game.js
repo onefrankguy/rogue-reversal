@@ -348,11 +348,11 @@ p.render = function () {
             emote.html('You score a hit with your bow and step forward.')
           } else if (hit === 'left') {
             row += 1
-            col -= 1
+            col += 1
             emote.html('You miss with your bow and adjust your aim left.')
           } else if (hit === 'right') {
             row += 1
-            col += 1
+            col -= 1
             emote.html('You miss with your bow and adjust your aim right.')
           }
         } else {
@@ -396,7 +396,7 @@ p.render = function () {
     if (col > 5) {
       col = 5
     }
-    element.left(240 - (col * 40) + 20)
+    element.left((col * 40) + 20)
 
     dirty = (hit === '')
   }
@@ -405,7 +405,7 @@ p.render = function () {
 }
 
 p.fire = function () {
-  Weapon.fire({ x: 240 - (col * 40) + 20 + 16, y: 240 - (row * 40) })
+  Weapon.fire({ x: (col * 40) + 20 + 16, y: 240 - (row * 40) })
   dirty = true
   console.log('You fire your bow at the door.')
   return this

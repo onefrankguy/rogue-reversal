@@ -114,8 +114,8 @@ ol {
 }
 .castle.door.closed {
   position: absolute;
-  left: 24px;
-  top: 0px;
+  left: 16px;
+  top: -16px;
   display: block;
   width: 32px;
   height: 64px;
@@ -125,7 +125,7 @@ ol {
 }
 @keyframes door-bounce {
   0% { transform: translate3d(0px, 0, 0) }
-  50% { transform: translate3d(240px, 0, 0) }
+  50% { transform: translate3d(256px, 0, 0) }
   100% { transform: translate3d(0px, 0, 0) }
 }
 #dungeon {
@@ -143,7 +143,9 @@ ol {
   display: block;
   width: 100%;
   height: 280px;
-  background-color: rgb(52, 101, 36);
+  background-image: url('../img/castle-floor.png');
+  background-repeat: repeat;
+  background-position: 20px 0px;
 }
 .wall {
   position: absolute;
@@ -170,7 +172,16 @@ ol {
   display: block;
   width: 40px;
   height: 40px;
+}
+.character > span {
+  position: relative;
+  top: 4px;
+  left: 4px;
+  display: block;
+  width: 32px;
+  height: 32px;
   background: rgb(109, 194, 202);
+  border-radius: 16px;
 }
 .emote {
   position: absolute;
