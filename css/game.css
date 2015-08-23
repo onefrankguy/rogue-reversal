@@ -271,6 +271,11 @@ ol {
   left: 16px;
   top: 16px;
 }
+.key1 {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+}
 /* MENU */
 .overlay {
   position: absolute;
