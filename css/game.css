@@ -203,7 +203,9 @@ ol {
   background: transparent;
 }
 .weapon.bow {
-  background: rgb(133, 76, 48);
+  background-image: url('../img/arrow.png');
+  background-position: -10px 0px;
+  background-repeat: no-repeat;
 }
 .weapon.sword {
   background: rgb(117, 113, 97);
