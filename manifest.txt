@@ -18,3 +18,4 @@ img/castle-floor.png
 img/potion.png
 img/key.png
 img/sword.png
+img/bow.png
