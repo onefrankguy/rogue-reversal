@@ -1,3 +1,37 @@
+var Room = (function () {
+'use strict';
+
+var r = {}
+  , num_rows = 6
+  , num_cols = 7
+
+r.is_last_row = function (row) {
+  return row === num_rows - 1
+}
+
+r.clamp_row = function (row) {
+  if (row < 0) {
+    return 0
+  }
+  if (row >= num_rows) {
+    return num_rows - 1
+  }
+  return row
+}
+
+r.clamp_col = function (col) {
+  if (col < 0) {
+    return 0
+  }
+  if (col >= num_cols) {
+    return num_cols - 1
+  }
+  return col
+}
+
+return r
+}())
+
 var ColorWheel = (function () {
 'use strict';
 
@@ -310,8 +344,6 @@ var $ = window.jQuery
   , emote = $('#emote')
   , row = 0
   , col = 3
-  , num_rows = 6
-  , num_cols = 7
   , item = null
   , dirty = false
 
@@ -350,7 +382,7 @@ p.render = function () {
       }
     }
     if (item === 'key') {
-      if (row !== num_rows - 1) {
+      if (Room.is_last_row(row)) {
         hit = 'miss'
       }
     }
@@ -406,20 +438,10 @@ p.render = function () {
       }
     }
 
-    if (row < 0) {
-      row = 0
-    }
-    if (row >= num_rows) {
-      row = num_rows - 1
-    }
+    row = Room.clamp_row(row)
     element.top(240 - (row * 40))
 
-    if (col < 0) {
-      col = 0
-    }
-    if (col >= num_cols) {
-      col = num_cols - 1
-    }
+    col = Room.clamp_col(col)
     element.left((col * 40) + 20)
   }
 
