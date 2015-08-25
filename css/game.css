@@ -181,6 +181,10 @@ ol {
   line-height: 16px;
   color: rgb(20, 12, 28);
 }
+@keyframes spin {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
 .weapon {
   position: absolute;
   left: 128px;
@@ -190,19 +194,19 @@ ol {
   height: 32px;
   background: transparent;
 }
-.weapon.bow {
-  background-image: url('../img/arrow.png');
+.weapon > .gfx {
+  display: block;
+  width: 100%;
+  height: 100%;
   background-position: 0px 0px;
   background-repeat: no-repeat;
 }
-.weapon.sword {
-  background: rgb(117, 113, 97);
+.weapon.bow > .gfx {
+  background-image: url('../img/arrow.png');
 }
-.weapon.potion {
-  background: rgb(208, 70, 72);
-}
-.weapon.key {
-  background: rgb(210, 125, 44);
+.weapon.sword > .gfx {
+  background-image: url('../img/sword.png');
+  animation: spin 250ms linear infinite;
 }
 .items {
   position: absolute;
