@@ -379,13 +379,31 @@ var Target = (function () {
 var $ = window.jQuery
   , t = {}
   , element = $('#target')
+  , start = { x: 144, y: 8 }
+  , dirty = false
 
 t.render = function () {
+  if (dirty) {
+    element.top(start.y)
+    element.left(start.x)
+    dirty = false
+  }
   return this
 }
 
 t.box = function () {
   return element.box()
+}
+
+t.move = function (s) {
+  if (s.hasOwnProperty('x') && start.x !== s.x) {
+    start.x = s.x
+    dirty = true
+  }
+  if (s.hasOwnProperty('y') && start.y !== s.y) {
+    start.y = s.y
+    dirty = true
+  }
 }
 
 return t
@@ -546,6 +564,8 @@ p.render = function () {
 
     col = Room.clamp_col(col)
     element.left((col * 40) + 20)
+
+    Target.move({ x: element.left() })
 
     if (!Key.held() && Key.pickup(element.box()).held()) {
       emote.html('You pick up the key.')

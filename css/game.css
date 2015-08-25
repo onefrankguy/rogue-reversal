@@ -117,22 +117,29 @@ ol {
   background-image: url('../img/castle-door-closed.png');
   background-repeat: none;
 }
-@keyframes door-bounce {
-  0% { transform: translate3d(0px, 0, 0) }
-  50% { transform: translate3d(256px, 0, 0) }
-  100% { transform: translate3d(0px, 0, 0) }
+/* http://www.sitepoint.com/css3-pong-insane-things-to-do-with-css/ */
+@keyframes fly-horizontal {
+  0%,100% { transform: translate3d(-64px, 0, 0) }
+  50% { transform: translate3d(64px, 0, 0) }
 }
-.door.slower {
-  animation: door-bounce 4s linear infinite;
+.fly.horizontal {
+  animation: fly-horizontal 2.3s linear infinite;
 }
-.door.slow {
-  animation: door-bounce 3s linear infinite;
+@keyframes fly-vertical {
+  0%,50%,100% { transform: translate3d(0, 0, 0) }
+  25% { transform: translate3d(0, 8px, 0) }
+  75% { transform: translate3d(0, -8px, 0) }
 }
-.door.fast {
-  animation: door-bounce 2s linear infinite;
+.fly.vertical {
+  animation: fly-vertical 1.9s linear infinite;
 }
-.door.faster {
-  animation: door-bounce 1s linear infinite;
+.target {
+  position: absolute;
+  left: 144px;
+  top: 8px;
+  display: block;
+  width: 32px;
+  height: 32px;
 }
 #dungeon {
   position: relative;
@@ -151,15 +158,6 @@ ol {
   height: 280px;
   background: rgb(222, 238, 214);
   color: rgb(20, 12, 28);
-}
-.target {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  display: block;
-  width: 48px;
-  height: 8px;
-  background: rgb(89, 125, 206);
 }
 .character {
   position: absolute;
