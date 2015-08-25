@@ -35,10 +35,10 @@ var Room = (function () {
 'use strict';
 
 var r = {}
-  , num_rows = 6
-  , num_cols = 7
-  , tile_width = 40
-  , tile_height = 40
+  , num_rows = 8
+  , num_cols = 10
+  , tile_width = 32
+  , tile_height = 32
 
 function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -66,6 +66,14 @@ r.clamp_col = function (col) {
     return num_cols - 1
   }
   return col
+}
+
+r.move_row = function (row) {
+  return (num_rows * tile_height) - (row * tile_height)
+}
+
+r.move_col = function (col) {
+  return (col * tile_width)
 }
 
 r.random_tile = function (box) {
@@ -330,7 +338,7 @@ var Weapon = (function () {
 var $ = window.jQuery
   , w = {}
   , element = $('#weapon')
-  , start = { y: 0 }
+  , start = { x: 0, y: 0 }
   , item = null
   , dirty = 0
 
@@ -379,7 +387,7 @@ var Target = (function () {
 var $ = window.jQuery
   , t = {}
   , element = $('#target')
-  , start = { x: 144, y: 8 }
+  , start = { x: 144, y: 0 }
   , dirty = false
 
 t.render = function () {
@@ -462,7 +470,7 @@ var $ = window.jQuery
   , element = $('#character')
   , emote = $('#emote')
   , row = 0
-  , col = 3
+  , col = 4
   , item = null
   , dirty = false
 
@@ -560,10 +568,10 @@ p.render = function () {
     }
 
     row = Room.clamp_row(row)
-    element.top(240 - (row * 40))
+    element.top(Room.move_row(row))
 
     col = Room.clamp_col(col)
-    element.left((col * 40) + 20)
+    element.left(Room.move_col(col))
 
     Target.move({ x: element.left() })
 
@@ -577,7 +585,7 @@ p.render = function () {
 
 p.reset = function () {
   row = 0
-  col = 3
+  col = 4
   item = null
   dirty = true
 }
@@ -591,7 +599,7 @@ p.fire = function () {
     return this
   }
 
-  Weapon.fire(item, { x: (col * 40) + 20 + 16, y: 240 - (row * 40) })
+  Weapon.fire(item, { x: Room.move_col(col), y: Room.move_row(row) })
   dirty = true
   return this
 }
