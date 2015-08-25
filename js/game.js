@@ -480,6 +480,7 @@ p.render = function () {
     , wpoint = null
     , tpoint = null
     , hit = ''
+    , weapon_width = 8
 
   dirty &= Weapon.moving()
 
@@ -487,7 +488,7 @@ p.render = function () {
     wbox = Weapon.box()
     tbox = Target.box()
     wpoint = { x: wbox.left + (wbox.width / 2), y: wbox.top }
-    tpoint = { x: tbox.left + (tbox.width / 2), y: tbox.top + tbox.height }
+    tpoint = { x: tbox.left + (tbox.width / 2), y: tbox.bottom }
 
     if (wpoint.y > tbox.bottom) {
       dirty = true
@@ -497,8 +498,8 @@ p.render = function () {
     dirty = false
     hit = 'miss'
 
-    if (wpoint.x >= tbox.left - (wbox.width * 2) && wpoint.x <= tbox.right + (wbox.width * 2)) {
-      if (wpoint.x >= tpoint.x - (wbox.width * 1) && wpoint.x <= tpoint.x + (wbox.width * 1)) {
+    if (wpoint.x >= tbox.left - (weapon_width * 3) && wpoint.x <= tbox.right + (weapon_width * 3)) {
+      if (wpoint.x >= tpoint.x - (weapon_width * 1) && wpoint.x <= tpoint.x + (weapon_width * 1)) {
         hit = 'perfect'
       } else if (wpoint.x >= tbox.left && wpoint.x <= tbox.right) {
         hit = 'close'
@@ -531,10 +532,10 @@ p.render = function () {
     } else if (item === 'sword') {
       if (hit === 'perfect') {
         row += 2
-        emote.html('You score a perfect hit with your sword.')
+        emote.html('You score a perfect hit with your dagger.')
       } else if (hit === 'close') {
         row += 1
-        emote.html('You score a hit with your sword.')
+        emote.html('You score a hit with your dagger.')
       } else if (hit === 'left') {
         col -= 1
         emote.html('You miss and step left.')
