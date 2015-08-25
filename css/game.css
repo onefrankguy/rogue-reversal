@@ -181,8 +181,8 @@ ol {
 }
 .player {
   position: absolute;
-  top: -36px;
-  left: 5px;
+  top: 0;
+  left: 0;
 }
 .emote {
   position: absolute;
