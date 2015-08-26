@@ -467,6 +467,8 @@ var Items = (function () {
 
 var $ = window.jQuery
   , o = {}
+  , message = $('#message')
+  , messages = {}
   , items = {}
   , active = 'sword'
   , dirty = false
@@ -475,6 +477,11 @@ items['bow'] = $('#bow')
 items['sword'] = $('#sword')
 items['potion'] = $('#potion')
 items['key'] = $('#key')
+
+messages['bow'] = 'The Backwards Bow is a recumbent recurve made of solid yew. Best fired by bracing oneself against something immobile.'
+messages['sword'] = 'The Boomerang Blade is an old cold rolled steel stalwart. It&rsquo;s a lighter alternative to the typical Sword of Smiting.'
+messages['potion'] = 'Potions of Quaff are particularly potent in a pinch when you need to go over something, or just be someone else for a while.'
+messages['key'] = 'The Key of Everlasting Ubiquity is your ticket out of here. Don&rsquo;t lose it. If you do lose it, you can get it back with some Quaff.'
 
 o.render = function () {
   var key = 0
@@ -489,6 +496,13 @@ o.render = function () {
         }
       }
     }
+
+    if (messages.hasOwnProperty(active)) {
+      message.html(messages[active])
+    } else {
+      message.html('')
+    }
+
     dirty = false
   }
 
@@ -563,7 +577,7 @@ p.render = function () {
         Emote.say('Bam!')
       } else if (hit === 'left') {
         col += 1
-        Emote.say('Hmm...')
+        Emote.say('Hmm&hellip;')
       } else if (hit === 'right') {
         col -= 1
         Emote.say('Rats.')
@@ -583,7 +597,7 @@ p.render = function () {
         Emote.say('Rats.')
       } else if (hit === 'right') {
         col += 1
-        Emote.say('Hmm...')
+        Emote.say('Hmm&hellip;')
       } else {
         Emote.say('')
       }
@@ -600,7 +614,7 @@ p.render = function () {
           Menu.reset()
           Emote.say('Click!')
         } else if (hit === 'left' || hit === 'right') {
-          Emote.say('Hmm...')
+          Emote.say('Hmm&hellip;')
         } else {
           Emote.say('Rats.')
         }
