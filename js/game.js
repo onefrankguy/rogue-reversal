@@ -1,3 +1,46 @@
+var Emote = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , e = {}
+  , element = $('#emote')
+  , start = { x: 0, y: 0 }
+  , text = ''
+  , dirty = false
+
+e.render = function () {
+  if (dirty) {
+    if (text === '') {
+      element.add('hidden')
+    } else {
+      element.top(start.y)
+      element.left(start.x)
+      element.html(text)
+      element.remove('hidden')
+    }
+    dirty = false
+  }
+}
+
+e.move = function (s) {
+  if (s.hasOwnProperty('x') && start.x !== s.x) {
+    start.x = s.x
+    dirty = true
+  }
+  if (s.hasOwnProperty('y') && start.y !== s.y) {
+    start.y = s.y - 24
+    dirty = true
+  }
+}
+
+e.say = function (html) {
+  text = html
+  dirty = true
+}
+
+return e
+}())
+
 var Menu = (function () {
 'use strict';
 
@@ -470,7 +513,6 @@ var Player = (function () {
 var $ = window.jQuery
   , p = {}
   , element = $('#character')
-  , emote = $('#emote')
   , row = 0
   , col = 4
   , item = null
@@ -515,56 +557,56 @@ p.render = function () {
     if (item === 'bow') {
       if (hit === 'perfect') {
         row -= 1
-        emote.html('You score a perfect hit with your bow.')
+        Emote.say('Yes!')
       } else if (hit === 'close') {
         row -= 1
-        emote.html('You score a hit with your bow.')
+        Emote.say('Bam!')
       } else if (hit === 'left') {
         col += 1
-        emote.html('You miss and adjust your aim left.')
+        Emote.say('Hmm...')
       } else if (hit === 'right') {
         col -= 1
-        emote.html('You miss and adjust your aim right.')
+        Emote.say('Rats.')
       } else {
         row -= 1
-        emote.html('The force of your shot knocks you back.')
+        Emote.say('Oof!')
       }
     } else if (item === 'sword') {
       if (hit === 'perfect') {
         row += 1
-        emote.html('You score a perfect hit with your dagger.')
+        Emote.say('Ha!')
       } else if (hit === 'close') {
         row += 1
-        emote.html('You score a hit with your dagger.')
+        Emote.say('Bam!')
       } else if (hit === 'left') {
         col -= 1
-        emote.html('You miss and step left.')
+        Emote.say('Rats.')
       } else if (hit === 'right') {
         col += 1
-        emote.html('You miss and step right.')
+        Emote.say('Hmm...')
       } else {
-        emote.html('')
+        Emote.say('')
       }
     } else if (item === 'potion') {
       if (hit !== 'miss') {
-        emote.html('You drink the potion.')
+        Emote.say('Yum!')
       } else {
-        emote.html('')
+        Emote.say('')
       }
     } else if (item === 'key') {
       if (Room.is_last_row(row)) {
         if (hit === 'perfect' || hit === 'close') {
           this.reset()
           Menu.reset()
-          emote.html('You unlock the door.')
+          Emote.say('Click!')
         } else if (hit === 'left' || hit === 'right') {
-          emote.html("You're having trouble with the lock.")
+          Emote.say('Hmm...')
         } else {
-          emote.html("There's no door here.")
+          Emote.say('Rats.')
         }
       } else {
         Key.discard()
-        emote.html('You throw the key away.')
+        Emote.say('Whoops.')
       }
     }
 
@@ -575,9 +617,10 @@ p.render = function () {
     element.left(Room.move_col(col))
 
     Target.move({ x: element.left() })
+    Emote.move({ x: element.left(), y: element.top() })
 
     if (!Key.held() && Key.pickup(element.box()).held()) {
-      emote.html('You pick up the key.')
+      Emote.say('Got it!')
     }
   }
 
@@ -596,7 +639,7 @@ p.fire = function () {
   item = Items.picked()
 
   if (item === 'key' && !Key.held()) {
-    emote.html('You no longer have the key.')
+    Emote.say('I need the key.')
     return this
   }
 
@@ -673,6 +716,7 @@ function render () {
   Key.render()
   Items.render()
   Player.render()
+  Emote.render()
 }
 
 function startGame (callback) {
