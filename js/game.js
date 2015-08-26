@@ -85,8 +85,8 @@ var r = {}
   , last_row = num_rows - 2
   , last_col = num_cols - 1
 
-function getRandomInt (min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+function getRandomIntInclusive (min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 r.is_last_row = function (row) {
@@ -122,8 +122,8 @@ r.move_col = function (col) {
 }
 
 r.random_tile = function (box) {
-  var row = getRandomInt(0, num_rows)
-    , col = getRandomInt(0, num_cols)
+  var row = getRandomIntInclusive(0, last_row)
+    , col = getRandomIntInclusive(0, last_col)
     , x = col * tile_width
     , y = row * tile_height
   return { top: y, left: x, width: box.width, height: box.height, right: x + box.width, bottom: y + box.height }
