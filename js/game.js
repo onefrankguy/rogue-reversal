@@ -39,21 +39,23 @@ var r = {}
   , num_cols = 10
   , tile_width = 32
   , tile_height = 32
+  , last_row = num_rows - 2
+  , last_col = num_cols - 1
 
 function getRandomInt (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
 r.is_last_row = function (row) {
-  return row === num_rows - 1
+  return row === last_row
 }
 
 r.clamp_row = function (row) {
   if (row < 0) {
     return 0
   }
-  if (row >= num_rows) {
-    return num_rows - 1
+  if (row > last_row) {
+    return last_row
   }
   return row
 }
@@ -62,8 +64,8 @@ r.clamp_col = function (col) {
   if (col < 0) {
     return 0
   }
-  if (col >= num_cols) {
-    return num_cols - 1
+  if (col > last_col) {
+    return last_col
   }
   return col
 }
@@ -488,9 +490,9 @@ p.render = function () {
     wbox = Weapon.box()
     tbox = Target.box()
     wpoint = { x: wbox.left + (wbox.width / 2), y: wbox.top }
-    tpoint = { x: tbox.left + (tbox.width / 2), y: tbox.bottom }
+    tpoint = { x: tbox.left + (tbox.width / 2), y: tbox.top }
 
-    if (wpoint.y > tbox.bottom) {
+    if (wpoint.y > tpoint.y) {
       dirty = true
       return this
     }
@@ -498,7 +500,7 @@ p.render = function () {
     dirty = false
     hit = 'miss'
 
-    if (wpoint.x >= tbox.left - (weapon_width * 3) && wpoint.x <= tbox.right + (weapon_width * 3)) {
+    if (wpoint.x >= tbox.left - (weapon_width * 4) && wpoint.x <= tbox.right + (weapon_width * 4)) {
       if (wpoint.x >= tpoint.x - (weapon_width * 1) && wpoint.x <= tpoint.x + (weapon_width * 1)) {
         hit = 'perfect'
       } else if (wpoint.x >= tbox.left && wpoint.x <= tbox.right) {
@@ -518,11 +520,9 @@ p.render = function () {
         row -= 1
         emote.html('You score a hit with your bow.')
       } else if (hit === 'left') {
-        row += 1
         col += 1
         emote.html('You miss and adjust your aim left.')
       } else if (hit === 'right') {
-        row += 1
         col -= 1
         emote.html('You miss and adjust your aim right.')
       } else {
@@ -531,7 +531,7 @@ p.render = function () {
       }
     } else if (item === 'sword') {
       if (hit === 'perfect') {
-        row += 2
+        row += 1
         emote.html('You score a perfect hit with your dagger.')
       } else if (hit === 'close') {
         row += 1
