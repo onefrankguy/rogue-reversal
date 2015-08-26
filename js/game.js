@@ -122,18 +122,18 @@ r.move_col = function (col) {
 }
 
 r.random_tile = function (box) {
-  var row = getRandomInt(1, num_rows + 1)
-    , col = getRandomInt(1, num_cols + 1)
-    , x = (col * tile_width) - (box.width / 2)
-    , y = (row * tile_height) + (tile_height / 2) - (box.height / 2)
+  var row = getRandomInt(0, num_rows)
+    , col = getRandomInt(0, num_cols)
+    , x = col * tile_width
+    , y = row * tile_height
   return { top: y, left: x, width: box.width, height: box.height, right: x + box.width, bottom: y + box.height }
 }
 
 r.intersect = function (box1, box2) {
-  return !(box2.left > box1.right ||
-           box2.right < box1.left ||
-           box2.top > box1.bottom ||
-           box2.bottom < box1.top)
+  return !(box2.left >= box1.right ||
+           box2.right <= box1.left ||
+           box2.top >= box1.bottom ||
+           box2.bottom <= box1.top)
 }
 
 return r
