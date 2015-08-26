@@ -4,7 +4,7 @@ var Emote = (function () {
 var $ = window.jQuery
   , e = {}
   , element = $('#emote')
-  , start = { x: 0, y: 0 }
+  , start = { x: 128, y: 232 }
   , text = ''
   , dirty = false
 
@@ -124,8 +124,8 @@ r.move_col = function (col) {
 r.random_tile = function (box) {
   var row = getRandomIntInclusive(0, last_row)
     , col = getRandomIntInclusive(0, last_col)
-    , x = col * tile_width
-    , y = row * tile_height
+    , x = this.move_col(col)
+    , y = this.move_row(row)
   return { top: y, left: x, width: box.width, height: box.height, right: x + box.width, bottom: y + box.height }
 }
 
@@ -663,7 +663,7 @@ p.fire = function () {
 }
 
 p.animation = function () {
-  return Items.picked()+"-row"+row
+  return item+'-row'+row
 }
 
 return p
