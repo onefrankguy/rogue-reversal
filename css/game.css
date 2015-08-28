@@ -119,11 +119,14 @@ ol {
 }
 /* http://www.sitepoint.com/css3-pong-insane-things-to-do-with-css/ */
 @keyframes fly-horizontal {
-  0%,100% { transform: translate3d(-128px, 0, 0) }
-  50% { transform: translate3d(128px, 0, 0) }
+  0%,100% { transform: translate3d(-64px, 0, 0) }
+  50% { transform: translate3d(64px, 0, 0) }
 }
-.fly.horizontal {
-  animation: fly-horizontal 3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+.fly.horizontal.slow {
+  animation: fly-horizontal 2.3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+}
+.fly.horizontal.fast {
+  animation: fly-horizontal 1.8s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
 }
 @keyframes fly-vertical {
   0%,50%,100% { transform: translate3d(0, 0, 0) }

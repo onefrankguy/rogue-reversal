@@ -433,10 +433,28 @@ var $ = window.jQuery
   , t = {}
   , element = $('#target')
   , start = { x: 144, y: 0 }
+  , speeds = []
+  , speed = null
   , dirty = false
 
+speeds.push('slow')
+speeds.push('fast')
+
+function getRandomInt (min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 t.render = function () {
+  var i = 0
+
   if (dirty) {
+    if (speed !== null) {
+      for (i = 0; i < speeds.length; i += 1) {
+        element.remove(speeds[i])
+      }
+      element.add(speed)
+      speed = null
+    }
     element.top(start.y)
     element.left(start.x)
     dirty = false
@@ -457,6 +475,12 @@ t.move = function (s) {
     start.y = s.y
     dirty = true
   }
+}
+
+t.reset = function () {
+  start = { x: 144, y: 0 }
+  speed = speeds[getRandomInt(0, speeds.length)]
+  dirty = true
 }
 
 return t
@@ -611,6 +635,7 @@ p.render = function () {
       if (Room.is_last_row(row)) {
         if (hit === 'perfect' || hit === 'close') {
           this.reset()
+          Target.reset()
           Menu.reset()
           Emote.say('Click!')
         } else if (hit === 'left' || hit === 'right') {
