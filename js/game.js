@@ -4,7 +4,7 @@ var Emote = (function () {
 var $ = window.jQuery
   , e = {}
   , element = $('#emote')
-  , start = { x: 128, y: 232 }
+  , start = { x: 128, y: 136 }
   , text = ''
   , dirty = false
 
@@ -78,11 +78,11 @@ var Room = (function () {
 'use strict';
 
 var r = {}
-  , num_rows = 8
+  , num_rows = 6
   , num_cols = 10
   , tile_width = 32
   , tile_height = 32
-  , last_row = num_rows - 2
+  , last_row = num_rows - 3
   , last_col = num_cols - 1
 
 function getRandomIntInclusive (min, max) {
@@ -114,7 +114,7 @@ r.clamp_col = function (col) {
 }
 
 r.move_row = function (row) {
-  return (num_rows * tile_height) - (row * tile_height)
+  return (num_rows - row - 1) * tile_height
 }
 
 r.move_col = function (col) {

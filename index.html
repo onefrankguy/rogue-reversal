@@ -11,6 +11,11 @@
 </head>
 <body>
 <div id="dungeon">
+  <div class="quest info">
+    <p class="quest counter">Quest 1/8</p>
+    <p class="quest text">Scare away a bat.</p>
+    <p class="game score">000</p>
+  </div>
   <div id="room">
     <img id="pickup-key" src="./img/key.png" class="hidden pixelated key1" />
     <p id="weapon" class="hidden weapon sword"><span class="gfx"></span></p>
@@ -32,17 +37,6 @@
     </li><li id="key" class="item"><img src="./img/key.png" class="pixelated key1" />
   </li></ol>
   <p id="message" class="message"></p>
-  <dv id="menu" class="overlay menu">
-    <p id="title" class="title">Drinking with Dragons</p>
-    <div class="quests">
-      <p id="quest-title" class="quest title">Quest</p>
-      <p id="quest-counter" class="quest counter">0 / 100</p>
-      <p id="quest-text" class="quest text">Have a drink with a dragon</p>
-      <p class="quest skip">skip</p>
-    </div>
-    <p id="score" class="score"></p>
-    <p id="play" class="button play">Play</p>
-  </div>
 </div>
   <canvas id="gfx" class="hidden pixelated"></canvas>
   <script src="js/jquery.js"></script>
