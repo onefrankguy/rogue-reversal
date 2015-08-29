@@ -8,6 +8,11 @@ var $ = window.jQuery
   , text = ''
   , dirty = false
 
+e.reset = function () {
+  text = ''
+  dirty = true
+}
+
 e.render = function () {
   if (dirty) {
     if (text === '') {
@@ -39,39 +44,6 @@ e.say = function (html) {
 }
 
 return e
-}())
-
-var Menu = (function () {
-'use strict';
-
-var $ = window.jQuery
-  , m = {}
-  , element = $('#menu')
-  , hidden = false
-  , dirty = false
-
-m.reset = function () {
-  hidden = false
-  dirty = true
-}
-
-m.render = function () {
-  if (dirty) {
-    if (hidden) {
-      element.add('hidden')
-    } else {
-      element.remove('hidden')
-    }
-    dirty = false
-  }
-}
-
-m.hide = function () {
-  hidden = true
-  dirty = true
-}
-
-return m
 }())
 
 var Room = (function () {
@@ -435,7 +407,8 @@ var $ = window.jQuery
   , start = { x: 144, y: 0 }
   , speeds = []
   , speed = null
-  , dirty = false
+  , health = 4
+  , dirty = 0
 
 speeds.push('slow')
 speeds.push('fast')
@@ -447,18 +420,27 @@ function getRandomInt (min, max) {
 t.render = function () {
   var i = 0
 
-  if (dirty) {
+  if (dirty === 1) {
     if (speed !== null) {
       for (i = 0; i < speeds.length; i += 1) {
         element.remove(speeds[i])
       }
+      element.add('horizontal')
       element.add(speed)
       speed = null
     }
     element.top(start.y)
     element.left(start.x)
-    dirty = false
+    dirty = 0
+  } else if (dirty === 2) {
+    element.remove('horizontal')
+    element.animate('away', function () {
+      Target.reset()
+      Player.reset()
+    })
+    dirty = 3
   }
+
   return this
 }
 
@@ -469,18 +451,31 @@ t.box = function () {
 t.move = function (s) {
   if (s.hasOwnProperty('x') && start.x !== s.x) {
     start.x = s.x
-    dirty = true
+    dirty = 1
   }
   if (s.hasOwnProperty('y') && start.y !== s.y) {
     start.y = s.y
-    dirty = true
+    dirty = 1
+  }
+}
+
+t.moving = function () {
+  return dirty >= 2
+}
+
+t.hit = function () {
+  health -= 1
+  if (health <= 0) {
+    health = 0
+    dirty = 2
   }
 }
 
 t.reset = function () {
   start = { x: 144, y: 0 }
   speed = speeds[getRandomInt(0, speeds.length)]
-  dirty = true
+  health = 4
+  dirty = 1
 }
 
 return t
@@ -554,8 +549,14 @@ var $ = window.jQuery
   , row = 0
   , col = 4
   , item = null
-  , dirty = false
+  , dirty = 0
 
+/*
+ * Player states:
+ * 0 - Nothing needs to be updated.
+ * 1 - Need to perform a hit test.
+ * 2 - Need to move player.
+ */
 p.render = function () {
   var wbox = null
     , tbox = null
@@ -564,20 +565,22 @@ p.render = function () {
     , hit = ''
     , weapon_width = 8
 
-  dirty &= Weapon.moving()
+  if (dirty === 1 && Weapon.moving()) {
+    dirty = 1
+  }
 
-  if (dirty) {
+  if (dirty === 1) {
     wbox = Weapon.box()
     tbox = Target.box()
     wpoint = { x: wbox.left + (wbox.width / 2), y: wbox.top }
     tpoint = { x: tbox.left + (tbox.width / 2), y: tbox.top }
 
     if (wpoint.y > tpoint.y) {
-      dirty = true
+      dirty = 1
       return this
     }
 
-    dirty = false
+    dirty = 2
     hit = 'miss'
 
     if (wpoint.x >= tbox.left - (weapon_width * 4) && wpoint.x <= tbox.right + (weapon_width * 4)) {
@@ -634,9 +637,6 @@ p.render = function () {
     } else if (item === 'key') {
       if (Room.is_last_row(row)) {
         if (hit === 'perfect' || hit === 'close') {
-          this.reset()
-          Target.reset()
-          Menu.reset()
           Emote.say('Click!')
         } else if (hit === 'left' || hit === 'right') {
           Emote.say('Hmm&hellip;')
@@ -649,6 +649,14 @@ p.render = function () {
       }
     }
 
+    if (hit === 'perfect' || hit === 'close') {
+      Target.hit()
+    }
+
+    if (!Key.held() && Key.pickup(element.box()).held()) {
+      Emote.say('Got it!')
+    }
+  } else if (dirty === 2) {
     row = Room.clamp_row(row)
     element.top(Room.move_row(row))
 
@@ -658,19 +666,18 @@ p.render = function () {
     Target.move({ x: element.left() })
     Emote.move({ x: element.left(), y: element.top() })
 
-    if (!Key.held() && Key.pickup(element.box()).held()) {
-      Emote.say('Got it!')
-    }
+    dirty = 0
   }
 
   return this
 }
 
 p.reset = function () {
+  Emote.reset()
   row = 0
   col = 4
   item = null
-  dirty = true
+  dirty = 2
 }
 
 p.fire = function () {
@@ -683,7 +690,7 @@ p.fire = function () {
   }
 
   Weapon.fire(item, { x: Room.move_col(col), y: Room.move_row(row) })
-  dirty = true
+  dirty = 1
   return this
 }
 
@@ -737,7 +744,7 @@ function onColor (target, e) {
 }
 
 function onFire (target, e) {
-  if (Weapon.moving()) {
+  if (Weapon.moving() || Target.moving()) {
     return
   }
   Player.fire()
@@ -749,7 +756,6 @@ function onItem (target, e) {
 
 function render () {
   requestAnimationFrame(render)
-  Menu.render()
   Weapon.render()
   Target.render()
   Key.render()
@@ -762,15 +768,6 @@ function startGame (callback) {
   requestAnimationFrame(callback)
 }
 
-function onStart (target, e) {
-  e.stopPropagation()
-}
-
-function offStart (target, e) {
-  e.stopPropagation()
-  Menu.hide()
-}
-
 Game.play = function () {
   var $ = window.jQuery
 
@@ -779,7 +776,6 @@ Game.play = function () {
   $('#sword').touch(onItem, null)
   $('#potion').touch(onItem, null)
   $('#key').touch(onItem, null)
-  $('#play').touch(onStart, offStart)
 
   startGame(render)
 }
