@@ -407,7 +407,7 @@ var $ = window.jQuery
   , start = { x: 144, y: 0 }
   , speeds = []
   , speed = null
-  , health = 4
+  , health = 1
   , dirty = 0
 
 speeds.push('slow')
@@ -474,7 +474,7 @@ t.hit = function () {
 t.reset = function () {
   start = { x: 144, y: 0 }
   speed = speeds[getRandomInt(0, speeds.length)]
-  health = 4
+  health = 1
   dirty = 1
 }
 
@@ -597,9 +597,15 @@ p.render = function () {
 
     if (item === 'bow') {
       if (hit === 'perfect') {
+        if (Room.is_last_row(row)) {
+          Target.hit()
+        }
         row -= 1
         Emote.say('Yes!')
       } else if (hit === 'close') {
+        if (Room.is_last_row(row)) {
+          Target.hit()
+        }
         row -= 1
         Emote.say('Bam!')
       } else if (hit === 'left') {
@@ -614,9 +620,15 @@ p.render = function () {
       }
     } else if (item === 'sword') {
       if (hit === 'perfect') {
+        if (Room.is_last_row(row)) {
+          Target.hit()
+        }
         row += 1
         Emote.say('Ha!')
       } else if (hit === 'close') {
+        if (Room.is_last_row(row)) {
+          Target.hit()
+        }
         row += 1
         Emote.say('Bam!')
       } else if (hit === 'left') {
@@ -647,10 +659,6 @@ p.render = function () {
         Key.discard()
         Emote.say('Whoops.')
       }
-    }
-
-    if (hit === 'perfect' || hit === 'close') {
-      Target.hit()
     }
   } else if (dirty === 2) {
     row = Room.clamp_row(row)
