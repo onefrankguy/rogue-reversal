@@ -26,97 +26,6 @@ ol {
   list-style: none;
 }
 /* GAME */
-.castle {
-  display: none;
-}
-.castle.left.wall {
-  position: absolute;
-  top: 0px;
-  left: -8px;
-  width: 32px;
-  height: 100%;
-  background-image: url('../img/castle-left-wall.png');
-  background-repeat: repeat-y;
-  background-color: transparent;
-}
-.castle.right.wall {
-  position: absolute;
-  top: 0px;
-  left: auto;
-  right: -8px;
-  width: 32px;
-  height: 100%;
-  background-image: url('../img/castle-right-wall.png');
-  background-repeat: repeat-y;
-  background-color: transparent;
-}
-.castle.bottom.wall {
-  position: absolute;
-  top: auto;
-  left: 0;
-  bottom: -16px;
-  width: 100%;
-  height: 64px;
-  background-image: url('../img/castle-bottom-wall.png');
-  background-repeat: repeat-x;
-  background-color: transparent;
-}
-.castle.top.wall {
-  position: absolute;
-  top: -16px;
-  left: 0;
-  width: 100%;
-  height: 64px;
-  background-image: url('../img/castle-top-wall.png');
-  background-repeat: repeat-x;
-  background-color: transparent;
-}
-.castle.top.left {
-  position: absolute;
-  top: -16px;
-  left: -8px;
-  width: 32px;
-  height: 64px;
-  background-image: url('../img/castle-top-left.png');
-  background-repeat: none;
-}
-.castle.top.right {
-  position: absolute;
-  top: -16px;
-  right: -8px;
-  width: 32px;
-  height: 64px;
-  background-image: url('../img/castle-top-right.png');
-  background-repeat: none;
-}
-.castle.bottom.left {
-  position: absolute;
-  left: -8px;
-  bottom: -16px;
-  width: 32px;
-  height: 64px;
-  background-image: url('../img/castle-bottom-left.png');
-  background-repeat: none;
-}
-.castle.bottom.right {
-  position: absolute;
-  right: -8px;
-  bottom: -16px;
-  width: 32px;
-  height: 64px;
-  background-image: url('../img/castle-bottom-right.png');
-  background-repeat: none;
-}
-.castle.door.closed {
-  position: absolute;
-  left: 16px;
-  top: -16px;
-  display: block;
-  width: 32px;
-  height: 64px;
-  background-image: url('../img/castle-door-closed.png');
-  background-repeat: none;
-}
 /* http://www.sitepoint.com/css3-pong-insane-things-to-do-with-css/ */
 @keyframes fly-horizontal {
   0%,100% { transform: translate3d(-64px, 0, 0) }
@@ -668,253 +577,169 @@ rgb(222, 238, 214)
 /* Generation animations for swords and bows */
 @keyframes bow-row0 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -288px, 0) }
+  100% { transform: translate3d(0, -192px, 0) }
 }
 .bow-row0 {
-  animation: bow-row0 360ms linear 1;
+  animation: bow-row0 240ms linear 1;
 }
 @keyframes bow-row1 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -256px, 0) }
+  100% { transform: translate3d(0, -160px, 0) }
 }
 .bow-row1 {
-  animation: bow-row1 320ms linear 1;
+  animation: bow-row1 200ms linear 1;
 }
 @keyframes bow-row2 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -224px, 0) }
+  100% { transform: translate3d(0, -128px, 0) }
 }
 .bow-row2 {
-  animation: bow-row2 280ms linear 1;
+  animation: bow-row2 160ms linear 1;
 }
 @keyframes bow-row3 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -192px, 0) }
+  100% { transform: translate3d(0, -96px, 0) }
 }
 .bow-row3 {
-  animation: bow-row3 240ms linear 1;
+  animation: bow-row3 120ms linear 1;
 }
 @keyframes bow-row4 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -160px, 0) }
+  100% { transform: translate3d(0, -64px, 0) }
 }
 .bow-row4 {
-  animation: bow-row4 200ms linear 1;
+  animation: bow-row4 80ms linear 1;
 }
 @keyframes bow-row5 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -128px, 0) }
-}
-.bow-row5 {
-  animation: bow-row5 160ms linear 1;
-}
-@keyframes bow-row6 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -96px, 0) }
-}
-.bow-row6 {
-  animation: bow-row6 120ms linear 1;
-}
-@keyframes bow-row7 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -64px, 0) }
-}
-.bow-row7 {
-  animation: bow-row7 80ms linear 1;
-}
-@keyframes bow-row8 {
-  0% { transform: translate3d(0, 0, 0) }
   100% { transform: translate3d(0, -32px, 0) }
 }
-.bow-row8 {
-  animation: bow-row8 40ms linear 1;
+.bow-row5 {
+  animation: bow-row5 40ms linear 1;
 }
 @keyframes sword-row0 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -288px, 0) }
+  100% { transform: translate3d(0, -192px, 0) }
 }
 .sword-row0 {
-  animation: sword-row0 360ms linear 1;
+  animation: sword-row0 240ms linear 1;
 }
 @keyframes sword-row1 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -256px, 0) }
+  100% { transform: translate3d(0, -160px, 0) }
 }
 .sword-row1 {
-  animation: sword-row1 320ms linear 1;
+  animation: sword-row1 200ms linear 1;
 }
 @keyframes sword-row2 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -224px, 0) }
+  100% { transform: translate3d(0, -128px, 0) }
 }
 .sword-row2 {
-  animation: sword-row2 280ms linear 1;
+  animation: sword-row2 160ms linear 1;
 }
 @keyframes sword-row3 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -192px, 0) }
+  100% { transform: translate3d(0, -96px, 0) }
 }
 .sword-row3 {
-  animation: sword-row3 240ms linear 1;
+  animation: sword-row3 120ms linear 1;
 }
 @keyframes sword-row4 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -160px, 0) }
+  100% { transform: translate3d(0, -64px, 0) }
 }
 .sword-row4 {
-  animation: sword-row4 200ms linear 1;
+  animation: sword-row4 80ms linear 1;
 }
 @keyframes sword-row5 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -128px, 0) }
-}
-.sword-row5 {
-  animation: sword-row5 160ms linear 1;
-}
-@keyframes sword-row6 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -96px, 0) }
-}
-.sword-row6 {
-  animation: sword-row6 120ms linear 1;
-}
-@keyframes sword-row7 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -64px, 0) }
-}
-.sword-row7 {
-  animation: sword-row7 80ms linear 1;
-}
-@keyframes sword-row8 {
-  0% { transform: translate3d(0, 0, 0) }
   100% { transform: translate3d(0, -32px, 0) }
 }
-.sword-row8 {
-  animation: sword-row8 40ms linear 1;
+.sword-row5 {
+  animation: sword-row5 40ms linear 1;
 }
 @keyframes potion-row0 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -288px, 0) }
+  100% { transform: translate3d(0, -192px, 0) }
 }
 .potion-row0 {
-  animation: potion-row0 360ms linear 1;
+  animation: potion-row0 240ms linear 1;
 }
 @keyframes potion-row1 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -256px, 0) }
+  100% { transform: translate3d(0, -160px, 0) }
 }
 .potion-row1 {
-  animation: potion-row1 320ms linear 1;
+  animation: potion-row1 200ms linear 1;
 }
 @keyframes potion-row2 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -224px, 0) }
+  100% { transform: translate3d(0, -128px, 0) }
 }
 .potion-row2 {
-  animation: potion-row2 280ms linear 1;
+  animation: potion-row2 160ms linear 1;
 }
 @keyframes potion-row3 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -192px, 0) }
+  100% { transform: translate3d(0, -96px, 0) }
 }
 .potion-row3 {
-  animation: potion-row3 240ms linear 1;
+  animation: potion-row3 120ms linear 1;
 }
 @keyframes potion-row4 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -160px, 0) }
+  100% { transform: translate3d(0, -64px, 0) }
 }
 .potion-row4 {
-  animation: potion-row4 200ms linear 1;
+  animation: potion-row4 80ms linear 1;
 }
 @keyframes potion-row5 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -128px, 0) }
-}
-.potion-row5 {
-  animation: potion-row5 160ms linear 1;
-}
-@keyframes potion-row6 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -96px, 0) }
-}
-.potion-row6 {
-  animation: potion-row6 120ms linear 1;
-}
-@keyframes potion-row7 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -64px, 0) }
-}
-.potion-row7 {
-  animation: potion-row7 80ms linear 1;
-}
-@keyframes potion-row8 {
-  0% { transform: translate3d(0, 0, 0) }
   100% { transform: translate3d(0, -32px, 0) }
 }
-.potion-row8 {
-  animation: potion-row8 40ms linear 1;
+.potion-row5 {
+  animation: potion-row5 40ms linear 1;
 }
 @keyframes key-row0 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -288px, 0) }
+  100% { transform: translate3d(0, -192px, 0) }
 }
 .key-row0 {
-  animation: key-row0 360ms linear 1;
+  animation: key-row0 240ms linear 1;
 }
 @keyframes key-row1 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -256px, 0) }
+  100% { transform: translate3d(0, -160px, 0) }
 }
 .key-row1 {
-  animation: key-row1 320ms linear 1;
+  animation: key-row1 200ms linear 1;
 }
 @keyframes key-row2 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -224px, 0) }
+  100% { transform: translate3d(0, -128px, 0) }
 }
 .key-row2 {
-  animation: key-row2 280ms linear 1;
+  animation: key-row2 160ms linear 1;
 }
 @keyframes key-row3 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -192px, 0) }
+  100% { transform: translate3d(0, -96px, 0) }
 }
 .key-row3 {
-  animation: key-row3 240ms linear 1;
+  animation: key-row3 120ms linear 1;
 }
 @keyframes key-row4 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -160px, 0) }
+  100% { transform: translate3d(0, -64px, 0) }
 }
 .key-row4 {
-  animation: key-row4 200ms linear 1;
+  animation: key-row4 80ms linear 1;
 }
 @keyframes key-row5 {
   0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -128px, 0) }
-}
-.key-row5 {
-  animation: key-row5 160ms linear 1;
-}
-@keyframes key-row6 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -96px, 0) }
-}
-.key-row6 {
-  animation: key-row6 120ms linear 1;
-}
-@keyframes key-row7 {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -64px, 0) }
-}
-.key-row7 {
-  animation: key-row7 80ms linear 1;
-}
-@keyframes key-row8 {
-  0% { transform: translate3d(0, 0, 0) }
   100% { transform: translate3d(0, -32px, 0) }
 }
-.key-row8 {
-  animation: key-row8 40ms linear 1;
+.key-row5 {
+  animation: key-row5 40ms linear 1;
 }

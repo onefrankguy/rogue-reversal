@@ -7,7 +7,7 @@ velocity = 800
 row_height = 32
 
 # room height is in pixels
-room_height = 288
+room_height = 192
 
 rows = (room_height.to_f / row_height.to_f).to_i
 
