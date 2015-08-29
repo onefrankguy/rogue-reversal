@@ -652,10 +652,6 @@ p.render = function () {
     if (hit === 'perfect' || hit === 'close') {
       Target.hit()
     }
-
-    if (!Key.held() && Key.pickup(element.box()).held()) {
-      Emote.say('Got it!')
-    }
   } else if (dirty === 2) {
     row = Room.clamp_row(row)
     element.top(Room.move_row(row))
@@ -665,6 +661,10 @@ p.render = function () {
 
     Target.move({ x: element.left() })
     Emote.move({ x: element.left(), y: element.top() })
+
+    if (!Key.held() && Key.pickup(element.box()).held()) {
+      Emote.say('Got it!')
+    }
 
     dirty = 0
   }
