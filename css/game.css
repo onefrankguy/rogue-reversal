@@ -103,12 +103,16 @@ ol {
   top: 160px;
   display: block;
   width: 32px;
-  height: 32px;
+  height: 36px;
+  background: url('../img/player.png');
+  background-position: 0px;
 }
-.player {
-  position: absolute;
-  top: 0;
-  left: 0;
+@keyframes character-attack {
+  0% { background-position: 0px }
+  100% { background-position: -160px }
+}
+.character.attack {
+  animation: character-attack 240ms steps(5) 1;
 }
 .message {
   display: block;

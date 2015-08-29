@@ -554,8 +554,9 @@ var $ = window.jQuery
 /*
  * Player states:
  * 0 - Nothing needs to be updated.
- * 1 - Need to perform a hit test.
- * 2 - Need to move player.
+ * 1 - Weapon fired! Animation time.
+ * 2 - Weapon moving. Need to perform a hit test.
+ * 3 - Need to move player.
  */
 p.render = function () {
   var wbox = null
@@ -565,22 +566,21 @@ p.render = function () {
     , hit = ''
     , weapon_width = 8
 
-  if (dirty === 1 && Weapon.moving()) {
-    dirty = 1
-  }
-
   if (dirty === 1) {
+    element.animate('attack')
+    dirty = 2
+  } else if (dirty === 2) {
     wbox = Weapon.box()
     tbox = Target.box()
     wpoint = { x: wbox.left + (wbox.width / 2), y: wbox.top }
     tpoint = { x: tbox.left + (tbox.width / 2), y: tbox.top }
 
     if (wpoint.y > tpoint.y) {
-      dirty = 1
+      dirty = 2
       return this
     }
 
-    dirty = 2
+    dirty = 3
     hit = 'miss'
 
     if (wpoint.x >= tbox.left - (weapon_width * 4) && wpoint.x <= tbox.right + (weapon_width * 4)) {
@@ -660,7 +660,7 @@ p.render = function () {
         Emote.say('Whoops.')
       }
     }
-  } else if (dirty === 2) {
+  } else if (dirty === 3) {
     row = Room.clamp_row(row)
     element.top(Room.move_row(row))
 
@@ -685,7 +685,7 @@ p.reset = function () {
   row = 0
   col = 4
   item = null
-  dirty = 2
+  dirty = 3
 }
 
 p.fire = function () {
