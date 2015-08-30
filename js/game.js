@@ -136,6 +136,7 @@ k.render = function () {
 
 k.pickup = function (offset) {
   if (!held && Room.intersect(offset, position)) {
+    Items.pickup('key')
     held = true
     dirty = true
   }
@@ -144,6 +145,7 @@ k.pickup = function (offset) {
 
 k.discard = function () {
   if (held) {
+    Items.discard('key')
     held = false
     position = Room.random_tile({ width: 32, height: 32 })
     dirty = true
@@ -487,6 +489,7 @@ var Items = (function () {
 var $ = window.jQuery
   , o = {}
   , element = $('#item')
+  , items = ['sword', 'bow', 'potion', 'key']
   , inventory = ['sword', 'bow', 'potion', 'key']
   , active = 0
   , dirty = false
@@ -495,13 +498,10 @@ o.render = function () {
   var i = 0
 
   if (dirty) {
-    for (i = 0; i < inventory.length; i += 1) {
-      if (i === active) {
-        element.add(inventory[i])
-      } else {
-        element.remove(inventory[i])
-      }
+    for (i = 0; i < items.length; i += 1) {
+      element.remove(items[i])
     }
+    element.add(inventory[active])
     dirty = false
   }
 
@@ -518,6 +518,21 @@ o.next = function () {
 
 o.picked = function () {
   return inventory[active]
+}
+
+o.pickup = function (item) {
+  inventory.push(item)
+}
+
+o.discard = function (item) {
+  var index = inventory.indexOf(item)
+  if (index > -1) {
+    inventory.splice(index, 1)
+    if (active >= inventory.length) {
+      active = 0
+    }
+    dirty = true
+  }
 }
 
 return o

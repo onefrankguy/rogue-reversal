@@ -140,6 +140,11 @@ ol {
   background: rgb(222, 238, 214);
   color: rgb(20, 12, 28);
 }
+.lootable {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .character {
   position: absolute;
   left: 128px;
