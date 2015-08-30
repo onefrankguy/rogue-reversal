@@ -3,13 +3,27 @@ var Quest = (function () {
 
 var $ = window.jQuery
   , q = {}
-  , steps = $('#steps')
+  , quest_counter = $('#quest-counter')
+  , quest_text = $('#quest-text')
+  , game_score = $('#game-score')
   , score = 0
+  , marker = 0
+  , texts = []
   , dirty = false
+
+texts[0] = 'Scare away the bat.'
+texts[1] = 'Find the key.'
 
 q.render = function () {
   if (dirty) {
-    steps.html(score)
+    game_score.html(score)
+    if (marker < texts.length) {
+      quest_text.html(texts[marker])
+      quest_counter.html('Quest '+(marker+1)+'/'+texts.length)
+    } else {
+      quest_text.html('Go on an adventure.')
+      quest_counter.html('Quest 0/0')
+    }
     dirty = false
   }
 }
@@ -17,6 +31,18 @@ q.render = function () {
 q.step = function () {
   score += 1
   dirty = true
+}
+
+q.complete = function () {
+  if (marker === 0) {
+    marker += 1
+    dirty = true
+  } else if (marker === 1) {
+    if (Key.held()) {
+      marker += 1
+      dirty = true
+    }
+  }
 }
 
 return q
@@ -475,6 +501,7 @@ t.render = function () {
   } else if (dirty === 2) {
     element.remove('horizontal')
     element.animate('away', function () {
+      Quest.complete()
       Target.reset()
       Player.reset()
       Room.reset()
