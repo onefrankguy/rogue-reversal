@@ -89,6 +89,49 @@ ol {
   font-size: 16px;
   line-height: 16px;
 }
+/* INVENTORY */
+.inventory {
+  position: relative;
+  top: 2px;
+  display: block;
+  width: 100%;
+  height: 48px;
+  border-top: 2px solid rgb(20, 12, 28);
+  border-bottom: 2px solid rgb(20, 12, 28);
+}
+.inventory > .item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 48px;
+  height: 100%;
+  border-right: 2px solid rgb(20, 12, 28);
+  background-repeat: no-repeat;
+  background-position: 7px 7px;
+}
+.inventory > .helpful {
+  position: absolute;
+  top: 0;
+  left: 48px;
+  display: block;
+  font-family: monospace;
+  font-size: 12px;
+  line-height: 12px;
+  padding: 4px;
+}
+.inventory > .sword {
+  background-image: url('../img/sword.png');
+}
+.inventory > .bow {
+  background-image: url('../img/bow.png');
+}
+.inventory > .potion {
+  background-image: url('../img/potion.png');
+}
+.inventory > .key {
+  background-image: url('../img/key.png');
+}
 #room {
   position: relative;
   display: block;
@@ -190,355 +233,12 @@ ol {
   background-image: url('../img/sword.png');
   animation: spin 250ms linear infinite;
 }
-.items {
-  position: relative;
-  top: 2px;
-  display: block;
-  width: 100%;
-  border-top: 2px solid rgb(20, 12, 28);
-}
-.item {
-  position: relative;
-  display: inline-block;
-  width: 64px;
-  height: 64px;
-  color: rgb(20, 12, 28);
-  font-size: 16px;
-  line-height: 64px;
-  margin-left: 12.8px;
-  text-align: center;
-}
-.item.picked:before {
-  content: ' ';
-  position: absolute;
-  top: 8px;
-  left: 0;
-  display: block;
-  width: 8px;
-  height: 40px;
-  border-top: 2px solid rgb(20, 12, 28);
-  border-left: 2px solid rgb(20, 12, 28);
-  border-bottom: 2px solid rgb(20, 12, 28);
-}
-.item.picked:after {
-  content: ' ';
-  position: absolute;
-  top: 8px;
-  right: 0;
-  display: block;
-  width: 8px;
-  height: 40px;
-  border-top: 2px solid rgb(20, 12, 28);
-  border-right: 2px solid rgb(20, 12, 28);
-  border-bottom: 2px solid rgb(20, 12, 28);
-}
-.sword1 {
-  position: absolute;
-  left: 15px;
-  top: 15px;
-}
-.bow1 {
-  position: absolute;
-  left: 15px;
-  top: 15px;
-}
-.potion1 {
-  position: absolute;
-  left: 21px;
-  top: 9px;
-}
-.potion2 {
-  position: absolute;
-  left: 9px;
-  top: 11px;
-}
-.potion3 {
-  position: absolute;
-  left: 15px;
-  top: 15px;
-}
-.key1 {
-  position: absolute;
-  left: 15px;
-  top: 15px;
-}
-#store {
-  position: relative;
-  display: block;
-  width: 320px; /* iPhone 4 */
-  height: 372px; /* iPhone 4 */
-  margin: 0 auto;
-  padding: 0;
-  overflow: hidden;
-  background: hsla(0, 0%, 59%, 1);
-  background-image: url('../img/bricks.png');
-}
-#player {
-  position: absolute;
-  left: 50%;
-  bottom: 50%;
-  margin-left: -60px;
-  display: block;
-  width: 120px;
-  height: 120px;
-}
-#color1 {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-#color2 {
-  position: absolute;
-  top: 0;
-  left: 93px;
-}
-#color3 {
-  position: absolute;
-  top: 0;
-  right: 93px;
-}
-#color4 {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-#color5 {
-  position: absolute;
-  top: 93px;
-  right: 0;
-}
-#color6 {
-  position: absolute;
-  top: 186px;
-  right: 0;
-}
-#color7 {
-  position: absolute;
-  top: 279px;
-  right: 0;
-}
-#color8 {
-  position: absolute;
-  top: 279px;
-  right: 93px;
-}
-#color9 {
-  position: absolute;
-  top: 279px;
-  left: 93px;
-}
-#color10 {
-  position: absolute;
-  top: 279px;
-  left: 0;
-}
-#color11 {
-  position: absolute;
-  top: 186px;
-  left: 0;
-}
-#color12 {
-  position: absolute;
-  top: 93px;
-  left: 0;
-}
 .pixelated {
   image-rendering: optimizeSpped;
   image-rendering: -moz-crisp-edges;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: optimize-contrast;
   image-rendering: pixelated;
-}
-.girl {
-  background-image: url('../img/character-girl.png');
-}
-.boy {
-  background-image: url('../img/character-boy.png');
-}
-/* COLORS */
-.color1 {
-  background: hsla(0, 100%, 50%, 1);
-}
-.color2 {
-  background: hsla(24, 100%, 50%, 1);
-}
-.color3 {
-  background: hsla(35, 100%, 50%, 1);
-}
-.color4 {
-  background: hsla(47, 100%, 50%, 1);
-}
-.color5 {
-  background: hsla(60, 100%, 50%, 1);
-}
-.color6 {
-  background: hsla(78, 100%, 39%, 1);
-}
-.color7 {
-  background: hsla(115, 100%, 34%, 1);
-}
-.color8 {
-  background: hsla(189, 100%, 38%, 1);
-}
-.color9 {
-  background: hsla(208, 100%, 35%, 1);
-}
-.color10 {
-  background: hsla(234, 100%, 34%, 1);
-}
-.color11 {
-  background: hsla(276, 100%, 32%, 1);
-}
-.color12 {
-  background: hsla(322, 100%, 39%, 1);
-}
-/* STORE */
-.floor {
-  display: block;
-  width: 100%;
-  height: 120px; /* 372px (iPhone 4) / 3 = 124px */
-  border-bottom: 4px solid hsla(0, 0%, 32%, 1);
-  position: relative;
-  background: hsla(0, 0%, 59%, 1);
-}
-.label {
-  display: block;
-  width: 100%;
-  height: 24px;
-  background: url('../img/bricks.png');
-  border-bottom: 1px solid hsla(0, 0%, 15%, 1);
-  position: relative;
-}
-.label > span {
-  display: block;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  background: hsla(0, 0%, 15%, 1);
-  color: hsla(0, 0%, 94%, 1);
-  padding-left: 6px;
-  border-radius: 9px 0 0 0;
-  text-align: right;
-  font-size: 20px;
-  line-height: 20px;
-  letter-spacing: 4px;
-  text-transform: lowercase;
-  font-family: monospace;
-  font-weight: normal;
-}
-.lamp {
-  width: 16px;
-  height: 16px;
-  display: block;
-  position: relative;
-  left: 50%;
-  margin-left: -8px;
-}
-.mannequin {
-  display: inline-block;
-  height: 96px;
-  width: 64px;
-  position: relative;
-  margin-left: 12.8px;
-}
-.mannequin.on::before {
-  content: '';
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 32px 96px 32px;
-  border-color: transparent transparent hsla(0, 0%, 100%, 0.1) transparent;
-  position: absolute;
-  top: 0;
-  left: -1px;
-}
-.figure {
-  width: 32px;
-  height: 48px;
-  display: block;
-  position: absolute;
-  left: 50%;
-  bottom: 4px;
-  margin-left: -17px;
-}
-/* COLOR PICKER */
-#picker {
-  display: none;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-#picker.on {
-  display: block;
-}
-#picker > li {
-  display: block;
-  position: absolute;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-}
-.yellow {
-  top: 20px;
-  left: 140px;
-  background: rgb(255, 242, 5);
-}
-.yellow.orange {
-  top: 36px; /* 160 - (sin(60) * 120) - 20 */
-  left: 200px; /* (cos(60) * 120) - 20 + 160 */
-  background: rgb(255, 210, 3);
-}
-.orange {
-  top: 80px; /* 160 - (sin(30) * 120) - 20 */
-  left: 244px; /* (cos(30) * 120) - 20 + 160 */
-  background: rgb(250, 164, 27);
-}
-.red.orange {
-  top: 140px;
-  left: 260px;
-  background: rgb(242, 98, 35);
-}
-.red {
-  top: 200px;
-  left: 244px;
-  background: rgb(237, 27, 36);
-}
-.red.violet {
-  top: 244px;
-  left: 200px;
-  background: rgb(138, 40, 143);
-}
-.violet {
-  top: 260px;
-  left: 140px;
-  background: rgb(91, 47, 145);
-}
-.blue.violet {
-  top: 244px;
-  left: 80px;
-  background: rgb(62, 57, 151);
-}
-.blue {
-  top: 200px;
-  left: 36px;
-  background: rgb(5, 81, 165);
-}
-.blue.green {
-  top: 140px;
-  left: 20px;
-  background: rgb(1, 171, 134);
-}
-.green {
-  top: 80px;
-  left: 36px;
-  background: rgb(22, 160, 74);
-}
-.yellow.green {
-  top: 36px;
-  left:80px;
-  background: rgb(145, 199, 75);
 }
 .hidden {
   display: none;

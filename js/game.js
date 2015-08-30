@@ -486,55 +486,38 @@ var Items = (function () {
 
 var $ = window.jQuery
   , o = {}
-  , message = $('#message')
-  , messages = {}
-  , items = {}
-  , active = 'sword'
+  , element = $('#item')
+  , inventory = ['sword', 'bow', 'potion', 'key']
+  , active = 0
   , dirty = false
 
-items['bow'] = $('#bow')
-items['sword'] = $('#sword')
-items['potion'] = $('#potion')
-items['key'] = $('#key')
-
-messages['bow'] = 'The Backwards Bow is a recumbent recurve made of solid yew. Best fired by bracing oneself against something immobile.'
-messages['sword'] = 'The Boomerang Blade is an old cold rolled steel stalwart. It&rsquo;s a lighter alternative to the typical Sword of Smiting.'
-messages['potion'] = 'Potions of Quaff are particularly potent in a pinch when you need to go over something, or just be someone else for a while.'
-messages['key'] = 'The Key of Everlasting Ubiquity is your ticket out of here. Don&rsquo;t lose it. If you do lose it, you can get it back with some Quaff.'
-
 o.render = function () {
-  var key = 0
+  var i = 0
 
   if (dirty) {
-    for (key in items) {
-      if (items.hasOwnProperty(key)) {
-        if (key === active) {
-          items[key].add('picked')
-        } else {
-          items[key].remove('picked')
-        }
+    for (i = 0; i < inventory.length; i += 1) {
+      if (i === active) {
+        element.add(inventory[i])
+      } else {
+        element.remove(inventory[i])
       }
     }
-
-    if (messages.hasOwnProperty(active)) {
-      message.html(messages[active])
-    } else {
-      message.html('')
-    }
-
     dirty = false
   }
 
   return this
 }
 
-o.pick = function (item) {
-  active = item
+o.next = function () {
+  active += 1
+  if (active >= inventory.length) {
+    active = 0
+  }
   dirty = true
 }
 
 o.picked = function () {
-  return active
+  return inventory[active]
 }
 
 return o
@@ -759,7 +742,7 @@ function onFire (target, e) {
 }
 
 function onItem (target, e) {
-  Items.pick(target.unwrap().id)
+  Items.next()
 }
 
 function render () {
@@ -780,10 +763,7 @@ Game.play = function () {
   var $ = window.jQuery
 
   $('#room').touch(onFire, null)
-  $('#bow').touch(onItem, null)
-  $('#sword').touch(onItem, null)
-  $('#potion').touch(onItem, null)
-  $('#key').touch(onItem, null)
+  $('#inventory').touch(onItem, null)
 
   startGame(render)
 }
