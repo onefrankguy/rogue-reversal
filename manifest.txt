@@ -22,3 +22,4 @@ img/bow.png
 img/player.png
 img/arrow.png
 img/bat.png
+img/rocks.png

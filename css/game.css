@@ -261,11 +261,11 @@ ol {
   line-height: 60px;
   font-family: sans-serif;
   font-weight: bold;
-  font-size: 48px;
+  font-size: 32px;
   display: block;
   border-radius: 40px;
   border-bottom: 1px solid transparent;
-  color: rgb(20, 12, 28);
+  color: rgb(68, 36, 52);
   background-color: rgb(208, 70, 72);
   background-image: linear-gradient(to bottom, rgba(255,255,255,.1) 0%, rgba(0,0,0,.4) 100%);
   box-shadow: 0 1px 2px rgba(0,0,0,.4);

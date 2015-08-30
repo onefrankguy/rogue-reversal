@@ -50,6 +50,8 @@ var Room = (function () {
 'use strict';
 
 var r = {}
+  , $ = window.jQuery
+  , rocks = [$('#rocks1')]
   , num_rows = 6
   , num_cols = 10
   , tile_width = 32
@@ -108,8 +110,20 @@ r.intersect = function (box1, box2) {
            box2.bottom <= box1.top)
 }
 
+r.reset = function () {
+  var i = 0
+    , tile = null
+
+  for (i = 0; i < rocks.length; i += 1) {
+    tile = this.random_tile({ width: 32, height: 32 })
+    rocks[i].top(tile.top)
+    rocks[i].left(tile.left)
+  }
+}
+
 return r
 }())
+
 
 var Key = (function () {
 'use strict';
@@ -439,6 +453,7 @@ t.render = function () {
     element.animate('away', function () {
       Target.reset()
       Player.reset()
+      Room.reset()
     })
     dirty = 3
   }
@@ -793,6 +808,7 @@ Game.play = function () {
 
   $('#room').touch(onFire, offFire)
   $('#inventory').touch(onItem, offItem)
+  Room.reset()
 
   startGame(render)
 }
