@@ -60,7 +60,7 @@ ol {
   margin: 0 auto;
   padding: 0;
   color: rgb(20, 12, 28);
-  background: rgb(222, 238, 214);
+  background: rgb(78, 74, 78);
   overflow: hidden;
 }
 /* INFO BOX */
@@ -72,6 +72,7 @@ ol {
   font-family: monospace;
   border-bottom: 2px solid rgb(20, 12, 28);
   padding: 4px 0 0 4px;
+  background: rgb(222, 238, 214);
 }
 .quest.counter {
   font-size: 16px;
@@ -92,10 +93,10 @@ ol {
 /* INVENTORY */
 .inventory {
   position: relative;
-  top: 2px;
   display: block;
   width: 100%;
   height: 48px;
+  background: rgb(222, 238, 214);
   border-top: 2px solid rgb(20, 12, 28);
   border-bottom: 2px solid rgb(20, 12, 28);
 }
@@ -152,6 +153,7 @@ ol {
   display: block;
   width: 32px;
   height: 36px;
+  margin-top: -2px;
   background: url('../img/player.png');
   background-position: 0px;
 }
@@ -237,6 +239,46 @@ ol {
 .weapon.sword > .gfx {
   background-image: url('../img/sword.png');
   animation: spin 250ms linear infinite;
+}
+/* CONTROLS */
+.button {
+  position: relative;
+  top: 4px;
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  border-radius: 40px;
+  margin-left: 53px;
+  padding: 3px;
+  text-align: center;
+  background-color: rgb(208, 70, 72);
+  background-image: linear-gradient(to top, rgba(0,0,0,.4) 0%, rgba(255,255,255,.1) 100%);
+  border-bottom: 2px solid rgba(255,255,255,.3);
+  box-shadow: inset 0 4px 5px rgba(0,0,0,.3);
+}
+.button > * {
+  padding: 6px 8px;
+  line-height: 60px;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 48px;
+  display: block;
+  border-radius: 40px;
+  border-bottom: 1px solid transparent;
+  color: rgb(20, 12, 28);
+  background-color: rgb(208, 70, 72);
+  background-image: linear-gradient(to bottom, rgba(255,255,255,.1) 0%, rgba(0,0,0,.4) 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.4);
+  transition: all .1s ease-in;
+}
+.button.pressed {
+  margin-top: -1px;
+}
+.button.pressed > * {
+  margin-top: 1px;
+  margin-bottom: -1px;
+  border-bottom: 1px solid rgba(255,255,255,.5);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.5);
 }
 .pixelated {
   image-rendering: optimizeSpped;

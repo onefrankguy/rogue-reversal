@@ -750,14 +750,28 @@ function onColor (target, e) {
 }
 
 function onFire (target, e) {
+  var $ = window.jQuery
   if (Weapon.moving() || Target.moving()) {
     return
   }
   Player.fire()
+  $('#button-two').add('pressed')
+}
+
+function offFire (target, e) {
+  var $ = window.jQuery
+  $('#button-two').remove('pressed')
 }
 
 function onItem (target, e) {
+  var $ = window.jQuery
   Items.next()
+  $('#button-one').add('pressed')
+}
+
+function offItem (target, e) {
+  var $ = window.jQuery
+  $('#button-one').remove('pressed')
 }
 
 function render () {
@@ -777,8 +791,8 @@ function startGame (callback) {
 Game.play = function () {
   var $ = window.jQuery
 
-  $('#room').touch(onFire, null)
-  $('#inventory').touch(onItem, null)
+  $('#room').touch(onFire, offFire)
+  $('#inventory').touch(onItem, offItem)
 
   startGame(render)
 }
