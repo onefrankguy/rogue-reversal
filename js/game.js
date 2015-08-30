@@ -1,3 +1,27 @@
+var Quest = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , q = {}
+  , steps = $('#steps')
+  , score = 0
+  , dirty = false
+
+q.render = function () {
+  if (dirty) {
+    steps.html(score)
+    dirty = false
+  }
+}
+
+q.step = function () {
+  score += 1
+  dirty = true
+}
+
+return q
+}());
+
 var Emote = (function () {
 'use strict';
 
@@ -711,6 +735,7 @@ p.fire = function () {
   }
 
   Weapon.fire(item, { x: Room.move_col(col), y: Room.move_row(row) })
+  Quest.step()
   dirty = 1
   return this
 }
@@ -797,6 +822,7 @@ function render () {
   Items.render()
   Player.render()
   Emote.render()
+  Quest.render()
 }
 
 function startGame (callback) {
