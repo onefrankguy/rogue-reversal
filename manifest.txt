@@ -2,19 +2,6 @@ index.html
 css/game.min.css
 js/game.js
 js/jquery.js
-img/lamp.png
-img/bricks.png
-img/mannequin.png
-img/castle-top-wall.png
-img/castle-bottom-wall.png
-img/castle-left-wall.png
-img/castle-right-wall.png
-img/castle-top-right.png
-img/castle-top-left.png
-img/castle-bottom-left.png
-img/castle-bottom-right.png
-img/castle-door-closed.png
-img/castle-floor.png
 img/potion.png
 img/key.png
 img/sword.png
@@ -23,3 +10,4 @@ img/player.png
 img/arrow.png
 img/bat.png
 img/rocks.png
+img/floor.png

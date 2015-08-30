@@ -140,6 +140,7 @@ ol {
   height: 192px;
   background: rgb(222, 238, 214);
   color: rgb(20, 12, 28);
+  background-image: url('../img/floor.png');
 }
 .lootable {
   position: absolute;
