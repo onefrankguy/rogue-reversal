@@ -904,6 +904,39 @@ m.box = function () {
   return element.box()
 }
 
+m.move = function (direction) {
+  if (direction === 'forward') {
+    row -= 1
+    dirty = true
+  }
+  else if (direction === 'backward') {
+    row += 1
+    dirty = true
+  }
+  else if (direction === 'left') {
+    col -= 1
+    dirty = true
+  }
+  else if (direction === 'right') {
+    col += 1
+    dirty = true
+  }
+  if (dirty) {
+    if (row < 0) {
+      row = 0
+    }
+    else if (row > 6) {
+      row = 6
+    }
+    if (col < 0) {
+      col = 0
+    }
+    else if (col > 6) {
+      col = 6
+    }
+  }
+}
+
 return m
 }())
 
@@ -992,8 +1025,10 @@ function onUse (target, e) {
       Hero.move('forward')
     } else if (hbox.x < mbox.x) {
       Hero.move('left')
+      Monster.move('left')
     } else {
       Hero.move('right')
+      Monster.move('right')
     }
   }
 
@@ -1002,8 +1037,10 @@ function onUse (target, e) {
       Hero.move('backward')
     } else if (hbox.x < mbox.x) {
       Hero.move('right')
+      Monster.move('right')
     } else {
       Hero.move('left')
+      Monster.move('left')
     }
   }
 }
