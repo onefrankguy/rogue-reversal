@@ -868,9 +868,148 @@ o.pick = function (name) {
   }
 }
 
+o.equipped = function () {
+  return picked
+}
+
 return o
 }())
 
+
+var Monster = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , m = {}
+  , element = $('#monster')
+  , row = 0
+  , col = 0
+  , dirty = false
+
+m.reset = function () {
+  row = 0
+  col = 3
+  dirty = true
+}
+
+m.render = function () {
+  if (dirty) {
+    element.top(row * 32)
+    element.left(col * 32)
+    dirty = false
+  }
+}
+
+m.box = function () {
+  return element.box()
+}
+
+return m
+}())
+
+var Hero = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , h = {}
+  , element = $('#hero')
+  , row = 0
+  , col = 0
+  , dirty = false
+
+h.reset = function () {
+  row = 1
+  col = 3
+  dirty = true
+}
+
+h.render = function () {
+  if (dirty) {
+    element.top((row * 32) - 4)
+    element.left(col * 32)
+    dirty = false
+  }
+}
+
+h.box = function () {
+  return element.box()
+}
+
+h.move = function (direction) {
+  if (direction === 'forward') {
+    row -= 1
+    dirty = true
+  }
+  else if (direction === 'backward') {
+    row += 1
+    dirty = true
+  }
+  else if (direction === 'left') {
+    col -= 1
+    dirty = true
+  }
+  else if (direction === 'right') {
+    col += 1
+    dirty = true
+  }
+  if (dirty) {
+    if (row < 1) {
+      row = 1
+    }
+    else if (row > 6) {
+      row = 6
+    }
+    if (col < 0) {
+      col = 0
+    }
+    else if (col > 6) {
+      col = 6
+    }
+  }
+}
+
+return h
+}())
+
+
+function onUse (target, e) {
+  var item = null
+    , hbox = null
+    , mbox = null
+    , hx = 0
+    , mx = 0
+    , dx = 0
+
+  item = Inventory.equipped()
+  hbox = Hero.box()
+  mbox = Monster.box()
+  hx = hbox.left + (hbox.width / 2)
+  mx = mbox.left + (mbox.width / 2)
+  dx = Math.abs(hx - mx)
+
+  if (item === 'sword') {
+    if (dx < 32) {
+      Hero.move('forward')
+    } else if (hbox.x < mbox.x) {
+      Hero.move('left')
+    } else {
+      Hero.move('right')
+    }
+  }
+
+  if (item === 'bow') {
+    if (dx < 32) {
+      Hero.move('backward')
+    } else if (hbox.x < mbox.x) {
+      Hero.move('right')
+    } else {
+      Hero.move('left')
+    }
+  }
+}
+
+function offUse (target, e) {
+}
 
 function onItem (target, e) {
   Inventory.pick(target.unwrap().id)
@@ -882,9 +1021,14 @@ function offItem (target, e) {
 function render () {
   requestAnimationFrame(render)
   Inventory.render()
+  Monster.render()
+  Hero.render()
 }
 
 function startGame (callback) {
+  Monster.reset()
+  Hero.reset()
+
   requestAnimationFrame(callback)
 }
 
@@ -895,6 +1039,8 @@ Game.play = function () {
   $('#bow').touch(onItem, offItem)
   $('#potion').touch(onItem, offItem)
   $('#key').touch(onItem, offItem)
+
+  $('#room').touch(onUse, offUse)
 
   startGame(render)
 }
