@@ -842,13 +842,18 @@ var $ = window.jQuery
   , o = {}
   , picked = 'sword'
   , inventory = {}
-  , usable = ['sword','bow','potion','key']
+  , usable = []
   , dirty = false
 
 inventory['sword'] = $('#sword')
 inventory['bow'] = $('#bow')
 inventory['potion'] = $('#potion')
 inventory['key'] = $('#key')
+
+o.reset = function () {
+  usable = ['sword', 'bow', 'potion']
+  dirty = true
+}
 
 o.render = function () {
   if (dirty) {
@@ -880,6 +885,14 @@ o.equipped = function () {
   return picked
 }
 
+o.pickup = function (item) {
+  var index = usable.indexOf(item)
+  if (index < 0) {
+    usable.push(item)
+    dirty = true
+  }
+}
+
 o.use = function (item) {
   var index = usable.indexOf(item)
   if (index > -1) {
@@ -893,6 +906,42 @@ o.usable = function (item) {
 }
 
 return o
+}())
+
+
+var Chest = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , c = {}
+  , element = $('#chest')
+  , row = 0
+  , col = 0
+  , dirty = false
+
+c.reset = function () {
+  row = 5
+  col = 1
+  dirty = true
+}
+
+c.render = function () {
+  if (dirty) {
+    element.top(row * 32)
+    element.left(col * 32)
+    dirty = false
+  }
+}
+
+c.row = function () {
+  return row
+}
+
+c.col = function () {
+  return col
+}
+
+return c
 }())
 
 
@@ -1081,9 +1130,9 @@ function onUse (target, e) {
   dx = Math.abs(hx - mx)
 
   if (item === 'sword') {
-    if (dx < 32) {
+    if (dx < 24) {
       Hero.move('forward')
-    } else if (hbox.x < mbox.x) {
+    } else if (hx < mx) {
       Hero.move('left')
       Monster.move('left')
     } else {
@@ -1093,9 +1142,12 @@ function onUse (target, e) {
   }
 
   if (item === 'bow') {
-    if (dx < 32) {
+    if (Hero.col() === Chest.col() && Hero.row() - Chest.row() === 1) {
+      Inventory.use('bow')
+      Inventory.pickup('key')
+    } else if (dx < 24) {
       Hero.move('backward')
-    } else if (hbox.x < mbox.x) {
+    } else if (hx < mx) {
       Hero.move('right')
       Monster.move('right')
     } else {
@@ -1105,7 +1157,7 @@ function onUse (target, e) {
   }
 
   if (item === 'potion') {
-    if (Monster.dead() && Hero.row() - Monster.row() === 1 && Hero.col() === Monster.col()) {
+    if (Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
       Inventory.use('potion')
       Monster.heal()
     }
@@ -1125,11 +1177,14 @@ function offItem (target, e) {
 function render () {
   requestAnimationFrame(render)
   Inventory.render()
+  Chest.render()
   Monster.render()
   Hero.render()
 }
 
 function startGame (callback) {
+  Inventory.reset()
+  Chest.reset()
   Monster.reset()
   Hero.reset()
 
