@@ -15,8 +15,8 @@ html {
   font-size: 62.5%;
 }
 body {
-  background: rgb(20, 12, 28);
-  color: rgb(222, 238, 214);
+  background: rgb(36, 36, 36);
+  color: rgb(240, 240, 240);
   font-size: 1.6rem;
 }
 ul {
@@ -25,6 +25,111 @@ ul {
 ol {
   list-style: none;
 }
+/* GAME */
+.ruins {
+  position: relative;
+  display: block;
+  /* Usable area on an iPhone 4 is 320x372 pixels */
+  width: 320px;
+  height: 372px;
+  margin: 0 auto;
+  padding: 0;
+  background: rgb(82, 82, 82);
+  overflow: hidden;
+}
+/* QUESTS */
+.quests {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 64px;
+  padding: 0 8px;
+  background: rgb(115, 115, 115);
+}
+.quests > .title {
+  font-size: 24px;
+  line-height: 36px;
+}
+.quests > .quest {
+  font-size: 16px;
+  line-height: 24px;
+}
+.quests > .score {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 8px 8px 0 0;
+}
+/* ROOM */
+.room {
+  /* Usable area on a GameBoy is 160x144 pixels */
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 224px;
+  margin: 0 auto;
+}
+/* ITEMS */
+.items {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 84px;
+  background: rgb(115, 115, 115);
+  padding-top: 10px;
+}
+.items > .item {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  background: rgb(150, 150, 150);
+  margin-left: 12.8px;
+}
+.items > .picked:before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 12px;
+  height: 60px;
+  border: 2px solid rgb(36, 36, 36);
+  border-right: none;
+}
+.items > .picked:after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 12px;
+  height: 60px;
+  border: 2px solid rgb(36, 36, 36);
+  border-left: none;
+}
+.item {
+  font-size: 16px;
+  line-height: 64px;
+  text-align: center;
+}
+/* COLOPHON */
+.colophon {
+  position: relative;
+  display: block;
+  width: 320px;
+  margin: 16px auto 0 auto;
+  padding-right: 8px;
+  text-align: right;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: sans-serif;
+  color: rgb(189, 189, 189);
+}
+
+
 /* GAME */
 /* http://www.sitepoint.com/css3-pong-insane-things-to-do-with-css/ */
 @keyframes fly-horizontal {
@@ -51,17 +156,6 @@ ol {
   display: block;
   width: 32px;
   height: 32px;
-}
-#dungeon {
-  position: relative;
-  display: block;
-  width: 320px; /* iPhone 4 */
-  height: 372px; /* iPhone 4 */
-  margin: 0 auto;
-  padding: 0;
-  color: rgb(20, 12, 28);
-  background: rgb(78, 74, 78);
-  overflow: hidden;
 }
 /* INFO BOX */
 .quest.info {
