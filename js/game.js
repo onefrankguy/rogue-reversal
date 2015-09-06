@@ -884,19 +884,29 @@ var $ = window.jQuery
   , element = $('#monster')
   , row = 0
   , col = 0
-  , dirty = false
+  , alive = false
+  , dirty = 0
 
 m.reset = function () {
   row = 0
   col = 3
-  dirty = true
+  alive = false
+  dirty = 1 | 2
 }
 
 m.render = function () {
-  if (dirty) {
+  if (dirty & 1) {
     element.top(row * 32)
     element.left(col * 32)
-    dirty = false
+    dirty &= ~1
+  }
+  if (dirty & 2) {
+    if (alive) {
+      element.add('fast')
+    } else {
+      element.remove('fast')
+    }
+    dirty &= ~2
   }
 }
 
@@ -904,37 +914,53 @@ m.box = function () {
   return element.box()
 }
 
+m.row = function () {
+  return row
+}
+
 m.move = function (direction) {
+  if (!alive) {
+    return
+  }
   if (direction === 'forward') {
     row -= 1
-    dirty = true
+    dirty |= 1
   }
   else if (direction === 'backward') {
     row += 1
-    dirty = true
+    dirty |= 1
   }
   else if (direction === 'left') {
     col -= 1
-    dirty = true
+    dirty |= 1
   }
   else if (direction === 'right') {
     col += 1
-    dirty = true
+    dirty |= 1
   }
-  if (dirty) {
-    if (row < 0) {
-      row = 0
-    }
-    else if (row > 6) {
-      row = 6
-    }
-    if (col < 0) {
-      col = 0
-    }
-    else if (col > 6) {
-      col = 6
-    }
+  if (row < 0) {
+    row = 0
   }
+  else if (row > 6) {
+    row = 6
+  }
+  if (col < 0) {
+    col = 0
+  }
+  else if (col > 6) {
+    col = 6
+  }
+}
+
+m.heal = function () {
+  if (!alive) {
+    alive = true
+    dirty |= 2
+  }
+}
+
+m.dead = function () {
+  return !alive
 }
 
 return m
@@ -968,6 +994,10 @@ h.box = function () {
   return element.box()
 }
 
+h.row = function () {
+  return row
+}
+
 h.move = function (direction) {
   if (direction === 'forward') {
     row -= 1
@@ -985,19 +1015,17 @@ h.move = function (direction) {
     col += 1
     dirty = true
   }
-  if (dirty) {
-    if (row < 1) {
-      row = 1
-    }
-    else if (row > 6) {
-      row = 6
-    }
-    if (col < 0) {
-      col = 0
-    }
-    else if (col > 6) {
-      col = 6
-    }
+  if (row < 1) {
+    row = 1
+  }
+  else if (row > 6) {
+    row = 6
+  }
+  if (col < 0) {
+    col = 0
+  }
+  else if (col > 6) {
+    col = 6
   }
 }
 
@@ -1041,6 +1069,12 @@ function onUse (target, e) {
     } else {
       Hero.move('left')
       Monster.move('left')
+    }
+  }
+
+  if (item === 'potion') {
+    if (Monster.dead() && Hero.row() - Monster.row() === 1) {
+      Monster.heal()
     }
   }
 }
