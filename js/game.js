@@ -1,52 +1,3 @@
-var Quest = (function () {
-'use strict';
-
-var $ = window.jQuery
-  , q = {}
-  , quest_counter = $('#quest-counter')
-  , quest_text = $('#quest-text')
-  , game_score = $('#game-score')
-  , score = 0
-  , marker = 0
-  , texts = []
-  , dirty = false
-
-texts[0] = 'Scare away the bat.'
-texts[1] = 'Find the key.'
-
-q.render = function () {
-  if (dirty) {
-    game_score.html(score)
-    if (marker < texts.length) {
-      quest_text.html(texts[marker])
-      quest_counter.html('Quest '+(marker+1)+'/'+texts.length)
-    } else {
-      quest_text.html('Go on an adventure.')
-      quest_counter.html('Quest 0/0')
-    }
-    dirty = false
-  }
-}
-
-q.step = function () {
-  score += 1
-  dirty = true
-}
-
-q.complete = function () {
-  if (marker === 0) {
-    marker += 1
-    dirty = true
-  } else if (marker === 1) {
-    if (Key.held()) {
-      marker += 1
-      dirty = true
-    }
-  }
-}
-
-return q
-}());
 
 var Emote = (function () {
 'use strict';
@@ -504,7 +455,6 @@ t.render = function () {
   } else if (dirty === 2) {
     element.remove('horizontal')
     element.animate('away', function () {
-      Quest.complete()
       Target.reset()
       Player.reset()
       Room.reset()
@@ -765,7 +715,6 @@ p.fire = function () {
   }
 
   Weapon.fire(item, { x: Room.move_col(col), y: Room.move_row(row) })
-  Quest.step()
   dirty = 1
   return this
 }
@@ -909,6 +858,41 @@ return o
 }())
 
 
+var Fountain = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , f = {}
+  , element = $('#fountain')
+  , row = 0
+  , col = 0
+  , dirty = false
+
+f.reset = function () {
+  row = 2
+  col = 6
+  dirty = true
+}
+
+f.render = function () {
+  if (dirty) {
+    element.top(row * 32)
+    element.left(col * 32)
+    dirty = false
+  }
+}
+
+f.row = function () {
+  return row
+}
+
+f.col = function () {
+  return col
+}
+
+return f
+}())
+
 var Chest = (function () {
 'use strict';
 
@@ -921,7 +905,7 @@ var $ = window.jQuery
 
 c.reset = function () {
   row = 5
-  col = 1
+  col = 0
   dirty = true
 }
 
@@ -1131,7 +1115,9 @@ function onUse (target, e) {
 
   if (item === 'sword') {
     if (dx < 24) {
-      Hero.move('forward')
+      if (Inventory.usable('bow') || (Inventory.usable('key') && Hero.row() - Fountain.row() > 1) || !Inventory.usable('key')) {
+        Hero.move('forward')
+      }
     } else if (hx < mx) {
       Hero.move('left')
       Monster.move('left')
@@ -1162,6 +1148,12 @@ function onUse (target, e) {
       Monster.heal()
     }
   }
+
+  if (item === 'key') {
+    if (Hero.col() === Fountain.col() && Hero.row() - Fountain.row() === 1) {
+      Inventory.use('key')
+    }
+  }
 }
 
 function offUse (target, e) {
@@ -1177,6 +1169,7 @@ function offItem (target, e) {
 function render () {
   requestAnimationFrame(render)
   Inventory.render()
+  Fountain.render()
   Chest.render()
   Monster.render()
   Hero.render()
@@ -1184,6 +1177,7 @@ function render () {
 
 function startGame (callback) {
   Inventory.reset()
+  Fountain.reset()
   Chest.reset()
   Monster.reset()
   Hero.reset()
