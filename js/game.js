@@ -842,6 +842,7 @@ var $ = window.jQuery
   , o = {}
   , picked = 'sword'
   , inventory = {}
+  , usable = ['sword','bow','potion','key']
   , dirty = false
 
 inventory['sword'] = $('#sword')
@@ -857,19 +858,38 @@ o.render = function () {
       }
       inventory[picked].add('picked')
     }
+    for (var key in inventory) {
+      if (usable.indexOf(key) > -1) {
+        inventory[key].remove('used')
+      } else {
+        inventory[key].add('used')
+      }
+    }
     dirty = false
   }
 }
 
-o.pick = function (name) {
-  if (name !== picked) {
-    picked = name
+o.pick = function (item) {
+  if (picked !== item) {
+    picked = item
     dirty = true
   }
 }
 
 o.equipped = function () {
   return picked
+}
+
+o.use = function (item) {
+  var index = usable.indexOf(item)
+  if (index > -1) {
+    usable.splice(index, 1)
+    dirty = true
+  }
+}
+
+o.usable = function (item) {
+  return usable.indexOf(item) > -1
 }
 
 return o
@@ -916,6 +936,10 @@ m.box = function () {
 
 m.row = function () {
   return row
+}
+
+m.col = function () {
+  return col
 }
 
 m.move = function (direction) {
@@ -998,6 +1022,10 @@ h.row = function () {
   return row
 }
 
+h.col = function () {
+  return col
+}
+
 h.move = function (direction) {
   if (direction === 'forward') {
     row -= 1
@@ -1042,6 +1070,10 @@ function onUse (target, e) {
     , dx = 0
 
   item = Inventory.equipped()
+  if (!Inventory.usable(item)) {
+    return
+  }
+
   hbox = Hero.box()
   mbox = Monster.box()
   hx = hbox.left + (hbox.width / 2)
@@ -1073,7 +1105,8 @@ function onUse (target, e) {
   }
 
   if (item === 'potion') {
-    if (Monster.dead() && Hero.row() - Monster.row() === 1) {
+    if (Monster.dead() && Hero.row() - Monster.row() === 1 && Hero.col() === Monster.col()) {
+      Inventory.use('potion')
       Monster.heal()
     }
   }

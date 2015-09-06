@@ -102,14 +102,6 @@ ol {
   background: rgb(115, 115, 115);
   padding-top: 10px;
 }
-.items > .item {
-  position: relative;
-  display: inline-block;
-  width: 64px;
-  height: 64px;
-  background: rgb(150, 150, 150);
-  margin-left: 12.8px;
-}
 .items > .picked:before {
   content: " ";
   position: absolute;
@@ -133,10 +125,21 @@ ol {
   border-left: none;
 }
 .item {
+  position: relative;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  background: rgb(150, 150, 150);
+  margin-left: 12.8px;
   font-size: 16px;
   line-height: 64px;
   text-align: center;
 }
+.item.used {
+  background: transparent;
+  color: transparent;
+}
+
 /* COLOPHON */
 .colophon {
   position: relative;
