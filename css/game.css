@@ -70,7 +70,7 @@ ol {
 .walkable {
   position: relative;
   display: block;
-  width: 224px;
+  width: 288px;
   height: 224px;
   margin: 0 auto;
 }

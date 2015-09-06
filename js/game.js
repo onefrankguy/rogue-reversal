@@ -1,4 +1,3 @@
-
 var Emote = (function () {
 'use strict';
 
@@ -870,7 +869,7 @@ var $ = window.jQuery
 
 f.reset = function () {
   row = 2
-  col = 6
+  col = 7
   dirty = true
 }
 
@@ -905,7 +904,7 @@ var $ = window.jQuery
 
 c.reset = function () {
   row = 5
-  col = 0
+  col = 1
   dirty = true
 }
 
@@ -942,7 +941,7 @@ var $ = window.jQuery
 
 m.reset = function () {
   row = 0
-  col = 3
+  col = 4
   alive = false
   dirty = 1 | 2
 }
@@ -1004,8 +1003,8 @@ m.move = function (direction) {
   if (col < 0) {
     col = 0
   }
-  else if (col > 6) {
-    col = 6
+  else if (col > 8) {
+    col = 8
   }
 }
 
@@ -1034,8 +1033,8 @@ var $ = window.jQuery
   , dirty = false
 
 h.reset = function () {
-  row = 1
-  col = 3
+  row = 6
+  col = 4
   dirty = true
 }
 
@@ -1085,7 +1084,7 @@ h.move = function (direction) {
   if (col < 0) {
     col = 0
   }
-  else if (col > 6) {
+  else if (col > 8) {
     col = 6
   }
 }
