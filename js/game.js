@@ -304,10 +304,13 @@ var ImageCache = (function () {
 
 var $ = window.jQuery
   , canvas = $('#gfx').unwrap()
-  , ctx = canvas.getContext('2d')
+  , ctx = null
   , images = {}
   , ic = {}
 
+if (canvas) {
+  ctx = canvas.getContext('2d')
+}
 images['mannequin'] = {"width":16,"height":24,"data":"67a2b7a2b4a2b1c1b5a1b2c1b3a1b3c5b1d2c1b3a1b3c6d2c1b3a1b1c1b1c2d2e2d1b1c1b3a1b1c1b1c1d2e3d1b1c1b3a1b1c1b1c1d2e2d1e1b1c1b3a1b1c1b2c1d1e2d1e1b1c1b4a2b3c3d1e2b6a1b6c1e1b7a1f7b1f7a1f7g1f7a1f2g1h4g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h1g1f7a1f1g1h1f1a1f1h2f7a1i2g1i1a1f1h2f6a2i2f1i1a2i1f2i5a5i1a5i2a","values":{"a":"#00000000","b":"#afafafff","c":"#d0d0d0ff","d":"#ecececff","e":"#ffffffff","f":"#414141ff","g":"#606060ff","h":"#848484ff","i":"#1b1b1bff"}}
 
 /*
@@ -830,26 +833,55 @@ function offFire (target, e) {
   $('#button-two').remove('pressed')
 }
 
+
+
+var Inventory = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , o = {}
+  , picked = 'sword'
+  , inventory = {}
+  , dirty = false
+
+inventory['sword'] = $('#sword')
+inventory['bow'] = $('#bow')
+inventory['potion'] = $('#potion')
+inventory['key'] = $('#key')
+
+o.render = function () {
+  if (dirty) {
+    for (var key in inventory) {
+      if (inventory.hasOwnProperty(key)) {
+        inventory[key].remove('picked')
+      }
+      inventory[picked].add('picked')
+    }
+    dirty = false
+  }
+}
+
+o.pick = function (name) {
+  if (name !== picked) {
+    picked = name
+    dirty = true
+  }
+}
+
+return o
+}())
+
+
 function onItem (target, e) {
-  var $ = window.jQuery
-  Items.next()
-  $('#button-one').add('pressed')
+  Inventory.pick(target.unwrap().id)
 }
 
 function offItem (target, e) {
-  var $ = window.jQuery
-  $('#button-one').remove('pressed')
 }
 
 function render () {
   requestAnimationFrame(render)
-  Weapon.render()
-  Target.render()
-  Key.render()
-  Items.render()
-  Player.render()
-  Emote.render()
-  Quest.render()
+  Inventory.render()
 }
 
 function startGame (callback) {
@@ -859,11 +891,14 @@ function startGame (callback) {
 Game.play = function () {
   var $ = window.jQuery
 
-  $('#room').touch(onFire, offFire)
-  $('#inventory').touch(onItem, offItem)
-  Room.reset()
+  $('#sword').touch(onItem, offItem)
+  $('#bow').touch(onItem, offItem)
+  $('#potion').touch(onItem, offItem)
+  $('#key').touch(onItem, offItem)
 
   startGame(render)
 }
 
 })(window.Game = window.Game || {})
+
+Game.play()
