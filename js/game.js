@@ -795,11 +795,12 @@ var $ = window.jQuery
 
 inventory['sword'] = $('#sword')
 inventory['bow'] = $('#bow')
+inventory['hands'] = $('#hands')
 inventory['potion'] = $('#potion')
 inventory['key'] = $('#key')
 
 o.reset = function () {
-  usable = ['sword', 'bow', 'potion']
+  usable = ['sword','bow','potion']
   dirty = true
 }
 
@@ -812,10 +813,18 @@ o.render = function () {
       inventory[picked].add('picked')
     }
     for (var key in inventory) {
-      if (usable.indexOf(key) > -1) {
+      if (this.usable(key)) {
         inventory[key].remove('used')
+        if (key === 'bow') {
+          inventory['hands'].add('hidden')
+          inventory['bow'].remove('hidden')
+        }
       } else {
         inventory[key].add('used')
+        if (key === 'bow') {
+          inventory['bow'].add('hidden')
+          inventory['hands'].remove('hidden')
+        }
       }
     }
     dirty = false
@@ -837,6 +846,9 @@ o.pickup = function (item) {
   var index = usable.indexOf(item)
   if (index < 0) {
     usable.push(item)
+    if (item === 'bow') {
+      this.use('hands')
+    }
     dirty = true
   }
 }
@@ -845,6 +857,9 @@ o.use = function (item) {
   var index = usable.indexOf(item)
   if (index > -1) {
     usable.splice(index, 1)
+    if (item === 'bow') {
+      this.pickup('hands')
+    }
     dirty = true
   }
 }
@@ -1088,9 +1103,7 @@ function onUse (target, e) {
 
   if (item === 'sword') {
     if (dx < 24) {
-      if (Inventory.usable('bow') || (Inventory.usable('key') && Hero.row() - Fountain.row() > 1) || !Inventory.usable('key')) {
-        Hero.move('forward')
-      }
+      Hero.move('forward')
     } else if (hx < mx) {
       Hero.move('left')
       Monster.col(Hero.col())
@@ -1105,6 +1118,18 @@ function onUse (target, e) {
       Inventory.use('bow')
       Inventory.pickup('key')
     } else if (dx < 24) {
+      Hero.move('backward')
+    } else if (hx < mx) {
+      Hero.move('right')
+      Monster.col(Hero.col())
+    } else {
+      Hero.move('left')
+      Monster.col(Hero.col())
+    }
+  }
+
+  if (item === 'hands') {
+    if (dx < 24) {
       Hero.move('backward')
     } else if (hx < mx) {
       Hero.move('right')
@@ -1162,6 +1187,7 @@ Game.play = function () {
   var $ = window.jQuery
 
   $('#sword').touch(onItem, offItem)
+  $('#hands').touch(onItem, offItem)
   $('#bow').touch(onItem, offItem)
   $('#potion').touch(onItem, offItem)
   $('#key').touch(onItem, offItem)
