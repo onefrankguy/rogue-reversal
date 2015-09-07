@@ -2,14 +2,7 @@ index.html
 css/game.min.css
 js/game.js
 js/jquery.js
-img/potion.png
-img/key.png
-img/sword.png
-img/bow.png
 img/player.png
-img/arrow.png
-img/bat.png
-img/rocks.png
 img/floor.png
 img/monster.png
 img/sprites.png
