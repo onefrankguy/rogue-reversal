@@ -1,3 +1,36 @@
+var Score = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , score = {}
+  , element = $('#score')
+  , total = 0
+  , dirty = true
+
+score.reset = function () {
+  total = 0
+  dirty = true
+}
+
+score.render = function () {
+  if (dirty) {
+    element.html(total)
+    dirty = false
+  }
+}
+
+score.increment = function (amount) {
+  amount = parseInt(amount, 10)
+  if (isNaN(amount)) {
+    amount = 1
+  }
+  total += amount
+  dirty = true
+}
+
+return score
+}())
+
 var Emote = (function () {
 'use strict';
 
@@ -1269,6 +1302,7 @@ function onUse (target, e) {
       Hero.move('right')
       Monster.col(Hero.col())
     }
+    Score.increment()
   }
 
   if (item === 'bow') {
@@ -1284,6 +1318,7 @@ function onUse (target, e) {
       Hero.move('left')
       Monster.col(Hero.col())
     }
+    Score.increment()
   }
 
   if (item === 'hands') {
@@ -1296,6 +1331,7 @@ function onUse (target, e) {
       Hero.move('left')
       Monster.col(Hero.col())
     }
+    Score.increment()
   }
 
   if (item === 'potion') {
@@ -1324,6 +1360,8 @@ function offItem (target, e) {
 
 function render () {
   requestAnimationFrame(render)
+
+  Score.render()
   Inventory.render()
   Stairs.render()
   Fountain.render()
@@ -1336,6 +1374,7 @@ function render () {
 function startGame (callback) {
   PRNG.seed()
 
+  Score.reset()
   Inventory.reset()
   Stairs.reset()
   Fountain.reset()
