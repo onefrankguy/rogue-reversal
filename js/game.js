@@ -14,6 +14,7 @@ text = [
 , "Hide the key under the rock."
 , "Wash your hair in the fountain."
 , "Leave the ruins via the stairs."
+, "A brave hero enters a strange land&hellip;"
 ]
 
 quest.reset = function () {
@@ -38,9 +39,21 @@ quest.complete = function (name) {
   } else if (name === 'fountain' && marker === 3) {
     marker = 4
   } else if (name === 'stairs' && marker === 4) {
-    marker = 0
+    marker = 5
   }
   dirty = true
+}
+
+quest.current = function () {
+  switch (marker) {
+    case 0: return 'monster'
+    case 1: return 'chest'
+    case 2: return 'rock'
+    case 3: return 'fountain'
+    case 4: return 'stairs'
+    case 5: return 'restart'
+    default: return null
+  }
 }
 
 return quest
@@ -1001,7 +1014,7 @@ o.pickup = function (item) {
     if (item === 'bow') {
       this.use('hands')
     }
-    dirty = true
+    this.pick(item)
   }
 }
 
@@ -1315,6 +1328,7 @@ function onUse (target, e) {
     , hx = 0
     , mx = 0
     , dx = 0
+    , quest = null
 
   item = Inventory.equipped()
   if (!Inventory.usable(item)) {
@@ -1326,6 +1340,8 @@ function onUse (target, e) {
   hx = hbox.left + (hbox.width / 2)
   mx = mbox.left + (mbox.width / 2)
   dx = Math.abs(hx - mx)
+
+  quest = Quest.current()
 
   if (item === 'sword') {
     if (dx < 24) {
@@ -1341,9 +1357,9 @@ function onUse (target, e) {
   }
 
   if (item === 'bow') {
-    if (Hero.col() === Chest.col() && Hero.row() - Chest.row() === 1) {
-      Inventory.use('bow')
+    if (quest === 'chest' && Hero.col() === Chest.col() && Hero.row() - Chest.row() === 1) {
       Inventory.pickup('key')
+      Inventory.use('bow')
       Quest.complete('chest')
     } else if (dx < 24) {
       Hero.move('backward')
@@ -1358,9 +1374,9 @@ function onUse (target, e) {
   }
 
   if (item === 'hands') {
-    if (Hero.col() === Fountain.col() && Hero.row() - Fountain.row() === 1) {
+    if (quest  === 'fountain' && Hero.col() === Fountain.col() && Hero.row() - Fountain.row() === 1) {
       Quest.complete('fountain')
-    } else if (Hero.col() === Stairs.col() && Hero.row() - Stairs.row() === 1) {
+    } else if (quest  === 'stairs' && Hero.col() === Stairs.col() && Hero.row() - Stairs.row() === 1) {
       Quest.complete('stairs')
     } else if (dx < 24) {
       Hero.move('backward')
@@ -1375,18 +1391,18 @@ function onUse (target, e) {
   }
 
   if (item === 'potion') {
-    if (Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
+    if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
       Inventory.use('potion')
       Monster.heal()
       Quest.complete('monster')
       Emote.say("You should drink this.")
     } else {
-      Emote.say("I need to be closer.")
+      Emote.say("I need to get closer.")
     }
   }
 
   if (item === 'key') {
-    if (Hero.col() === Rock.col() && Hero.row() - Rock.row() === 1) {
+    if (quest === 'rock' && Hero.col() === Rock.col() && Hero.row() - Rock.row() === 1) {
       Inventory.use('key')
       Quest.complete('rock')
     }
