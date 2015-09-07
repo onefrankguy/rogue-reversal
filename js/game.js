@@ -11,7 +11,7 @@ var $ = window.jQuery
 text = [
   "Heal the bat with the potion."
 , "Put the bow in the chest."
-, "Hide the key under the rock."
+, "Hide the key among the rocks."
 , "Wash your hair in the fountain."
 , "Leave the ruins via the stairs."
 , "A brave hero enters a strange land&hellip;"
@@ -1396,10 +1396,17 @@ function onUse (target, e) {
 
   quest = Quest.current()
 
-  if (item === 'sword') {
-    if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
+  if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
+    if (item === 'sword') {
+      Emote.say("Are you okay?")
+    }
+    if (item === 'bow') {
       Emote.say("You don't look good.")
-    } else if (dx < 24) {
+    }
+  }
+
+  if (item === 'sword') {
+    if (dx < 24) {
       Hero.move('forward')
     } else if (hx < mx) {
       Hero.move('left')
