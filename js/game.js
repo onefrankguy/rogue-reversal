@@ -915,6 +915,11 @@ var ruins = {}
   , positions = {}
   , quadrants = []
 
+ruins.reset = function () {
+  positions = []
+  quadrants = []
+}
+
 // Tiles can start in one of four quadrants NE, SE, SW or NW.
 // Two tiles are not allowed to occupy the same quadrant.
 ruins.loc = function (name) {
@@ -1486,6 +1491,7 @@ function render () {
 function resetGame () {
   PRNG.seed()
 
+  Ruins.reset()
   Quest.reset()
   Score.reset()
   Inventory.reset()
