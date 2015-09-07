@@ -1465,7 +1465,12 @@ function onUse (target, e) {
 }
 
 function onItem (target, e) {
-  Inventory.pick(target.unwrap().id)
+  var item = target.unwrap().id
+  if (Inventory.equipped() !== item) {
+    Inventory.pick(item)
+  } else {
+    onUse()
+  }
 }
 
 function render () {
