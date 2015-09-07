@@ -1003,10 +1003,6 @@ function isVisible (item) {
   return visible.indexOf(item) > -1
 }
 
-function isPossible (item) {
-  return possible.indexOf(item) > -1
-}
-
 o.reset = function () {
   this.loadout('hero')
 }
@@ -1055,7 +1051,7 @@ o.loadout = function (name) {
 }
 
 o.pick = function (item) {
-  if (picked !== item && isPossible(item)) {
+  if (picked !== item) {
     picked = item
     dirty = true
   }
@@ -1312,7 +1308,7 @@ var $ = window.jQuery
   , dirty = false
 
 h.reset = function () {
-  row = 6
+  row = 1
   col = 4
   dirty = true
 }
@@ -1395,7 +1391,9 @@ function onUse (target, e) {
   quest = Quest.current()
 
   if (item === 'sword') {
-    if (dx < 24) {
+    if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
+      Emote.say("You don't look good.")
+    } else if (dx < 24) {
       Hero.move('forward')
     } else if (hx < mx) {
       Hero.move('left')
@@ -1466,14 +1464,8 @@ function onUse (target, e) {
   }
 }
 
-function offUse (target, e) {
-}
-
 function onItem (target, e) {
   Inventory.pick(target.unwrap().id)
-}
-
-function offItem (target, e) {
 }
 
 function render () {
@@ -1567,10 +1559,10 @@ Game.play = function () {
   $('#items').html(html)
 
   for (i = 0; i < items.length; i += 1) {
-    $('#'+items[i]).touch(onItem, offItem)
+    $('#'+items[i]).touch(onItem)
   }
 
-  $('#room').touch(onUse, offUse)
+  $('#room').touch(onUse)
   $(window).on('hashchange', onHashChange)
 
   startGame(render)
