@@ -102,7 +102,7 @@ var $ = window.jQuery
   , dirty = 0
 
 emote.reset = function () {
-  text = ''
+  text = "Are you okay?"
   dirty = 1 | 2
 }
 
