@@ -1,3 +1,51 @@
+var Quest = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , quest = {}
+  , element = $('#quest')
+  , marker = 0
+  , text = []
+  , dirty = false
+
+text = [
+  "Heal the bat with the potion."
+, "Put the bow in the chest."
+, "Hide the key under the rock."
+, "Wash your hair in the fountain."
+, "Leave the ruins via the stairs."
+]
+
+quest.reset = function () {
+  marker = 0
+  dirty = true
+}
+
+quest.render = function () {
+  if (dirty) {
+    element.html(text[marker])
+    dirty = false
+  }
+}
+
+quest.complete = function (name) {
+  if (name === 'monster' && marker === 0) {
+    marker = 1
+  } else if (name === 'chest' && marker === 1) {
+    marker = 2
+  } else if (name === 'rock' && marker === 2) {
+    marker = 3
+  } else if (name === 'fountain' && marker === 3) {
+    marker = 4
+  } else if (name === 'stairs' && marker === 4) {
+    marker = 0
+  }
+  dirty = true
+}
+
+return quest
+}())
+
 var Score = (function () {
 'use strict';
 
@@ -1296,6 +1344,7 @@ function onUse (target, e) {
     if (Hero.col() === Chest.col() && Hero.row() - Chest.row() === 1) {
       Inventory.use('bow')
       Inventory.pickup('key')
+      Quest.complete('chest')
     } else if (dx < 24) {
       Hero.move('backward')
     } else if (hx < mx) {
@@ -1309,7 +1358,11 @@ function onUse (target, e) {
   }
 
   if (item === 'hands') {
-    if (dx < 24) {
+    if (Hero.col() === Fountain.col() && Hero.row() - Fountain.row() === 1) {
+      Quest.complete('fountain')
+    } else if (Hero.col() === Stairs.col() && Hero.row() - Stairs.row() === 1) {
+      Quest.complete('stairs')
+    } else if (dx < 24) {
       Hero.move('backward')
     } else if (hx < mx) {
       Hero.move('right')
@@ -1325,6 +1378,7 @@ function onUse (target, e) {
     if (Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
       Inventory.use('potion')
       Monster.heal()
+      Quest.complete('monster')
       Emote.say("You should drink this.")
     } else {
       Emote.say("I need to be closer.")
@@ -1334,6 +1388,7 @@ function onUse (target, e) {
   if (item === 'key') {
     if (Hero.col() === Rock.col() && Hero.row() - Rock.row() === 1) {
       Inventory.use('key')
+      Quest.complete('rock')
     }
   }
 }
@@ -1351,6 +1406,7 @@ function offItem (target, e) {
 function render () {
   requestAnimationFrame(render)
 
+  Quest.render()
   Score.render()
   Inventory.render()
   Stairs.render()
@@ -1365,6 +1421,7 @@ function render () {
 function startGame (callback) {
   PRNG.seed()
 
+  Quest.reset()
   Score.reset()
   Inventory.reset()
   Stairs.reset()
