@@ -87,9 +87,29 @@ ol {
   line-height: 28px;
   text-align: center;
 }
+.token > .fx {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
 .hero {
   height: 36px;
   line-height: 32px;
+}
+@keyframes flap {
+  100% { background-position: -96px; }
+}
+.monster {
+  background: transparent;
+  border: none;
+}
+.monster > .fx {
+  background: url('../img/monster.png') left center;
+  animation: flap .8s steps(3) infinite;
+}
+.monster.dead > .fx {
+  background-position: -96px;
+  animation: none;
 }
 .emote {
   position: relative;

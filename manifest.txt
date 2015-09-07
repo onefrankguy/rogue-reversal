@@ -11,3 +11,4 @@ img/arrow.png
 img/bat.png
 img/rocks.png
 img/floor.png
+img/monster.png

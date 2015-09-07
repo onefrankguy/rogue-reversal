@@ -1255,9 +1255,9 @@ m.render = function () {
   }
   if (dirty & 2) {
     if (alive) {
-      element.add('fast')
+      element.add('fast').remove('dead')
     } else {
-      element.remove('fast')
+      element.remove('fast').add('dead')
     }
     dirty &= ~2
   }
