@@ -1200,20 +1200,30 @@ var $ = window.jQuery
   , element = $('#chest')
   , row = 0
   , col = 0
-  , dirty = false
+  , locked = false
+  , dirty = 0
 
 c.reset = function () {
   var loc = Ruins.loc('chest')
   row = loc.row
   col = loc.col
-  dirty = true
+  locked = false
+  dirty = 1 | 2
 }
 
 c.render = function () {
-  if (dirty) {
+  if (dirty & 1) {
     element.top(row * 32)
     element.left(col * 32)
-    dirty = false
+    dirty &= ~1
+  }
+  if (dirty & 2) {
+    if (locked) {
+      element.add('locked')
+    } else {
+      element.remove('locked')
+    }
+    dirty &= ~2
   }
 }
 
@@ -1223,6 +1233,11 @@ c.row = function () {
 
 c.col = function () {
   return col
+}
+
+c.lock = function () {
+  locked = true
+  dirty |= 2
 }
 
 return c
@@ -1422,6 +1437,7 @@ function onUse (target, e) {
     if (quest === 'chest' && Hero.col() === Chest.col() && Hero.row() - Chest.row() === 1) {
       Inventory.pickup('key')
       Inventory.use('bow')
+      Chest.lock()
       Quest.complete('chest')
     } else if (dx < 24) {
       Hero.move('backward')

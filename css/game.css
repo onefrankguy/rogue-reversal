@@ -82,27 +82,14 @@ ol {
   display: block;
   width: 32px;
   height: 32px;
-  background: rgb(150, 150, 150);
-  border: 2px solid rgb(36, 36, 36);
-  font-size: 16px;
-  line-height: 28px;
-  text-align: center;
 }
 .token > .fx {
   display: block;
   width: 32px;
   height: 32px;
 }
-.stairs {
-  background: transparent;
-  border: none;
-}
 .stairs > .fx {
   background: url('../img/sprites.png') left center;
-}
-.rock {
-  background: transparent;
-  border: none;
 }
 .rock > .fx {
   background: url('../img/sprites.png') left center;
@@ -116,13 +103,18 @@ ol {
   background: url('../img/sprites.png') left center;
   background-position: -64px;
 }
+.chest > .fx {
+  background: url('../img/sprites.png') left center;
+  background-position: -96px;
+}
+.chest.locked > .fx {
+  background-position: -128px;
+}
 @keyframes attack {
   0% { background-position: 0px }
   100% { background-position: -160px }
 }
 .hero {
-  background: transparent;
-  border: none;
   height: 36px;
 }
 .hero > .fx {
@@ -134,10 +126,6 @@ ol {
 }
 @keyframes flap {
   100% { background-position: -96px; }
-}
-.monster {
-  background: transparent;
-  border: none;
 }
 .monster > .fx {
   background: url('../img/monster.png') left center;
