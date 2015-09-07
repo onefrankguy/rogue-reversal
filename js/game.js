@@ -809,6 +809,8 @@ return p
 ;(function (Game) {
 'use strict';
 
+var color = undefined
+
 var activeMannequin = null
 function onMannequin (target) {
   target.toggle('on')
@@ -1459,7 +1461,8 @@ function onUse (target, e) {
   }
 
   if (item === 'restart') {
-    resetGame()
+    newColor()
+    window.location.hash = color
   }
 }
 
@@ -1488,9 +1491,18 @@ function render () {
   Emote.render()
 }
 
-function resetGame () {
-  PRNG.seed()
+// Pick a random color out of the RGB color space.
+// Don't use the PRNG, since it will be seeded with the color.
+function newColor () {
+  var hash = color
+  do {
+    hash = Math.floor(Math.random() * 16777216)
+    hash = ('000000' + hash.toString(16)).substr(-6)
+  } while (hash === color)
+  color = hash
+}
 
+function resetGame () {
   Ruins.reset()
   Quest.reset()
   Score.reset()
@@ -1504,8 +1516,40 @@ function resetGame () {
   Emote.reset()
 }
 
-function startGame (callback) {
+function onHashChange () {
+  var hash = window.location.hash.substring(1)
+  if (/^[0-9A-F]{6}$/i.test(hash)) {
+    color = hash
+    PRNG.seed(parseInt(color, 16))
+  }
   resetGame()
+}
+
+function startGame (callback) {
+  var hash = window.location.hash.substring(1)
+    , reloaded = false
+
+  if (/^[0-9A-F]{6}$/i.test(hash)) {
+    if (color === hash) {
+      // Continuing a saved game...
+      reloaded = true
+    } else {
+      // Replaying a linked game...
+      color = hash
+      PRNG.seed(parseInt(color, 16))
+    }
+  } else {
+    // Playing a new game...
+    newColor()
+    PRNG.seed(parseInt(color, 16))
+  }
+
+  if (window.location.hash.substring(1) !== color) {
+    window.location.hash = color
+  } else if (!reloaded) {
+    resetGame()
+  }
+
   requestAnimationFrame(callback)
 }
 
@@ -1527,6 +1571,7 @@ Game.play = function () {
   }
 
   $('#room').touch(onUse, offUse)
+  $(window).on('hashchange', onHashChange)
 
   startGame(render)
 }
