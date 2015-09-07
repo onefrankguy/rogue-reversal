@@ -992,6 +992,42 @@ f.col = function () {
 return f
 }())
 
+var Rock = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , rock = {}
+  , element = $('#rock')
+  , row = 0
+  , col = 0
+  , dirty = false
+
+rock.reset = function () {
+  var loc = Ruins.loc('rock')
+  row = loc.row
+  col = loc.col
+  dirty = true
+}
+
+rock.render = function () {
+  if (dirty) {
+    element.top(row * 32)
+    element.left(col * 32)
+    dirty = false
+  }
+}
+
+rock.row = function () {
+  return row
+}
+
+rock.col = function () {
+  return col
+}
+
+return rock
+}())
+
 var Chest = (function () {
 'use strict';
 
@@ -1234,7 +1270,7 @@ function onUse (target, e) {
   }
 
   if (item === 'key') {
-    if (Hero.col() === Fountain.col() && Hero.row() - Fountain.row() === 1) {
+    if (Hero.col() === Rock.col() && Hero.row() - Rock.row() === 1) {
       Inventory.use('key')
     }
   }
@@ -1254,6 +1290,7 @@ function render () {
   requestAnimationFrame(render)
   Inventory.render()
   Fountain.render()
+  Rock.render()
   Chest.render()
   Monster.render()
   Hero.render()
@@ -1264,6 +1301,7 @@ function startGame (callback) {
 
   Inventory.reset()
   Fountain.reset()
+  Rock.reset()
   Chest.reset()
   Monster.reset()
   Hero.reset()
