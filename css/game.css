@@ -92,6 +92,29 @@ ol {
   width: 32px;
   height: 32px;
 }
+.stairs {
+  background: transparent;
+  border: none;
+}
+.stairs > .fx {
+  background: url('../img/sprites.png') left center;
+}
+.rock {
+  background: transparent;
+  border: none;
+}
+.rock > .fx {
+  background: url('../img/sprites.png') left center;
+  background-position: -32px;
+}
+.fountain {
+  background: transparent;
+  border: none;
+}
+.fountain > .fx {
+  background: url('../img/sprites.png') left center;
+  background-position: -64px;
+}
 @keyframes attack {
   0% { background-position: 0px }
   100% { background-position: -160px }
