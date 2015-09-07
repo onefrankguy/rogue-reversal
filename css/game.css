@@ -91,7 +91,50 @@ ol {
   height: 36px;
   line-height: 32px;
 }
-.monster {
+.emote {
+  position: relative;
+  float: left;
+  margin: -38px 0 0 -16px; /* top = -(emote height + 6 pixel arrow) */
+  height: 32px;
+  width: 64px;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 10px;
+  line-height: 12px; /* max = emote height - 2 pixel border */
+  background: rgb(240, 240, 240);
+  color: rgb(36, 36, 36);
+  border: 1px solid rgb(36, 36, 36);
+  border-radius: 6px;
+  opacity: 1;
+  padding: 3px;
+}
+.emote:before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 30px; /* emote height - 2 pixel border */
+  left: 32px;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  border-style: solid;
+  border-color: rgb(36, 36, 36) transparent;
+}
+.emote:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 30px; /* emote height - 2 pixel border */
+  left: 32px;
+  margin-left: -4px;
+  border-width: 4px 4px 0;
+  border-style: solid;
+  border-color: rgb(240, 240, 240) transparent;
+}
+.emote.fade {
+  opacity: 0;
+  transition: opacity 2.3s cubic-bezier(0.6, 0.04, 0.98, 0.335);
 }
 /* ITEMS */
 .items {
@@ -282,47 +325,6 @@ ol {
   line-height: 14px;
   font-family: monospace;
   padding: 8px;
-}
-.emote {
-  position: absolute;
-  left: 128px;
-  top: 136px;
-  display: block;
-  height: 18px;
-  font-family: monospace;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 16px;
-  background: rgb(240, 240, 240);
-  color: rgb(20, 12, 28);
-  text-align: center;
-  border: 1px solid rgb(20, 12, 28);
-  border-radius: 6px;
-  padding: 0 4px;
-}
-.emote:before {
-  content: ' ';
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 14px;
-  top: 16px;
-  margin-left: -5px;
-  border-width: 5px 5px 0;
-  border-style: solid;
-  border-color: rgb(20, 12, 28) transparent;
-}
-.emote:after {
-  content: ' ';
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 14px;
-  top: 16px;
-  margin-left: -4px;
-  border-width: 4px 4px 0;
-  border-style: solid;
-  border-color: rgb(240, 240, 240) transparent;
 }
 @keyframes spin {
   0% { transform: rotate(0deg) }

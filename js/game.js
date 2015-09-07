@@ -35,48 +35,35 @@ var Emote = (function () {
 'use strict';
 
 var $ = window.jQuery
-  , e = {}
+  , emote = {}
   , element = $('#emote')
-  , start = { x: 128, y: 136 }
   , text = ''
-  , dirty = false
+  , dirty = 0
 
-e.reset = function () {
+emote.reset = function () {
   text = ''
-  dirty = true
+  dirty = 1 | 2
 }
 
-e.render = function () {
-  if (dirty) {
-    if (text === '') {
-      element.add('hidden')
-    } else {
-      element.top(start.y)
-      element.left(start.x)
-      element.html(text)
-      element.remove('hidden')
-    }
-    dirty = false
+emote.render = function () {
+  if (dirty & 1) {
+    element.html(text).remove('fade')
+    dirty &= ~1
+    return
+  }
+  if (dirty & 2) {
+    element.add('fade')
+    dirty &= ~2
+    return
   }
 }
 
-e.move = function (s) {
-  if (s.hasOwnProperty('x') && start.x !== s.x) {
-    start.x = s.x
-    dirty = true
-  }
-  if (s.hasOwnProperty('y') && start.y !== s.y) {
-    start.y = s.y - 24
-    dirty = true
-  }
-}
-
-e.say = function (html) {
+emote.say = function (html) {
   text = html
-  dirty = true
+  dirty = 1 | 2
 }
 
-return e
+return emote
 }())
 
 var Room = (function () {
@@ -1338,6 +1325,9 @@ function onUse (target, e) {
     if (Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
       Inventory.use('potion')
       Monster.heal()
+      Emote.say("You should drink this.")
+    } else {
+      Emote.say("I need to be closer.")
     }
   }
 
@@ -1369,6 +1359,7 @@ function render () {
   Chest.render()
   Monster.render()
   Hero.render()
+  Emote.render()
 }
 
 function startGame (callback) {
@@ -1382,6 +1373,7 @@ function startGame (callback) {
   Chest.reset()
   Monster.reset()
   Hero.reset()
+  Emote.reset()
 
   requestAnimationFrame(callback)
 }
