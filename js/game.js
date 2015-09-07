@@ -782,6 +782,90 @@ function offFire (target, e) {
 }
 
 
+// A pseudo random number generator based on Alexander Klimov and
+// Adi Shamer's paper "A New Class of Invertible Mappings".
+var PRNG = (function () {
+'use strict';
+
+var rng = {}
+  , max = Math.pow(2, 32)
+  , state = undefined
+
+// Call seed with "null" to start in a random state.
+rng.seed = function (value) {
+  if (value !== undefined) {
+    state = parseInt(value, 10)
+  }
+  if (isNaN(state)) {
+    state = Math.floor(Math.random() * max)
+  }
+  return state
+}
+
+rng.random = function () {
+  state += (state * state) | 5
+  return (state >>> 32) / max
+}
+
+rng.randomInclusive = function (min, max) {
+  return Math.floor(this.random() * (max - min + 1)) + min;
+}
+
+rng.shuffle = function (array) {
+  var i = 0
+    , j = 0
+    , temp = null
+
+  for (i = array.length - 1; i > 0; i -= 1) {
+    j = Math.floor(this.random() * (i + 1))
+    temp = array[i]
+    array[i] = array[j]
+    array[j] = temp
+  }
+}
+
+return rng
+}())
+
+var Ruins = (function () {
+'use strict';
+
+var ruins = {}
+  , positions = {}
+  , quadrants = []
+
+// Tiles can start in one of four quadrants NE, SE, SW or NW.
+// Two tiles are not allowed to occupy the same quadrant.
+ruins.loc = function (name) {
+  var row = 0
+    , col = 0
+    , quad = null
+
+  if (!positions.hasOwnProperty(name)) {
+    if (quadrants.length <= 0) {
+      quadrants = ['NE','SE','SW','NW']
+      PRNG.shuffle(quadrants)
+    }
+
+    row = PRNG.randomInclusive(0, 1)
+    col = PRNG.randomInclusive(0, 2)
+    quad = quadrants.pop()
+    if (quad.indexOf('E') > -1) {
+      col += 6
+    }
+    if (quad.indexOf('S') > -1) {
+      row += 4
+    }
+
+    positions[name] = { row: row, col: col }
+  }
+
+  return positions[name]
+}
+
+return ruins
+}())
+
 
 var Inventory = (function () {
 'use strict';
@@ -883,8 +967,9 @@ var $ = window.jQuery
   , dirty = false
 
 f.reset = function () {
-  row = 2
-  col = 7
+  var loc = Ruins.loc('fountain')
+  row = loc.row
+  col = loc.col
   dirty = true
 }
 
@@ -918,8 +1003,9 @@ var $ = window.jQuery
   , dirty = false
 
 c.reset = function () {
-  row = 5
-  col = 1
+  var loc = Ruins.loc('chest')
+  row = loc.row
+  col = loc.col
   dirty = true
 }
 
@@ -1174,6 +1260,8 @@ function render () {
 }
 
 function startGame (callback) {
+  PRNG.seed()
+
   Inventory.reset()
   Fountain.reset()
   Chest.reset()
