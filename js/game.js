@@ -1305,19 +1305,25 @@ var $ = window.jQuery
   , element = $('#hero')
   , row = 0
   , col = 0
-  , dirty = false
+  , dirty = 0
 
 h.reset = function () {
   row = 1
   col = 4
-  dirty = true
+  dirty = 1
 }
 
 h.render = function () {
-  if (dirty) {
+  if (dirty & 2) {
+    element.animate('attack')
+    dirty &= ~2
+    return
+  }
+  if (dirty & 1) {
     element.top((row * 32) - 4)
     element.left(col * 32)
-    dirty = false
+    dirty &= ~1
+    return
   }
 }
 
@@ -1336,19 +1342,19 @@ h.col = function () {
 h.move = function (direction) {
   if (direction === 'forward') {
     row -= 1
-    dirty = true
+    dirty = 1 | 2
   }
   else if (direction === 'backward') {
     row += 1
-    dirty = true
+    dirty = 1 | 2
   }
   else if (direction === 'left') {
     col -= 1
-    dirty = true
+    dirty = 1 | 2
   }
   else if (direction === 'right') {
     col += 1
-    dirty = true
+    dirty = 1 | 2
   }
   if (row < 1) {
     row = 1

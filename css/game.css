@@ -92,9 +92,21 @@ ol {
   width: 32px;
   height: 32px;
 }
+@keyframes attack {
+  0% { background-position: 0px }
+  100% { background-position: -160px }
+}
 .hero {
+  background: transparent;
+  border: none;
   height: 36px;
-  line-height: 32px;
+}
+.hero > .fx {
+  height: 36px;
+  background: url('../img/player.png') left center;
+}
+.hero.attack > .fx {
+  animation: attack 240ms steps(5) 1;
 }
 @keyframes flap {
   100% { background-position: -96px; }
