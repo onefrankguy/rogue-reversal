@@ -992,6 +992,42 @@ f.col = function () {
 return f
 }())
 
+var Stairs = (function () {
+'use strict';
+
+var $ = window.jQuery
+  , stairs = {}
+  , element = $('#stairs')
+  , row = 0
+  , col = 0
+  , dirty = false
+
+stairs.reset = function () {
+  var loc = Ruins.loc('stairs')
+  row = loc.row
+  col = loc.col
+  dirty = true
+}
+
+stairs.render = function () {
+  if (dirty) {
+    element.top(row * 32)
+    element.left(col * 32)
+    dirty = false
+  }
+}
+
+stairs.row = function () {
+  return row
+}
+
+stairs.col = function () {
+  return col
+}
+
+return stairs
+}())
+
 var Rock = (function () {
 'use strict';
 
@@ -1289,6 +1325,7 @@ function offItem (target, e) {
 function render () {
   requestAnimationFrame(render)
   Inventory.render()
+  Stairs.render()
   Fountain.render()
   Rock.render()
   Chest.render()
@@ -1300,6 +1337,7 @@ function startGame (callback) {
   PRNG.seed()
 
   Inventory.reset()
+  Stairs.reset()
   Fountain.reset()
   Rock.reset()
   Chest.reset()
