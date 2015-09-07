@@ -966,46 +966,20 @@ m.box = function () {
   return element.box()
 }
 
-m.row = function () {
+m.row = function (value) {
+  if (undefined !== value && row !== value) {
+    row = value
+    dirty |= 1
+  }
   return row
 }
 
-m.col = function () {
+m.col = function (value) {
+  if (undefined !== value && col !== value) {
+    col = value
+    dirty |= 1
+  }
   return col
-}
-
-m.move = function (direction) {
-  if (!alive) {
-    return
-  }
-  if (direction === 'forward') {
-    row -= 1
-    dirty |= 1
-  }
-  else if (direction === 'backward') {
-    row += 1
-    dirty |= 1
-  }
-  else if (direction === 'left') {
-    col -= 1
-    dirty |= 1
-  }
-  else if (direction === 'right') {
-    col += 1
-    dirty |= 1
-  }
-  if (row < 0) {
-    row = 0
-  }
-  else if (row > 6) {
-    row = 6
-  }
-  if (col < 0) {
-    col = 0
-  }
-  else if (col > 8) {
-    col = 8
-  }
 }
 
 m.heal = function () {
@@ -1085,7 +1059,7 @@ h.move = function (direction) {
     col = 0
   }
   else if (col > 8) {
-    col = 6
+    col = 8
   }
 }
 
@@ -1119,10 +1093,10 @@ function onUse (target, e) {
       }
     } else if (hx < mx) {
       Hero.move('left')
-      Monster.move('left')
+      Monster.col(Hero.col())
     } else {
       Hero.move('right')
-      Monster.move('right')
+      Monster.col(Hero.col())
     }
   }
 
@@ -1134,10 +1108,10 @@ function onUse (target, e) {
       Hero.move('backward')
     } else if (hx < mx) {
       Hero.move('right')
-      Monster.move('right')
+      Monster.col(Hero.col())
     } else {
       Hero.move('left')
-      Monster.move('left')
+      Monster.col(Hero.col())
     }
   }
 
