@@ -956,48 +956,99 @@ var $ = window.jQuery
   , picked = 'sword'
   , inventory = {}
   , usable = []
+  , visible = []
+  , possible = ['sword','restart','bow','hands','potion','github','key','twitter']
   , dirty = false
 
-inventory['sword'] = $('#sword')
-inventory['bow'] = $('#bow')
-inventory['hands'] = $('#hands')
-inventory['potion'] = $('#potion')
-inventory['key'] = $('#key')
+function showItem (item) {
+  var index = visible.indexOf(item)
+  if (index < 0) {
+    visible.push(item)
+    dirty = true
+  }
+}
+
+function hideItem (item) {
+  var index = visible.indexOf(item)
+  if (index > -1) {
+    visible.splice(index, 1)
+    dirty = true
+  }
+}
+
+function equipItem (item) {
+  var index = usable.indexOf(item)
+  if (index < 0) {
+    usable.push(item)
+    dirty = true
+  }
+}
+
+function unequipItem (item) {
+  var index = usable.indexOf(item)
+  if (index > -1) {
+    usable.splice(index, 1)
+    dirty = true
+  }
+}
+
+function isVisible (item) {
+  return visible.indexOf(item) > -1
+}
+
+function isPossible (item) {
+  return possible.indexOf(item) > -1
+}
 
 o.reset = function () {
-  usable = ['sword','bow','potion']
-  dirty = true
+  this.loadout('hero')
 }
 
 o.render = function () {
+  var i = 0
+    , key = ''
+
   if (dirty) {
-    for (var key in inventory) {
-      if (inventory.hasOwnProperty(key)) {
-        inventory[key].remove('picked')
+    for (i = 0; i < possible.length; i += 1) {
+      key = possible[i]
+      if (!inventory.hasOwnProperty(key)) {
+        inventory[key] = $('#'+key)
       }
-      inventory[picked].add('picked')
-    }
-    for (var key in inventory) {
+      inventory[key].remove('picked')
+
       if (this.usable(key)) {
         inventory[key].remove('used')
-        if (key === 'bow') {
-          inventory['hands'].add('hidden')
-          inventory['bow'].remove('hidden')
-        }
       } else {
         inventory[key].add('used')
-        if (key === 'bow') {
-          inventory['bow'].add('hidden')
-          inventory['hands'].remove('hidden')
-        }
+      }
+
+      if (isVisible(key)) {
+        inventory[key].remove('hidden')
+      } else {
+        inventory[key].add('hidden')
       }
     }
+    inventory[picked].add('picked')
+
     dirty = false
   }
 }
 
+o.loadout = function (name) {
+  if (name === 'hero') {
+    picked = 'sword'
+    usable = ['sword','bow','potion']
+    visible = ['sword','bow','potion','key']
+  } else if (name === 'restart') {
+    picked = 'hands'
+    usable = ['restart','github','twitter']
+    visible = ['restart','hands','github','twitter']
+  }
+  dirty = true
+}
+
 o.pick = function (item) {
-  if (picked !== item) {
+  if (picked !== item && isPossible(item)) {
     picked = item
     dirty = true
   }
@@ -1008,24 +1059,17 @@ o.equipped = function () {
 }
 
 o.pickup = function (item) {
-  var index = usable.indexOf(item)
-  if (index < 0) {
-    usable.push(item)
-    if (item === 'bow') {
-      this.use('hands')
-    }
-    this.pick(item)
-  }
+  equipItem(item)
+  showItem(item)
+  this.pick(item)
 }
 
 o.use = function (item) {
-  var index = usable.indexOf(item)
-  if (index > -1) {
-    usable.splice(index, 1)
-    if (item === 'bow') {
-      this.pickup('hands')
-    }
-    dirty = true
+  unequipItem(item)
+
+  if (item === 'bow') {
+    hideItem('bow')
+    this.pickup('hands')
   }
 }
 
@@ -1378,6 +1422,7 @@ function onUse (target, e) {
       Quest.complete('fountain')
     } else if (quest  === 'stairs' && Hero.col() === Stairs.col() && Hero.row() - Stairs.row() === 1) {
       Quest.complete('stairs')
+      Inventory.loadout('restart')
     } else if (dx < 24) {
       Hero.move('backward')
     } else if (hx < mx) {
@@ -1407,6 +1452,10 @@ function onUse (target, e) {
       Quest.complete('rock')
     }
   }
+
+  if (item === 'restart') {
+    resetGame()
+  }
 }
 
 function offUse (target, e) {
@@ -1434,7 +1483,7 @@ function render () {
   Emote.render()
 }
 
-function startGame (callback) {
+function resetGame () {
   PRNG.seed()
 
   Quest.reset()
@@ -1447,18 +1496,29 @@ function startGame (callback) {
   Monster.reset()
   Hero.reset()
   Emote.reset()
+}
 
+function startGame (callback) {
+  resetGame()
   requestAnimationFrame(callback)
 }
 
 Game.play = function () {
   var $ = window.jQuery
+    , html = ''
+    , items = ['sword','restart','bow','hands','potion','github','key','twitter']
+    , name = ''
+    , i = 0
 
-  $('#sword').touch(onItem, offItem)
-  $('#hands').touch(onItem, offItem)
-  $('#bow').touch(onItem, offItem)
-  $('#potion').touch(onItem, offItem)
-  $('#key').touch(onItem, offItem)
+  for (i = 0; i < items.length; i += 1) {
+    html += '<li id="klass" class="item klass">klass</li>'.replace(/klass/g, items[i])
+  }
+
+  $('#items').html(html)
+
+  for (i = 0; i < items.length; i += 1) {
+    $('#'+items[i]).touch(onItem, offItem)
+  }
 
   $('#room').touch(onUse, offUse)
 
