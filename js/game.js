@@ -935,7 +935,7 @@ ruins.loc = function (name) {
       PRNG.shuffle(quadrants)
     }
 
-    row = PRNG.randomInclusive(0, 1)
+    row = PRNG.randomInclusive(1, 2)
     col = PRNG.randomInclusive(0, 2)
     quad = quadrants.pop()
     if (quad.indexOf('E') > -1) {
@@ -1434,7 +1434,7 @@ function onUse (target, e) {
   }
 
   if (item === 'bow') {
-    if (quest === 'chest' && Hero.col() === Chest.col() && Hero.row() - Chest.row() === 1) {
+    if (quest === 'chest' && Hero.col() === Chest.col() && Hero.row() === Chest.row()) {
       Inventory.pickup('key')
       Inventory.use('bow')
       Chest.lock()
@@ -1452,9 +1452,9 @@ function onUse (target, e) {
   }
 
   if (item === 'hands') {
-    if (quest  === 'fountain' && Hero.col() === Fountain.col() && Hero.row() - Fountain.row() === 1) {
+    if (quest  === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
       Quest.complete('fountain')
-    } else if (quest  === 'stairs' && Hero.col() === Stairs.col() && Hero.row() - Stairs.row() === 1) {
+    } else if (quest  === 'stairs' && Hero.col() === Stairs.col() && Hero.row() === Stairs.row()) {
       Quest.complete('stairs')
       Inventory.loadout('restart')
     } else if (dx < 24) {
@@ -1481,7 +1481,7 @@ function onUse (target, e) {
   }
 
   if (item === 'key') {
-    if (quest === 'rock' && Hero.col() === Rock.col() && Hero.row() - Rock.row() === 1) {
+    if (quest === 'rock' && Hero.col() === Rock.col() && Hero.row() === Rock.row()) {
       Inventory.use('key')
       Quest.complete('rock')
     }
