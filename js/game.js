@@ -1306,14 +1306,8 @@ h.reset = function () {
 }
 
 h.render = function () {
-  if (dirty & 4) {
-    element.add('turn')
-    dirty &= ~4
-    return
-  }
   if (dirty & 2) {
     element.remove('turn')
-    element.animate('attack')
     dirty &= ~2
     return
   }
@@ -1322,6 +1316,11 @@ h.render = function () {
     element.top((row * 32) - 4)
     element.left(col * 32)
     dirty &= ~1
+    return
+  }
+  if (dirty & 4) {
+    element.add('turn')
+    dirty &= ~4
     return
   }
 }
@@ -1341,19 +1340,19 @@ h.col = function () {
 h.move = function (direction) {
   if (direction === 'forward') {
     row -= 1
-    dirty = 1 | 2
+    dirty |= (1 | 2)
   }
   else if (direction === 'backward') {
     row += 1
-    dirty = 1 | 2
+    dirty |= (1 | 2)
   }
   else if (direction === 'left') {
     col -= 1
-    dirty = 1 | 2
+    dirty |= (1 | 2)
   }
   else if (direction === 'right') {
     col += 1
-    dirty = 1 | 2
+    dirty |= (1 | 2)
   }
   if (row < 1) {
     row = 1
@@ -1371,7 +1370,7 @@ h.move = function (direction) {
 
 h.complete = function (quest) {
   if (quest === 'stairs') {
-    dirty = 4
+    dirty |= 4
   }
 }
 
@@ -1442,19 +1441,14 @@ function onUse (target, e) {
       Chest.lock()
       Quest.complete('chest')
     }
-    Score.increment()
   }
 
   if (item === 'hands') {
     if (quest  === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
       Quest.complete('fountain')
-    } else if (quest  === 'stairs' && Hero.col() === Stairs.col() && Hero.row() === Stairs.row()) {
-      Quest.complete('stairs')
-      Hero.complete('stairs')
-      Inventory.loadout('restart')
     }
-    Score.increment()
   }
+
 
   if (item === 'potion') {
     if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
@@ -1477,6 +1471,13 @@ function onUse (target, e) {
   if (item === 'restart') {
     newColor()
     window.location.hash = color
+  }
+
+
+  if (quest  === 'stairs' && Hero.col() === Stairs.col() && Hero.row() === Stairs.row()) {
+    Quest.complete('stairs')
+    Hero.complete('stairs')
+    Inventory.loadout('restart')
   }
 }
 
