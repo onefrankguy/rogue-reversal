@@ -418,8 +418,8 @@ ic.getDataURL = function (name, options) {
           data.values['d'] = '#b0b1afff'
           break
         case 9:
-          data.values['b'] = '#b0b1afff'
-          data.values['c'] = '#b0b1afff'
+          data.values['b'] = '#808080ff'
+          data.values['c'] = '#cdcdcdff'
           data.values['d'] = '#fefefeff'
           break
         default:
@@ -666,7 +666,7 @@ o.loadout = function (name) {
     usable = ['hair','color','done']
     visible = ['hair','color','hands','done']
   } else if (name === 'stairs') {
-    picked = 'hands'
+    picked = 'key'
     usable = ['forward','backward','hands']
     visible = ['forward','backward','hands','key']
   } else if (name === 'restart') {
@@ -698,10 +698,10 @@ o.use = function (item) {
   unequipItem(item)
 
   if (item === 'bow') {
-    hideItem('bow')
-    this.pickup('hands')
     hideItem('potion')
     this.pickup('key')
+    hideItem('bow')
+    this.pickup('hands')
   }
 }
 
