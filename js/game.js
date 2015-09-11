@@ -1115,7 +1115,7 @@ function onUse (target, e) {
   quest = Quest.current()
 
   if (item === 'forward') {
-    if (dx < 24) {
+    if (dx < 28) {
       Hero.move('forward')
     } else if (hx < mx) {
       Hero.move('left')
@@ -1129,7 +1129,7 @@ function onUse (target, e) {
 
 
   if (item === 'backward') {
-    if (dx < 24) {
+    if (dx < 28) {
       Hero.move('backward')
     } else if (hx < mx) {
       Hero.move('right')
