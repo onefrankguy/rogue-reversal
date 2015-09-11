@@ -935,7 +935,7 @@ var $ = window.jQuery
   , inventory = {}
   , usable = []
   , visible = []
-  , possible = ['forward','restart','backward','hands','bow','github','potion','key','twitter']
+  , possible = ['forward','hair','restart','backward','color','bow','hands','github','potion','key','done','twitter']
   , dirty = false
 
 function showItem (item) {
@@ -1013,6 +1013,14 @@ o.loadout = function (name) {
     picked = 'forward'
     usable = ['forward','backward','bow','potion']
     visible = ['forward','backward','bow','potion']
+  } else if (name === 'fountain') {
+    picked = 'hands'
+    usable = ['hair','color','done']
+    visible = ['hair','color','hands','done']
+  } else if (name === 'stairs') {
+    picked = 'hands'
+    usable = ['forward','backward','hands']
+    visible = ['forward','backward','hands','key']
   } else if (name === 'restart') {
     picked = 'backward'
     usable = ['restart','github','twitter']
@@ -1444,8 +1452,8 @@ function onUse (target, e) {
   }
 
   if (item === 'hands') {
-    if (quest  === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
-      Quest.complete('fountain')
+    if (quest === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
+      Inventory.loadout('fountain')
     }
   }
 
@@ -1465,6 +1473,14 @@ function onUse (target, e) {
     if (quest === 'rock' && Hero.col() === Rock.col() && Hero.row() === Rock.row()) {
       Inventory.use('key')
       Quest.complete('rock')
+    }
+  }
+
+
+  if (item === 'done') {
+    if (quest === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
+      Quest.complete('fountain')
+      Inventory.loadout('stairs')
     }
   }
 
