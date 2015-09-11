@@ -2,4 +2,3 @@ index.html
 css/game.min.css
 js/game.js
 js/jquery.js
-img/monster.png

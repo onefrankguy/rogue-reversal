@@ -132,7 +132,7 @@ ol {
   100% { background-position: -96px; }
 }
 .monster > .fx {
-  background: url('../img/monster.png') left center;
+  background-position: 0px;
   animation: flap .8s steps(3) infinite;
 }
 .monster.dead > .fx {
