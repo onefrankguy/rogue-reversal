@@ -119,7 +119,7 @@ ol {
 }
 .hero > .fx {
   height: 36px;
-  background: url('../img/player.png') left center;
+  background-position: -32px;
 }
 .hero.attack > .fx {
   animation: attack 240ms steps(5) 1;
