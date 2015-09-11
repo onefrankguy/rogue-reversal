@@ -1306,12 +1306,19 @@ h.reset = function () {
 }
 
 h.render = function () {
+  if (dirty & 4) {
+    element.add('turn')
+    dirty &= ~4
+    return
+  }
   if (dirty & 2) {
+    element.remove('turn')
     element.animate('attack')
     dirty &= ~2
     return
   }
   if (dirty & 1) {
+    element.remove('turn')
     element.top((row * 32) - 4)
     element.left(col * 32)
     dirty &= ~1
@@ -1362,6 +1369,12 @@ h.move = function (direction) {
   }
 }
 
+h.complete = function (quest) {
+  if (quest === 'stairs') {
+    dirty = 4
+  }
+}
+
 return h
 }())
 
@@ -1387,15 +1400,6 @@ function onUse (target, e) {
   dx = Math.abs(hx - mx)
 
   quest = Quest.current()
-
-  if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
-    if (item === 'forward') {
-      Emote.say("Are you okay?")
-    }
-    if (item === 'backward') {
-      Emote.say("You don't look good.")
-    }
-  }
 
   if (item === 'forward') {
     if (dx < 24) {
@@ -1424,6 +1428,13 @@ function onUse (target, e) {
     Score.increment()
   }
 
+  if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
+    Emote.say("Are you okay?")
+  }
+  else if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 2) {
+    Emote.say("You don't look good.")
+  }
+
   if (item === 'bow') {
     if (quest === 'chest' && Hero.col() === Chest.col() && Hero.row() === Chest.row()) {
       Inventory.pickup('key')
@@ -1439,6 +1450,7 @@ function onUse (target, e) {
       Quest.complete('fountain')
     } else if (quest  === 'stairs' && Hero.col() === Stairs.col() && Hero.row() === Stairs.row()) {
       Quest.complete('stairs')
+      Hero.complete('stairs')
       Inventory.loadout('restart')
     }
     Score.increment()

@@ -121,8 +121,11 @@ ol {
   height: 36px;
   background-position: -32px;
 }
-.hero.attack > .fx {
+.hero.walk > .fx {
   animation: attack 240ms steps(5) 1;
+}
+.hero.turn > .fx {
+  background-position: 0;
 }
 @keyframes flap {
   100% { background-position: -96px; }
