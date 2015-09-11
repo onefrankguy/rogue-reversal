@@ -89,22 +89,15 @@ ol {
   height: 32px;
 }
 .stairs > .fx {
-  background: url('../img/sprites.png') left center;
+  background-position: 0px;
 }
 .rock > .fx {
-  background: url('../img/sprites.png') left center;
   background-position: -32px;
 }
-.fountain {
-  background: transparent;
-  border: none;
-}
 .fountain > .fx {
-  background: url('../img/sprites.png') left center;
   background-position: -64px;
 }
 .chest > .fx {
-  background: url('../img/sprites.png') left center;
   background-position: -96px;
 }
 .chest.locked > .fx {
