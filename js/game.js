@@ -355,7 +355,7 @@ function hexToRgba (hex) {
   } : null
 }
 
-ic.getDataURL = function (name) {
+ic.getDataURL = function (name, options) {
   var data = images[name]
     , image = ctx.createImageData(data.width * 2, data.height * 2)
     , i = 0
@@ -366,6 +366,66 @@ ic.getDataURL = function (name) {
     , color = null
     , value = ''
     , number = ''
+
+  if (name.indexOf('hair') > -1) {
+    options = options || Object.create(null)
+    if (options['color'] !== undefined) {
+      switch (options['color']) {
+        case 0:
+          data.values['b'] = '#781707ff'
+          data.values['c'] = '#b83827ff'
+          data.values['d'] = '#c88078ff'
+          break
+        case 1:
+          data.values['b'] = '#313962ff'
+          data.values['c'] = '#38529cff'
+          data.values['d'] = '#628ce6ff'
+          break
+        case 2:
+          data.values['b'] = '#005218ff'
+          data.values['c'] = '#52731fff'
+          data.values['d'] = '#accd52ff'
+          break
+        case 3:
+          data.values['b'] = '#9c5a17ff'
+          data.values['c'] = '#d5ac39ff'
+          data.values['d'] = '#fef67bff'
+          break
+        case 4:
+          data.values['b'] = '#4a2717ff'
+          data.values['c'] = '#9c5a29ff'
+          data.values['d'] = '#de9362ff'
+          break
+        case 5:
+          data.values['b'] = '#a45a07ff'
+          data.values['c'] = '#d58307ff'
+          data.values['d'] = '#fedd00ff'
+          break
+        case 6:
+          data.values['b'] = '#10286aff'
+          data.values['c'] = '#7058b0ff'
+          data.values['d'] = '#e6ace6ff'
+          break
+        case 7:
+          data.values['b'] = '#af3e70ff'
+          data.values['c'] = '#df80a0ff'
+          data.values['d'] = '#f8c8d8ff'
+          break
+        case 8:
+          data.values['b'] = '#444444ff'
+          data.values['c'] = '#606060ff'
+          data.values['d'] = '#b0b1afff'
+          break
+        case 9:
+          data.values['b'] = '#b0b1afff'
+          data.values['c'] = '#b0b1afff'
+          data.values['d'] = '#fefefeff'
+          break
+        default:
+          break
+      }
+    }
+  }
 
   canvas.width = data.width * 2
   canvas.height = data.height * 2
@@ -1308,11 +1368,14 @@ var $ = window.jQuery
   , element = $('#hero-hair')
   , style = 0
   , styles = 6
+  , color = 0
+  , colors = 10
   , direction = 'backward'
   , dirty = 0
 
 hair.reset = function () {
-  style = 0
+  style = PRNG.randomInclusive(0, styles - 1)
+  color  = PRNG.randomInclusive(0, colors - 1)
   direction = 'backward'
   dirty = 1 | 2 | 4
 }
@@ -1323,17 +1386,21 @@ hair.render = function () {
     dirty &= ~1
   }
   if (dirty & 2) {
-    element.unwrap().style.backgroundImage = 'url('+ImageCache.getDataURL('hair-'+direction)+')'
+    element.unwrap().style.backgroundImage = 'url('+ImageCache.getDataURL('hair-'+direction, {'color':color})+')'
     dirty &= ~2
   }
 }
 
 hair.style = function () {
   style += 1
-  if (style >= styles) {
-    style = 0
-  }
+  style %= styles
   dirty |= 1
+}
+
+hair.color = function () {
+  color += 1
+  color %= colors
+  dirty |= 2
 }
 
 hair.complete = function (quest) {
@@ -1529,6 +1596,12 @@ function onUse (target, e) {
   if (item === 'hair') {
     if (quest === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
       Hair.style()
+    }
+  }
+
+  if (item === 'color') {
+    if (quest === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
+      Hair.color()
     }
   }
 
