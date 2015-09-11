@@ -964,7 +964,7 @@ var $ = window.jQuery
   , inventory = {}
   , usable = []
   , visible = []
-  , possible = ['sword','restart','bow','hands','potion','github','key','twitter']
+  , possible = ['forward','restart','backward','hands','bow','github','potion','key','twitter']
   , dirty = false
 
 function showItem (item) {
@@ -1039,13 +1039,13 @@ o.render = function () {
 
 o.loadout = function (name) {
   if (name === 'hero') {
-    picked = 'sword'
-    usable = ['sword','bow','potion']
-    visible = ['sword','bow','potion','key']
+    picked = 'forward'
+    usable = ['forward','backward','bow','potion']
+    visible = ['forward','backward','bow','potion']
   } else if (name === 'restart') {
-    picked = 'hands'
+    picked = 'backward'
     usable = ['restart','github','twitter']
-    visible = ['restart','hands','github','twitter']
+    visible = ['restart','backward','github','twitter']
   }
   dirty = true
 }
@@ -1073,11 +1073,17 @@ o.use = function (item) {
   if (item === 'bow') {
     hideItem('bow')
     this.pickup('hands')
+    hideItem('potion')
+    this.pickup('key')
   }
 }
 
 o.usable = function (item) {
   return usable.indexOf(item) > -1
+}
+
+o.items = function () {
+  return possible
 }
 
 return o
@@ -1412,15 +1418,15 @@ function onUse (target, e) {
   quest = Quest.current()
 
   if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
-    if (item === 'sword') {
+    if (item === 'forward') {
       Emote.say("Are you okay?")
     }
-    if (item === 'bow') {
+    if (item === 'backward') {
       Emote.say("You don't look good.")
     }
   }
 
-  if (item === 'sword') {
+  if (item === 'forward') {
     if (dx < 24) {
       Hero.move('forward')
     } else if (hx < mx) {
@@ -1433,13 +1439,9 @@ function onUse (target, e) {
     Score.increment()
   }
 
-  if (item === 'bow') {
-    if (quest === 'chest' && Hero.col() === Chest.col() && Hero.row() === Chest.row()) {
-      Inventory.pickup('key')
-      Inventory.use('bow')
-      Chest.lock()
-      Quest.complete('chest')
-    } else if (dx < 24) {
+
+  if (item === 'backward') {
+    if (dx < 24) {
       Hero.move('backward')
     } else if (hx < mx) {
       Hero.move('right')
@@ -1451,20 +1453,22 @@ function onUse (target, e) {
     Score.increment()
   }
 
+  if (item === 'bow') {
+    if (quest === 'chest' && Hero.col() === Chest.col() && Hero.row() === Chest.row()) {
+      Inventory.pickup('key')
+      Inventory.use('bow')
+      Chest.lock()
+      Quest.complete('chest')
+    }
+    Score.increment()
+  }
+
   if (item === 'hands') {
     if (quest  === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
       Quest.complete('fountain')
     } else if (quest  === 'stairs' && Hero.col() === Stairs.col() && Hero.row() === Stairs.row()) {
       Quest.complete('stairs')
       Inventory.loadout('restart')
-    } else if (dx < 24) {
-      Hero.move('backward')
-    } else if (hx < mx) {
-      Hero.move('right')
-      Monster.col(Hero.col())
-    } else {
-      Hero.move('left')
-      Monster.col(Hero.col())
     }
     Score.increment()
   }
@@ -1582,7 +1586,7 @@ function startGame (callback) {
 Game.play = function () {
   var $ = window.jQuery
     , html = ''
-    , items = ['sword','restart','bow','hands','potion','github','key','twitter']
+    , items = Inventory.items()
     , name = ''
     , i = 0
 
