@@ -50,6 +50,20 @@ The GitHub Octocat and Twitter Bird icons are monochromatic recolors of their
 official 16x16 pixel counterparts. The floor tile is my own design and it's
 released under the same MIT license as the code.
 
+## Compatibility ##
+
+* Firefox 40.0.3
+* Chrome 44.0.2403
+* Safari 8.0.7
+* iOS Safari 8.4.1
+
+## License ##
+
+All code and text for Rogue Reversal is licensed under a MIT license. See the
+LICENSE.md file for more details. Most graphics are licensed under some form of
+Creative Commons license. See the "Graphics" section in this README for more
+details.
+
 
 [js13kGames competition]: http://js13kgames.com/ "Andrzej Mazur (Enclave Games): HTML5 and JavaScript game development competition in just 13 kB"
 [Pixen]: http://www.pixenapp.com/ "A pixel art editor for Mac OS X"
