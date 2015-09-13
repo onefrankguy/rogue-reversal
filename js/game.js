@@ -1146,11 +1146,13 @@ function onUse (target, e) {
     Score.increment()
   }
 
-  if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
-    Emote.say("Are you okay?")
-  }
-  else if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 2) {
-    Emote.say("You don't look good.")
+  if (item === 'forward' || item === 'backward') {
+    if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 1) {
+      Emote.say("Are you okay?")
+    }
+    else if (quest === 'monster' && Monster.dead() && Hero.col() === Monster.col() && Hero.row() - Monster.row() === 2) {
+      Emote.say("You don't look good.")
+    }
   }
 
   if (item === 'bow') {
@@ -1159,12 +1161,14 @@ function onUse (target, e) {
       Inventory.use('bow')
       Chest.lock()
       Quest.complete('chest')
+      Emote.say("Safe and sound.")
     }
   }
 
   if (item === 'hands') {
     if (quest === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
       Inventory.loadout('fountain')
+      Emote.say("Caves are so filthy.")
     }
   }
 
@@ -1184,6 +1188,7 @@ function onUse (target, e) {
     if (quest === 'rock' && Hero.col() === Rock.col() && Hero.row() === Rock.row()) {
       Inventory.use('key')
       Quest.complete('rock')
+      Emote.say("No one will find you.")
     }
   }
 
@@ -1204,6 +1209,7 @@ function onUse (target, e) {
     if (quest === 'fountain' && Hero.col() === Fountain.col() && Hero.row() === Fountain.row()) {
       Quest.complete('fountain')
       Inventory.loadout('stairs')
+      Emote.say("That feels better.")
     }
   }
 
@@ -1218,6 +1224,7 @@ function onUse (target, e) {
     Hero.complete('stairs')
     Hair.complete('stairs')
     Inventory.loadout('restart')
+    Emote.say("Here we go.")
   }
 }
 
