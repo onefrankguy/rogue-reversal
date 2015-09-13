@@ -30,6 +30,7 @@ file 'css/game.min.css' => 'css/game.css' do
   ::File.open('css/game.min.css', 'w') do |io|
     io << AutoprefixerRails.process(css)
   end
+  sh 'cat css/game.min.css | ~/Development/node_modules/clean-css/bin/cleancss -o css/game.min.css'
 end
 
 def percent size
