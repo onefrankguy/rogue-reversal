@@ -1,0 +1,15 @@
+/* #891f40 */
+.ruins {
+  width: 400px;
+  height: 250px;
+  overflow: hidden;
+}
+.room {
+  height: 100px;
+}
+.score {
+  display: none;
+}
+.colophon {
+  display: none;
+}
