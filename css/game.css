@@ -11,7 +11,7 @@ html {
   font-size: 62.5%;
 }
 body {
-  background: rgb(36, 36, 36);
+  background: rgb(115, 115, 115);
   color: rgb(240, 240, 240);
   font-size: 1.6rem;
 }
@@ -21,16 +21,20 @@ ul {
 ol {
   list-style: none;
 }
+a, a:visited {
+  color: inherit;
+  text-decoration: none;
+}
 /* GAME */
 .ruins {
   position: relative;
   display: block;
   /* Usable area on an iPhone 4 is 320x372 pixels */
-  width: 320px;
+  width: 322px;
   height: 372px;
   margin: 0 auto;
   padding: 0;
-  background-color: rgb(82, 82, 82);
+  background-position: top -2px left 2px;
   overflow: hidden;
 }
 /* QUESTS */
@@ -40,9 +44,12 @@ ol {
   width: 100%;
   height: 64px;
   padding: 0 8px;
-  background: rgb(115, 115, 115);
+  background: rgb(189, 189, 189);
+  font-family: sans-serif;
+  color: rgb(36, 36, 36);
 }
 .quests > .title {
+  font-variant: small-caps;
   font-size: 24px;
   line-height: 36px;
 }
@@ -269,6 +276,14 @@ ol {
   line-height: 18px;
   font-family: sans-serif;
   color: rgb(189, 189, 189);
+}
+.colophon > a:hover {
+  cursor: auto;
+  text-decoration: underline;
+}
+abbr[title="and"] {
+  font-family: Baskerville, Palatino, "Book Antiqua", serif;
+  font-style: italic;
 }
 
 
