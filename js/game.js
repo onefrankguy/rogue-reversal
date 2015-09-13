@@ -89,6 +89,10 @@ score.increment = function (amount) {
   dirty = true
 }
 
+score.total = function () {
+  return total
+}
+
 return score
 }())
 
@@ -1217,9 +1221,21 @@ function onUse (target, e) {
   }
 }
 
+function onTweetScore (target, e) {
+  var twitter = 'https://twitter.com/intent/tweet'
+    , text = encodeURIComponent("I made it through Rogue Reversal in "+Score.total()+ " steps for @js13kGames. How'd you do?")
+    , url = encodeURIComponent(window.location.href)
+  target.unwrap().href = twitter + '?text='+text + '&url='+url
+}
+
+function onBrowseSource (target, e) {
+  var github = 'https://github.com/onefrankguy/rogue-reversal'
+  target.unwrap().href = github
+}
+
 function onItem (target, e) {
   Inventory.pick(target.unwrap().id)
-  onUse()
+  onUse(target, e)
 }
 
 function render () {
@@ -1309,7 +1325,7 @@ Game.play = function () {
     , i = 0
 
   for (i = 0; i < items.length; i += 1) {
-    html += '<li id="klass" class="klass item"><span id="klass-fx" class="fx"></span></li>'.replace(/klass/g, items[i])
+    html += '<a id="klass" class="klass item"><span id="klass-fx" class="fx"></span></a>'.replace(/klass/g, items[i])
   }
 
   $('#items').html(html)
@@ -1324,7 +1340,14 @@ Game.play = function () {
   $('#fountain-fx').unwrap().style.backgroundImage = 'url('+ImageCache.getDataURL('sprites')+')'
 
   for (i = 0; i < items.length; i += 1) {
-    $('#'+items[i]).touch(onItem)
+    name = items[i]
+    if (name  === 'twitter') {
+      $('#'+name).touch(onTweetScore)
+    } else if (name  === 'github') {
+      $('#'+name).touch(onBrowseSource)
+    } else {
+      $('#'+name).touch(onItem)
+    }
     $('#'+items[i]+'-fx').unwrap().style.backgroundImage = 'url('+ImageCache.getDataURL('items')+')'
   }
 

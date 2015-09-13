@@ -19,7 +19,7 @@ end
 
 desc 'Publish to the website'
 task :publish => 'css/game.min.css' do
-  sh 'rsync -avz --delete --files-from=manifest.txt ./ frankmitchell.org:/home/public/js13k2015/'
+  sh 'rsync -avz --delete --files-from=manifest.txt ./ frankmitchell.org:/home/public/rogue-reversal/'
 end
 
 desc 'Run Autoprefixer on the CSS'

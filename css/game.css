@@ -15,12 +15,6 @@ body {
   color: rgb(240, 240, 240);
   font-size: 1.6rem;
 }
-ul {
-  list-style: none;
-}
-ol {
-  list-style: none;
-}
 a, a:visited {
   color: inherit;
   text-decoration: none;
@@ -63,7 +57,7 @@ a, a:visited {
   right: 0;
   font-size: 16px;
   line-height: 24px;
-  margin: 8px 8px 0 0;
+  margin: 8px 10px 0 0;
 }
 /* ROOM */
 .room {
@@ -109,10 +103,6 @@ a, a:visited {
 .chest.locked > .fx {
   background-position: -128px;
 }
-@keyframes attack {
-  0% { background-position: 0px }
-  100% { background-position: -160px }
-}
 .hero {
   height: 36px;
 }
@@ -129,14 +119,18 @@ a, a:visited {
   height: 36px;
   background-position: 0px;
 }
-.hero.walk > .fx {
-  animation: attack 240ms steps(5) 1;
-}
 .hero.turn > .fx {
   background-position: 0;
 }
 @keyframes flap {
   100% { background-position: -96px; }
+}
+@keyframes fly {
+  0%,100% { transform: translate3d(-64px, 0, 0) }
+  50% { transform: translate3d(64px, 0, 0) }
+}
+.fly.fast {
+  animation: fly 1.8s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
 }
 .monster > .fx {
   background-position: 0px;
@@ -282,165 +276,15 @@ a, a:visited {
   text-decoration: underline;
 }
 abbr[title="and"] {
-  font-family: Baskerville, Palatino, "Book Antiqua", serif;
+  font-family: "Adobe Caslon Pro","Baskerville","Goudy Old Style","Palatino",
+  "Palatino Linotype","Book Antiqua","Georgia","Times New Roman","Times", serif;
   font-style: italic;
-}
-
-
-/* GAME */
-/* http://www.sitepoint.com/css3-pong-insane-things-to-do-with-css/ */
-@keyframes fly-horizontal {
-  0%,100% { transform: translate3d(-64px, 0, 0) }
-  50% { transform: translate3d(64px, 0, 0) }
-}
-.fly.horizontal.slow {
-  animation: fly-horizontal 2.3s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
-}
-.fly.horizontal.fast {
-  animation: fly-horizontal 1.8s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
-}
-@keyframes fly-away {
-  0% { transform: translate3d(0, 0, 0) }
-  100% { transform: translate3d(0, -80px, 0) }
-}
-.fly.away {
-  animation: fly-away 1.2s linear 1;
-}
-.target {
-  position: absolute;
-  left: 144px;
-  top: 0;
-  display: block;
-  width: 32px;
-  height: 32px;
-}
-/* INFO BOX */
-.quest.info {
+  font-size: 110%;
+  cursor: auto;
+  /* Prevents `abbr` affecting `line-height`. */
+  line-height: 0;
   position: relative;
-  display: block;
-  width: 100%;
-  height: 48px;
-  font-family: monospace;
-  border-bottom: 2px solid rgb(20, 12, 28);
-  padding: 4px 0 0 4px;
-  background: rgb(222, 238, 214);
-}
-.quest.counter {
-  font-size: 16px;
-  line-height: 16px;
-}
-.quest.text {
-  font-size: 12px;
-  line-height: 12px;
-}
-.game.score {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  text-align: right;
-  font-size: 16px;
-  line-height: 16px;
-}
-/* INVENTORY */
-.inventory {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 48px;
-  background: rgb(222, 238, 214);
-  border-top: 2px solid rgb(20, 12, 28);
-  border-bottom: 2px solid rgb(20, 12, 28);
-}
-.inventory > .item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 48px;
-  height: 100%;
-  border-right: 2px solid rgb(20, 12, 28);
-  background-repeat: no-repeat;
-  background-position: 7px 7px;
-}
-.inventory > .helpful {
-  position: absolute;
-  top: 0;
-  left: 48px;
-  display: block;
-  font-family: monospace;
-  font-size: 12px;
-  line-height: 12px;
-  padding: 4px;
-}
-.inventory > .sword {
-  background-image: url('../img/sword.png');
-}
-.inventory > .bow {
-  background-image: url('../img/bow.png');
-}
-.inventory > .potion {
-  background-image: url('../img/potion.png');
-}
-.inventory > .key {
-  background-image: url('../img/key.png');
-}
-.lootable {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.character {
-  position: absolute;
-  left: 128px;
-  top: 160px;
-  display: block;
-  width: 32px;
-  height: 36px;
-  margin-top: -2px;
-  background: url('../img/player.png');
-  background-position: 0px;
-}
-@keyframes character-attack {
-  0% { background-position: 0px }
-  100% { background-position: -160px }
-}
-.character.attack {
-  animation: character-attack 240ms steps(5) 1;
-}
-.message {
-  display: block;
-  width: 100%;
-  font-size: 14px;
-  line-height: 14px;
-  font-family: monospace;
-  padding: 8px;
-}
-@keyframes spin {
-  0% { transform: rotate(0deg) }
-  100% { transform: rotate(360deg) }
-}
-.weapon {
-  position: absolute;
-  left: 128px;
-  top: 256px;
-  display: block;
-  width: 32px;
-  height: 32px;
-  background: transparent;
-}
-.weapon > .gfx {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-position: 0px 0px;
-  background-repeat: no-repeat;
-}
-.weapon.bow > .gfx {
-  background-image: url('../img/arrow.png');
-}
-.weapon.sword > .gfx {
-  background-image: url('../img/sword.png');
-  animation: spin 250ms linear infinite;
+  vertical-align: baseline;
 }
 .pixelated {
   image-rendering: optimizeSpped;
@@ -470,26 +314,5 @@ rgb(189, 189, 189)
 rgb(150, 150, 150)
 rgb(115, 115, 115)
 rgb(82, 82, 82)
-rgb(37, 37, 37)
-*/
-
-/* DawnBringer's 16 Color Palette */
-/* http://pixeljoint.com/forum/forum_posts.asp?TID=12795 */
-/*
-rgb(20, 12, 28)
-rgb(68, 36, 52)
-rgb(48, 52, 109)
-rgb(78, 74, 78)
-rgb(133, 76, 48)
-rgb(52, 101, 36)
-rgb(208, 70, 72)
-rgb(117, 113, 97)
-rgb(89, 125, 206)
-rgb(210, 125, 44)
-rgb(133, 149, 161)
-rgb(109, 170, 44)
-rgb(210, 170, 153)
-rgb(109, 194, 202)
-rgb(218, 212, 94)
-rgb(222, 238, 214)
+rgb(36, 36, 36)
 */
