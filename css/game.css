@@ -192,44 +192,69 @@ ol {
   width: 100%;
   height: 84px;
   background: rgb(115, 115, 115);
+  background: transparent;
   padding-top: 10px;
-}
-.items > .picked:before {
-  content: " ";
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 12px;
-  height: 60px;
-  border: 2px solid rgb(36, 36, 36);
-  border-right: none;
-}
-.items > .picked:after {
-  content: " ";
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: block;
-  width: 12px;
-  height: 60px;
-  border: 2px solid rgb(36, 36, 36);
-  border-left: none;
 }
 .item {
   position: relative;
   display: inline-block;
   width: 64px;
   height: 64px;
-  background: rgb(150, 150, 150);
+  background: rgb(189, 189, 189);
   margin-left: 12.8px;
-  font-size: 16px;
-  line-height: 64px;
-  text-align: center;
+  border: 2px solid rgb(36, 36, 36);
+  border-radius: 16px;
 }
-.item.used {
-  background: transparent;
-  color: transparent;
+.item.picked {
+  border: 2px solid rgb(240, 240, 240);
+}
+.item > .fx {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+.item.forward > .fx {
+  background-position: 0px;
+}
+.item.backward > .fx {
+  background-position: -32px;
+}
+.item.bow > .fx {
+  background-position: -64px;
+}
+.item.potion > .fx {
+  background-position: -96px;
+}
+.item.key > .fx {
+  background-position: -128px;
+}
+.item.hands > .fx {
+  background-position: -160px;
+}
+.item.restart > .fx {
+  background-position: -192px;
+}
+.item.done > .fx {
+  background-position: -192px;
+}
+.item.github > .fx {
+  background-position: -224px;
+}
+.item.twitter > .fx {
+  background-position: -256px;
+}
+.item.hair > .fx {
+  background-position: -288px;
+}
+.item.color > .fx {
+  background-position: -320px;
+}
+.item.used > .fx {
+  width: 0;
+  height: 0;
 }
 
 /* COLOPHON */
